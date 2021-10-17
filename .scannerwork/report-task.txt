@@ -1,0 +1,6 @@
+projectKey=ats
+serverUrl=http://localhost:9092
+serverVersion=9.1.0.47736
+dashboardUrl=http://localhost:9092/dashboard?id=ats
+ceTaskId=AXyPtiZxhL7eObAjGXKz
+ceTaskUrl=http://localhost:9092/api/ce/task?id=AXyPtiZxhL7eObAjGXKz
