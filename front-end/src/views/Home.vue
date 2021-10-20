@@ -1,18 +1,28 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { apiService } from '../services/api'
 
 export default Vue.extend({
   name: 'Home',
   components: {
-    HelloWorld,
+
+  }, 
+  methods: {
+    async testLoad(){
+      const api = new apiService();
+      const request = await api.requestAllPeople();
+      console.log(request.data)
+    }
   },
+  created() {
+    this.testLoad()
+  }
+  
 });
 </script>

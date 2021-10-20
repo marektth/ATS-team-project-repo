@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@vismaux/nordic-cool-vue": "^1.1.36",
+    "axios": "^0.23.0",
     "cache-loader": "^4.1.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
