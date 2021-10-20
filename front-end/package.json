@@ -7,17 +7,20 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@vismaux/nordic-cool-vue": "^1.1.36",
+    "cache-loader": "^4.1.0",
     "core-js": "^3.6.5",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0"
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-typescript": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "typescript": "~4.1.5"
+    "typescript": "~4.1.5",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.46.0"
   },
   "browserslist": [
     "> 1%",
