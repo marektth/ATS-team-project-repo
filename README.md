@@ -1,3 +1,8 @@
 # ATS-team-project-repo
 
-test123
+Single LAMBDA to handle multiple API requests, Lambda proxy solution
+
+if http/method: POST
+ call different lambda function
+if http/method: GET
+ call different lambda function
