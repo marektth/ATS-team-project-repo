@@ -47,9 +47,9 @@ name: 'Terraform'
 on:
   push:
     paths:
-    - 'dev_acct_user_creation.tf'
+    - 'lambda.tf'
     branches:
-    - main
+    - dev
   pull_request:
 
 jobs:

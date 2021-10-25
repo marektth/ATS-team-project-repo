@@ -49,7 +49,7 @@ on:
     paths:
     - 'dev_acct_user_creation.tf'
     branches:
-    - prod
+    - main
   pull_request:
 
 jobs:
