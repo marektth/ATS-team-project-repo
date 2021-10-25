@@ -33,7 +33,7 @@ resource "aws_lambda_function" "example" {
   # "basic_API_handler.py" is the filename within the zip file and "handler"
   # is the name of the property under which the handler function was
   # exported in that file.
-  handler = "basic_API_handler.py"
+  handler = "main.lambda_handler"
   runtime = "python3.8"
 
   role = "${aws_iam_role.lambda_exec.arn}"
@@ -59,4 +59,4 @@ resource "aws_iam_role" "lambda_exec" {
   ]
 }
 EOF
-}
+} 
