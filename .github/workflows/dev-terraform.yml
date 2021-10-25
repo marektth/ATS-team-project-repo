@@ -48,6 +48,7 @@ on:
   push:
     paths:
     - 'lambda.tf'
+    - 'api_gateway.tf'
     branches:
     - dev
   pull_request:
