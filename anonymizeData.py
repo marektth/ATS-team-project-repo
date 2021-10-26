@@ -11,16 +11,16 @@ def anonymize(df):
 df = pd.read_csv("database.csv")
 dfPerDay = pd.read_csv("databasePerDay.csv")
 # %%
-df
+print(df)
 #%%
-dfPerDay
+print(dfPerDay)
 # %%
 df = anonymize(df)
 dfPerDay = anonymize(dfPerDay)
 # %%
-df
+print(df)
 
 #%%
-dfPerDay
+print(dfPerDay)
 
 # %%
