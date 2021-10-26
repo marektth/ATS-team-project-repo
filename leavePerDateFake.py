@@ -5,15 +5,16 @@ import pandas as pd
 import random
 from datetime import date
 from datetime import datetime, timedelta
+import numpy as np
 # %%
 df = pd.read_csv("database.csv")
 # %%
-df
+print(df)
 # %%
 dfPerDays = pd.DataFrame()  
 HoursOfLeave = ("4", "8")
 # %%
-dfPerDays
+print(dfPerDays)
 
 # %%
 fake = Faker()
@@ -32,7 +33,7 @@ for x in range(df.shape[0]):
     while str(start) != str((pd.to_datetime(df['EndDate'][x])  + timedelta(days=1)).date()):
         ListOfPersonNumber.append(df['PersonNumber'][x])
         ListOfEmploymentNumber.append(df['EmploymentNumber'][x])
-        ListOfLeaveYear.append(df['LeaveYear'][x])
+        ListOfLeaveYear.append(df['LeaveYear'][x].item())
         ListOfLeaveTypeCode.append(df['LeaveTypeCode'][x])
 
         ListOfSequenceNumbers.append(df['SequenceNumber'][x])
@@ -53,11 +54,15 @@ dfPerDays["HoursOfLeave"] = ListOfHoursOfLeave
 dfPerDays["DateOfLeave"] = ListOfDateOfLeave
 
 # %%
-dfPerDays
+print(dfPerDays)
 # %%
 dfPerDays['DateOfLeave'] = dfPerDays['DateOfLeave'].dt.strftime('%Y-%m-%d')
 for x in range(dfPerDays.shape[0]):   
-    print(type(dfPerDays["DateOfLeave"][x]))     
+    print(type(dfPerDays["DateOfLeave"][x]))    
+
+#%%
+for x in range(dfPerDays.shape[0]):   
+    print(type(dfPerDays["LeaveYear"][x]))  
 # %%
 dfPerDays.to_csv("databasePerDay.csv")
 
