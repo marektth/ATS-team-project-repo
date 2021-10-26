@@ -5,7 +5,6 @@ import random
 from datetime import date
 
 #%%
-programing_skill = ("C#", "C", "python","c++")
 LeaveTypeCode = ("WET", "BOV")
 CodeLeaveReason = ("HOL", "Health","")
 #%%
@@ -52,7 +51,20 @@ df = df.reset_index(drop=True)
 #%%
 df = df[['PersonNumber', 'EmploymentNumber', 'SequenceNumber', 'LeaveYear', 'LeaveTypeCode', 'StartDate', 'EndDate', 'CodeLeaveReason']]
 #%%
-df
+print(df)
+#%%
+for x in range(df.shape[0]):   
+    df['LeaveYear'][x] = (pd.to_datetime(df['LeaveYear'][x])).date()
+    df['StartDate'][x] = (pd.to_datetime(df['StartDate'][x])).date()
+    df['EndDate'][x] = (pd.to_datetime(df['EndDate'][x])).date()
+#%%
+df['LeaveYear'] = df['LeaveYear'].dt.strftime('%Y')
+df['StartDate'] = df['StartDate'].dt.strftime('%Y-%m-%d')
+df['EndDate'] = df['EndDate'].dt.strftime('%Y-%m-%d')
+#%%
+for x in range(df.shape[0]):   
+    print(type(df["EndDate"][x]))   
+
 #%%
 df.to_csv("database.csv")
 # %%
