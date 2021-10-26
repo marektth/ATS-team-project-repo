@@ -1,0 +1,23 @@
+Quick report: 
+
+Security log from: 10/26/2021 @ 13:14:11
+Last scan from: 2021-10-26 12:46:08
+Project status: ERROR
+Issues found: 1
+=================
+Issues report: 
+
+Key: AXy7ltnFyww7qWyeQBOY
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: tomasvank
+File: ats:fakePeople.py
+From LINE: 20 to LINE: 20, with START_OFFSET: 22 to END_OFFSET: 23
+Issue comment: Remove the unused local variable "x".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-10-25 23:54:52
+Updated at : 2021-10-26 09:56:26
+----------------------------------------------------
+

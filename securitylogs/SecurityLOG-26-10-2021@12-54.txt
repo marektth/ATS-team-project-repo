@@ -1,7 +1,7 @@
 Quick report: 
 
-Security log from: 10/26/2021 @ 12:33:57
-Last scan from: 2021-10-26 11:25:59
+Security log from: 10/26/2021 @ 12:54:36
+Last scan from: 2021-10-26 12:46:08
 Project status: ERROR
 Issues found: 9
 =================
@@ -17,8 +17,8 @@ Issue comment: Remove or refactor this statement; it has no side effects.
 Effort: 10min
 Rule: python:S905
 Scope : MAIN
-Created at: 2021-10-25 21:56:08
-Updated at : 2021-10-26 07:52:57
+Created at: 2021-10-25 23:56:08
+Updated at : 2021-10-26 12:45:24
 ----------------------------------------------------
 
 Key: AXy7ltndyww7qWyeQBOf
@@ -31,8 +31,8 @@ Issue comment: Remove or refactor this statement; it has no side effects.
 Effort: 10min
 Rule: python:S905
 Scope : MAIN
-Created at: 2021-10-25 21:56:08
-Updated at : 2021-10-26 07:52:57
+Created at: 2021-10-25 23:56:08
+Updated at : 2021-10-26 12:45:24
 ----------------------------------------------------
 
 Key: AXy7ltndyww7qWyeQBOg
@@ -45,8 +45,8 @@ Issue comment: Remove or refactor this statement; it has no side effects.
 Effort: 10min
 Rule: python:S905
 Scope : MAIN
-Created at: 2021-10-25 21:56:08
-Updated at : 2021-10-26 07:52:57
+Created at: 2021-10-25 23:56:08
+Updated at : 2021-10-26 12:45:24
 ----------------------------------------------------
 
 Key: AXy7ltndyww7qWyeQBOh
@@ -59,8 +59,8 @@ Issue comment: Remove or refactor this statement; it has no side effects.
 Effort: 10min
 Rule: python:S905
 Scope : MAIN
-Created at: 2021-10-25 21:56:08
-Updated at : 2021-10-26 07:52:57
+Created at: 2021-10-25 23:56:08
+Updated at : 2021-10-26 12:45:24
 ----------------------------------------------------
 
 Key: AXy7ltahyww7qWyeQBOU
@@ -73,8 +73,8 @@ Issue comment: Remove or refactor this statement; it has no side effects.
 Effort: 10min
 Rule: python:S905
 Scope : MAIN
-Created at: 2021-10-25 21:55:42
-Updated at : 2021-10-26 07:52:57
+Created at: 2021-10-25 23:55:42
+Updated at : 2021-10-26 12:45:24
 ----------------------------------------------------
 
 Key: AXy7ltahyww7qWyeQBOV
@@ -87,8 +87,8 @@ Issue comment: Remove or refactor this statement; it has no side effects.
 Effort: 10min
 Rule: python:S905
 Scope : MAIN
-Created at: 2021-10-25 21:55:42
-Updated at : 2021-10-26 07:52:57
+Created at: 2021-10-25 23:55:42
+Updated at : 2021-10-26 12:45:24
 ----------------------------------------------------
 
 Key: AXy7ltahyww7qWyeQBOX
@@ -101,22 +101,8 @@ Issue comment: Remove or refactor this statement; it has no side effects.
 Effort: 10min
 Rule: python:S905
 Scope : MAIN
-Created at: 2021-10-25 21:55:42
-Updated at : 2021-10-26 07:52:57
-----------------------------------------------------
-
-Key: AXy7ltnFyww7qWyeQBOY
-Issue type : CODE_SMELL
-Severity: MINOR
-Issue author: tomasvank
-File: ats:fakePeople.py
-From LINE: 21 to LINE: 21, with START_OFFSET: 22 to END_OFFSET: 23
-Issue comment: Remove the unused local variable "x".
-Effort: 5min
-Rule: python:S1481
-Scope : MAIN
-Created at: 2021-10-25 21:54:52
-Updated at : 2021-10-26 07:56:26
+Created at: 2021-10-25 23:55:42
+Updated at : 2021-10-26 12:45:24
 ----------------------------------------------------
 
 Key: AXy7ltnFyww7qWyeQBOd
@@ -129,7 +115,21 @@ Issue comment: Remove or refactor this statement; it has no side effects.
 Effort: 10min
 Rule: python:S905
 Scope : MAIN
-Created at: 2021-10-25 21:54:52
-Updated at : 2021-10-26 07:52:57
+Created at: 2021-10-25 23:54:52
+Updated at : 2021-10-26 12:45:24
+----------------------------------------------------
+
+Key: AXy7ltnFyww7qWyeQBOY
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: tomasvank
+File: ats:fakePeople.py
+From LINE: 20 to LINE: 20, with START_OFFSET: 22 to END_OFFSET: 23
+Issue comment: Remove the unused local variable "x".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-10-25 23:54:52
+Updated at : 2021-10-26 09:56:26
 ----------------------------------------------------
 
