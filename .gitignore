@@ -1,8 +1,12 @@
+#sonarqube
 .scannerwork/
 sonar-project.properties
+sqAPI.py
+
 .DS_Store
 node_modules
 /dist
+
 
 
 # local env files

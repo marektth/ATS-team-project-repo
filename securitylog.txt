@@ -1,0 +1,135 @@
+Quick report: 
+
+Security log from: 10/26/2021 @ 11:40:05
+Last scan from: 2021-10-26 11:25:59
+Project status: ERROR
+Issues found: 9
+=================
+Issues report: 
+
+Key: AXy7ltncyww7qWyeQBOe
+Issue type : BUG
+Severity: MAJOR
+Issue author: tomasvank
+File: ats:anonymizeData.py
+From LINE: 14 to LINE: 14, with START_OFFSET: 0 to END_OFFSET: 2
+Issue comment: Remove or refactor this statement; it has no side effects.
+Effort: 10min
+Rule: python:S905
+Scope : MAIN
+Created at: 2021-10-25 21:56:08
+Updated at : 2021-10-26 07:52:57
+----------------------------------------------------
+
+Key: AXy7ltndyww7qWyeQBOf
+Issue type : BUG
+Severity: MAJOR
+Issue author: tomasvank
+File: ats:anonymizeData.py
+From LINE: 16 to LINE: 16, with START_OFFSET: 0 to END_OFFSET: 8
+Issue comment: Remove or refactor this statement; it has no side effects.
+Effort: 10min
+Rule: python:S905
+Scope : MAIN
+Created at: 2021-10-25 21:56:08
+Updated at : 2021-10-26 07:52:57
+----------------------------------------------------
+
+Key: AXy7ltndyww7qWyeQBOg
+Issue type : BUG
+Severity: MAJOR
+Issue author: tomasvank
+File: ats:anonymizeData.py
+From LINE: 21 to LINE: 21, with START_OFFSET: 0 to END_OFFSET: 2
+Issue comment: Remove or refactor this statement; it has no side effects.
+Effort: 10min
+Rule: python:S905
+Scope : MAIN
+Created at: 2021-10-25 21:56:08
+Updated at : 2021-10-26 07:52:57
+----------------------------------------------------
+
+Key: AXy7ltndyww7qWyeQBOh
+Issue type : BUG
+Severity: MAJOR
+Issue author: tomasvank
+File: ats:anonymizeData.py
+From LINE: 24 to LINE: 24, with START_OFFSET: 0 to END_OFFSET: 8
+Issue comment: Remove or refactor this statement; it has no side effects.
+Effort: 10min
+Rule: python:S905
+Scope : MAIN
+Created at: 2021-10-25 21:56:08
+Updated at : 2021-10-26 07:52:57
+----------------------------------------------------
+
+Key: AXy7ltahyww7qWyeQBOU
+Issue type : BUG
+Severity: MAJOR
+Issue author: tomasvank
+File: ats:leavePerDateFake.py
+From LINE: 11 to LINE: 11, with START_OFFSET: 0 to END_OFFSET: 2
+Issue comment: Remove or refactor this statement; it has no side effects.
+Effort: 10min
+Rule: python:S905
+Scope : MAIN
+Created at: 2021-10-25 21:55:42
+Updated at : 2021-10-26 07:52:57
+----------------------------------------------------
+
+Key: AXy7ltahyww7qWyeQBOV
+Issue type : BUG
+Severity: MAJOR
+Issue author: tomasvank
+File: ats:leavePerDateFake.py
+From LINE: 16 to LINE: 16, with START_OFFSET: 0 to END_OFFSET: 9
+Issue comment: Remove or refactor this statement; it has no side effects.
+Effort: 10min
+Rule: python:S905
+Scope : MAIN
+Created at: 2021-10-25 21:55:42
+Updated at : 2021-10-26 07:52:57
+----------------------------------------------------
+
+Key: AXy7ltahyww7qWyeQBOX
+Issue type : BUG
+Severity: MAJOR
+Issue author: tomasvank
+File: ats:leavePerDateFake.py
+From LINE: 56 to LINE: 56, with START_OFFSET: 0 to END_OFFSET: 9
+Issue comment: Remove or refactor this statement; it has no side effects.
+Effort: 10min
+Rule: python:S905
+Scope : MAIN
+Created at: 2021-10-25 21:55:42
+Updated at : 2021-10-26 07:52:57
+----------------------------------------------------
+
+Key: AXy7ltnFyww7qWyeQBOY
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: tomasvank
+File: ats:fakePeople.py
+From LINE: 21 to LINE: 21, with START_OFFSET: 22 to END_OFFSET: 23
+Issue comment: Remove the unused local variable "x".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-10-25 21:54:52
+Updated at : 2021-10-26 07:56:26
+----------------------------------------------------
+
+Key: AXy7ltnFyww7qWyeQBOd
+Issue type : BUG
+Severity: MAJOR
+Issue author: tomasvank
+File: ats:fakePeople.py
+From LINE: 55 to LINE: 55, with START_OFFSET: 0 to END_OFFSET: 2
+Issue comment: Remove or refactor this statement; it has no side effects.
+Effort: 10min
+Rule: python:S905
+Scope : MAIN
+Created at: 2021-10-25 21:54:52
+Updated at : 2021-10-26 07:52:57
+----------------------------------------------------
+
