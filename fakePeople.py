@@ -13,16 +13,16 @@ fake = Faker()
 def create_rows(num=1):
     output = [{
                 "PersonNumber":random.randint(1,2),
-                "LeaveTypeCode":random.choice(LeaveTypeCode),
                 "StartDate":fake.date_between(start_date='-3d', end_date='-1d'),
                 "EndDate":fake.date_between(start_date='today', end_date='+3d'),
                 "CodeLeaveReason":random.choice(CodeLeaveReason),
-                } for x in range(num)]
+                } for _ in range(num)]
     return output
 
 # %%
 df = pd.DataFrame(create_rows(5))
 #%%
+listOfLeaveTypeCode = []
 listOfPersons = []
 listOfSequenceNumbers = []
 listOfJobsIndexes = []
@@ -36,13 +36,16 @@ for x in range (df.shape[0]):
 
     if sequnceNumber == 1:
         listOfJobsIndexes.append(random.randint(1,10))
+        listOfLeaveTypeCode.append(random.choice(LeaveTypeCode))
     else:
         idx = listOfPersons.index(df['PersonNumber'][x])
         listOfJobsIndexes.append(listOfJobsIndexes[idx])
+        listOfLeaveTypeCode.append(listOfLeaveTypeCode[idx])
 #%%
 df['SequenceNumber'] = listOfSequenceNumbers
 df['EmploymentNumber'] = listOfJobsIndexes
 df['LeaveYear'] = leaveYear
+df['LeaveTypeCode'] = listOfLeaveTypeCode
 
 #%%
 df = df.sort_values("PersonNumber")
