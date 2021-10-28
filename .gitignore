@@ -1,7 +1,7 @@
 #sonarqube
 .scannerwork/
 sonar-project.properties
-securitylogs/sqAPI.py
+securitylogs/scripts
 
 .DS_Store
 node_modules
