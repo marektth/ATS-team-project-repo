@@ -3,11 +3,11 @@ from faker import Faker
 import faker
 import pandas as pd
 import random
-from datetime import date
-from datetime import datetime, timedelta
+import datetime
 import numpy as np
 # %%
 df = pd.read_csv("database.csv")
+
 # %%
 dfPerDays = pd.DataFrame()  
 fake = Faker()
@@ -21,12 +21,12 @@ ListOfHoursOfLeave = []
 ListOfSequenceNumbers = []
 ListOfDateOfLeave = []
 
-
 # %%
 for x in range(df.shape[0]):
-    start = pd.to_datetime(df['StartDate'][x])
+    start = datetime.datetime.strptime(df['StartDate'][x], '%d/%m/%Y')
     hourse = random.choice(HoursOfLeave)
-    while str(start) != str((pd.to_datetime(df['EndDate'][x]) + timedelta(days=1)).date()):
+    number = datetime.datetime.strptime(df['EndDate'][x], '%d/%m/%Y').date()- datetime.datetime.strptime(df['StartDate'][x], '%d/%m/%Y').date()
+    for y in range(number.days +1):
         ListOfPersonNumber.append(df['PersonNumber'][x])
         ListOfEmploymentNumber.append(df['EmploymentNumber'][x])
         ListOfLeaveYear.append(df['LeaveYear'][x])
@@ -35,8 +35,7 @@ for x in range(df.shape[0]):
 
         ListOfHoursOfLeave.append(hourse)
         ListOfDateOfLeave.append(start)
-
-        start = (pd.to_datetime(start)  + timedelta(days=1)).date()
+        start = (start  + datetime.timedelta(days=1))
 
 #%%
 dfPerDays["PersonNumber"] = ListOfPersonNumber
@@ -47,8 +46,7 @@ dfPerDays["SequenceNumber"] = ListOfSequenceNumbers
 dfPerDays["HoursOfLeave"] = ListOfHoursOfLeave
 dfPerDays["DateOfLeave"] = ListOfDateOfLeave
 
-# %%
-dfPerDays["DateOfLeave"] = pd.to_datetime(dfPerDays["DateOfLeave"])
+#%%
 dfPerDays['DateOfLeave'] = dfPerDays["DateOfLeave"].dt.strftime("%d/%m/%Y")
 #%%
 for column in dfPerDays:
