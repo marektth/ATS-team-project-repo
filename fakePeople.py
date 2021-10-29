@@ -2,7 +2,8 @@
 from faker import Faker
 import pandas as pd
 import random
-from datetime import date
+import datetime
+
 
 #%%
 LeaveTypeCode = ("WET", "BOV")
@@ -13,27 +14,24 @@ fake = Faker()
 def create_rows(num=1):
     output = [{
                 "PersonNumber":random.randint(1,2),
-                "StartDate":fake.date_between(start_date='-20d', end_date='-1d'),
-                "EndDate":fake.date_between(start_date='today', end_date='+10d'),
                 "CodeLeaveReason":random.choice(CodeLeaveReason),
                 } for _ in range(num)]
     return output
 
 df = pd.DataFrame(create_rows(5))
-new_row = {'PersonNumber':1, 'StartDate':fake.date_between(start_date='-500d', end_date='-230d'), 'EndDate':fake.date_between(start_date='-100d', end_date='-50d'), 'CodeLeaveReason':""}
-df = df.append(new_row, ignore_index=True)
-df = df.append(new_row, ignore_index=True)
+
+df = df.sort_values("PersonNumber")
+df = df.reset_index(drop=True)
 #%%
 listOfLeaveTypeCode = []
 listOfPersons = []
 listOfSequenceNumbers = []
 listOfJobsIndexes = []
-leaveYear = []
+listOfleaveYear = []
 listOfStartDates = []
 listOfEndDates = []
 
 for x in range (df.shape[0]):
-    leaveYear.append(df['StartDate'][x].year)
     listOfPersons.append(df['PersonNumber'][x])
     sequnceNumber =listOfPersons.count(df['PersonNumber'][x])
     listOfSequenceNumbers.append(sequnceNumber)
@@ -41,25 +39,35 @@ for x in range (df.shape[0]):
     if sequnceNumber == 1:
         listOfJobsIndexes.append(random.randint(1,10))
         listOfLeaveTypeCode.append(random.choice(LeaveTypeCode))
+        newIntervalStartDate = fake.date_between(start_date='-600d', end_date='today')
+        newIntervaEndDate = (pd.to_datetime(newIntervalStartDate) + datetime.timedelta(days=10)).date()
+
+        listOfStartDates.append(newIntervalStartDate)
+        listOfEndDates.append(fake.date_between(start_date=newIntervalStartDate, end_date=newIntervaEndDate))
+        listOfleaveYear.append(newIntervalStartDate.year)
+
     else:
         idx = listOfPersons.index(df['PersonNumber'][x])
+        newIntervalStartDate = fake.date_between(start_date='-100d', end_date='today')
+        newIntervaEndDate = (pd.to_datetime(newIntervalStartDate) + datetime.timedelta(days=10)).date()
+
+        listOfStartDates.append(newIntervalStartDate)
+        listOfEndDates.append(fake.date_between(start_date=newIntervalStartDate, end_date=newIntervaEndDate))
         listOfJobsIndexes.append(listOfJobsIndexes[idx])
         listOfLeaveTypeCode.append(listOfLeaveTypeCode[idx])
+        listOfleaveYear.append(newIntervalStartDate.year)
+
 #%%
 df['SequenceNumber'] = listOfSequenceNumbers
 df['EmploymentNumber'] = listOfJobsIndexes
-df['LeaveYear'] = leaveYear
+df['LeaveYear'] = listOfleaveYear
 df['LeaveTypeCode'] = listOfLeaveTypeCode
+df['StartDate'] = listOfStartDates
+df['EndDate'] = listOfEndDates
 
 #%%
-df = df.sort_values("PersonNumber")
-df = df.reset_index(drop=True)
-
 df['StartDate'] = pd.to_datetime(df['StartDate'])
 df['EndDate'] = pd.to_datetime(df['EndDate'])
-
-#%%
-print(df)
 #%%
 uniPerson = df['PersonNumber'].unique()
 skip = 0
@@ -81,6 +89,9 @@ for person in uniPerson:
         iteration = iteration +1
     skip = skip + df["PersonNumber"].where(df["PersonNumber"]==person).count()
 
+#%%
+df = df.sort_values(['PersonNumber', 'StartDate'])
+df = df.reset_index(drop=True)
 #%%
 #reset sequence numbers
 listOfPersons = []
