@@ -2,6 +2,7 @@
 .scannerwork/
 sonar-project.properties
 securitylogs/scripts
+shouldUpdateSecLog.py
 
 .DS_Store
 node_modules
