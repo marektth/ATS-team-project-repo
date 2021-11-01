@@ -1,6 +1,0 @@
-,PersonNumber,EmploymentNumber,SequenceNumber,LeaveYear,LeaveTypeCode,StartDate,EndDate,CodeLeaveReason
-0,1,8,1,2020,WET,21/11/2020,26/11/2020,HOL
-1,1,8,2,2021,WET,22/09/2021,24/09/2021,
-2,1,8,3,2021,WET,09/10/2021,17/10/2021,Health
-3,1,8,4,2021,WET,28/10/2021,04/11/2021,Health
-4,2,10,1,2021,WET,09/07/2021,09/07/2021,
