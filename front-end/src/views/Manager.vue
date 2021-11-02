@@ -4,15 +4,15 @@
      <nc-table class="data-table">
           <thead>
             <nc-table-row>
-              <th>#</th>
-              <th>Name</th>
-              <th>Team</th>
-              <th>Code leave reason</th>
-              <th>Reason</th>
-              <th>Date of request</th>
-              <th>Start date</th>
-              <th>End date</th>
-              <th>Status</th>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Team</th>
+              <th scope="col">Code leave reason</th>
+              <th scope="col">Reason</th>
+              <th scope="col">Date of request</th>
+              <th scope="col">Start date</th>
+              <th scope="col">End date</th>
+              <th scope="col">Status</th>
             </nc-table-row>
           </thead>
           <tbody>

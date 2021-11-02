@@ -34,12 +34,12 @@
         <nc-table class="data-table">
           <thead>
             <nc-table-row>
-              <th>#</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Code leave reason</th>
-              <th>Reason</th>
-              <th>Status</th>
+              <th scope="col">#</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Code leave reason</th>
+              <th scope="col">Reason</th>
+              <th scope="col">Status</th>
             </nc-table-row>
           </thead>
           <tbody>

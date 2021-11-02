@@ -28,8 +28,7 @@ export class ApiService {
                 "leaveReason" : reason
             }
             
-            const req = await axios.post(this.requestTimeoffURL, testJSON)
-            return req;
+            return await axios.post(this.requestTimeoffURL, testJSON);
         } catch (err){
             return err;
         }
@@ -37,8 +36,7 @@ export class ApiService {
 
     async codeLeaveGET(){
         try {
-            const req = await axios.get(this.codeLeaveURL)
-            return req;
+            return await axios.get(this.codeLeaveURL);
         } catch(err){
             return err;
         }
