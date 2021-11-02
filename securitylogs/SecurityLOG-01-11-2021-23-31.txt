@@ -1,0 +1,108 @@
+Quick report: 
+
+Security log from: 11/01/2021 @ 23:31:32
+Last scan from: 2021-11-01 23:31:14
+Project status: ERROR
+Issues found: 7
+Issues authors: ['fhavel99']
+=================
+Issues report: 
+
+Key: AXzR73p_pUfHd_0-w-wy
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/services/api.ts
+From LINE: 27 to LINE: 27, with START_OFFSET: 24 to END_OFFSET: 67
+Issue comment: Immediately return this expression instead of assigning it to the temporary variable "req".
+Effort: 2min
+Rule: typescript:S1488
+Scope : MAIN
+Created at: 2021-10-28 19:25:49
+Updated at : 2021-10-30 17:00:43
+----------------------------------------------------
+
+Key: AXzR73mlpUfHd_0-w-ws
+Issue type : BUG
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Home.vue
+From LINE: 52 to LINE: 52, with START_OFFSET: 14 to END_OFFSET: 18
+Issue comment: Add either an 'id' or a 'scope' attribute to this <th> tag.
+Effort: None
+Rule: Web:TableHeaderHasIdOrScopeCheck
+Scope : MAIN
+Created at: 2021-10-28 19:25:49
+Updated at : 2021-10-30 17:00:43
+----------------------------------------------------
+
+Key: AXzR73mlpUfHd_0-w-wt
+Issue type : BUG
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Home.vue
+From LINE: 53 to LINE: 53, with START_OFFSET: 14 to END_OFFSET: 18
+Issue comment: Add either an 'id' or a 'scope' attribute to this <th> tag.
+Effort: None
+Rule: Web:TableHeaderHasIdOrScopeCheck
+Scope : MAIN
+Created at: 2021-10-28 19:25:49
+Updated at : 2021-10-30 17:00:43
+----------------------------------------------------
+
+Key: AXzR73mlpUfHd_0-w-wu
+Issue type : BUG
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Home.vue
+From LINE: 54 to LINE: 54, with START_OFFSET: 14 to END_OFFSET: 18
+Issue comment: Add either an 'id' or a 'scope' attribute to this <th> tag.
+Effort: None
+Rule: Web:TableHeaderHasIdOrScopeCheck
+Scope : MAIN
+Created at: 2021-10-28 19:25:49
+Updated at : 2021-10-30 17:00:43
+----------------------------------------------------
+
+Key: AXzR73mlpUfHd_0-w-wv
+Issue type : BUG
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Home.vue
+From LINE: 55 to LINE: 55, with START_OFFSET: 14 to END_OFFSET: 18
+Issue comment: Add either an 'id' or a 'scope' attribute to this <th> tag.
+Effort: None
+Rule: Web:TableHeaderHasIdOrScopeCheck
+Scope : MAIN
+Created at: 2021-10-28 19:25:49
+Updated at : 2021-10-30 17:00:43
+----------------------------------------------------
+
+Key: AXzR73mlpUfHd_0-w-ww
+Issue type : BUG
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Home.vue
+From LINE: 56 to LINE: 56, with START_OFFSET: 14 to END_OFFSET: 18
+Issue comment: Add either an 'id' or a 'scope' attribute to this <th> tag.
+Effort: None
+Rule: Web:TableHeaderHasIdOrScopeCheck
+Scope : MAIN
+Created at: 2021-10-28 19:25:49
+Updated at : 2021-10-30 17:00:43
+----------------------------------------------------
+
+Key: AXzR73mlpUfHd_0-w-wx
+Issue type : BUG
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Home.vue
+From LINE: 57 to LINE: 57, with START_OFFSET: 14 to END_OFFSET: 18
+Issue comment: Add either an 'id' or a 'scope' attribute to this <th> tag.
+Effort: None
+Rule: Web:TableHeaderHasIdOrScopeCheck
+Scope : MAIN
+Created at: 2021-10-28 19:25:49
+Updated at : 2021-10-30 17:00:43
+----------------------------------------------------
+
