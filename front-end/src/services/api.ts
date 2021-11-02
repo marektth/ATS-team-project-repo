@@ -7,26 +7,39 @@ export interface LeavePeriod {
 	employmentNumber:number,
 	leaveTypeCode:string,
 	leaveYear:string,
-	startDate:string,
-	endDate:string,
+	startDate:Date,
+	endDate:Date,
 	codeLeaveReason?:string
+    reason?:string
 }
 
 export class ApiService {
-    private requestURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/test/"
+    private employeeNumber:string = "123456"
+    private requestTimeoffURL:string = "https://ulniobyl6l.execute-api.eu-central-1.amazonaws.com/skuska/submit"
+    private codeLeaveURL:string = "https://ulniobyl6l.execute-api.eu-central-1.amazonaws.com/skuska/load"
 
-    async testPOST(){
+    async requestTimeoffPOST(startDate:string, endDate:string, reason:string){
         try {
+
             const testJSON = {
-                "Person_Number": 69,
-                "name": "Ludovit",
-                "surname": "Chocholacek",
-                "age": "34"
+                "Person_Number": this.employeeNumber,
+                "startDate": startDate,
+                "endDate" : endDate,
+                "leaveReason" : reason
             }
             
-            const req = await axios.post(this.requestURL, testJSON)
+            const req = await axios.post(this.requestTimeoffURL, testJSON)
             return req;
         } catch (err){
+            return err;
+        }
+    }
+
+    async codeLeaveGET(){
+        try {
+            const req = await axios.get(this.codeLeaveURL)
+            return req;
+        } catch(err){
             return err;
         }
     }
