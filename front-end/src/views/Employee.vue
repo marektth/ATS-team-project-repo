@@ -98,11 +98,8 @@ export default Vue.extend({
 
       this.requests.push(request)
 
-      // const response = await api.requestTimeoffPOST(request.startDate, request.endDate, request.reason)
-
-      // console.log(response)
-      // const request = await api.codeLeaveGET()
-      // console.log(request)
+      const response = await api.requestTimeoffPOST(request.startDate, request.endDate, request.reason)
+      console.log(response)
     },
     openForm(){
       if (this.showForm == 0) {
