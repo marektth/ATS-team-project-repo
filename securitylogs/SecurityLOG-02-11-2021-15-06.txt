@@ -1,0 +1,24 @@
+Quick report: 
+
+Security log from: 11/02/2021 @ 15:06:30
+Last scan from: 2021-11-02 15:06:12
+Project status: ERROR
+Issues found: 1
+Issues authors: ['fhavel99']
+=================
+Issues report: 
+
+Key: AXzg-LnwEdiWnLBqUIZa
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 88 to LINE: 88, with START_OFFSET: 12 to END_OFFSET: 15
+Issue comment: Remove this useless assignment to variable "api".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-02 14:53:24
+Updated at : 2021-11-02 15:05:22
+----------------------------------------------------
+
