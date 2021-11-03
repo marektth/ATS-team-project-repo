@@ -7,7 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 import matplotlib.pyplot as plt
 import matplotlib.image as pltimg
 
-df = pd.read_csv("database.csv")
+df = pd.read_csv("back-end/src/data/database.csv")
 
 print(df)
 # %%
