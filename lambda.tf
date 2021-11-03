@@ -101,9 +101,7 @@ resource "aws_api_gateway_method" "get" {
 }
 
 resource "aws_lambda_permission" "apigw" {
-  count = "${length(var.lambdas)}"
-  #name = "${element(var.lambdas,count.index )}"
-  statement_id  = "AllowAPIGatewayInvoke"
+  statement_id  = "AllowAPIGatewayInvoke_POST"
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.post_lambda.function_name}"
   principal     = "apigateway.amazonaws.com"
