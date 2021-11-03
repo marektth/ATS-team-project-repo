@@ -113,7 +113,7 @@ resource "aws_lambda_permission" "apigw" {
   source_arn = "${aws_api_gateway_rest_api.example.execution_arn}/POST/submit"
 }
 
-resource "aws_lambda_permission" "apigw" {
+resource "aws_lambda_permission" "apigw2" {
   count = "${length(var.lambdas)}"
   #name = "${element(var.lambdas,count.index )}"
   statement_id  = "AllowAPIGatewayInvoke"
