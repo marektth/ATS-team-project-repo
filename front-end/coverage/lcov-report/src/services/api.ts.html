@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.33% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/12</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
@@ -36,16 +36,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.33% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/12</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
@@ -54,7 +54,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -161,21 +161,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -227,22 +227,22 @@ export interface Team { // team object attributes
 &nbsp;
 &nbsp;
 &nbsp;
-<span class="fstat-no" title="function not covered" >export </span>class ApiService {
-    private <span class="cstat-no" title="statement not covered" >employeeNumber:string = "</span>123457"
-    private <span class="cstat-no" title="statement not covered" >requestTimeoffURL:string = "</span>https://ulniobyl6l.execute-api.eu-central-1.amazonaws.com/skuska/submit"
-    private <span class="cstat-no" title="statement not covered" >codeLeaveURL:string = "</span>https://ulniobyl6l.execute-api.eu-central-1.amazonaws.com/skuska/load"
+export class ApiService {
+    private employeeNumber:string = "123457"
+    private requestTimeoffURL:string = "https://ulniobyl6l.execute-api.eu-central-1.amazonaws.com/skuska/submit"
+    private codeLeaveURL:string = "https://ulniobyl6l.execute-api.eu-central-1.amazonaws.com/skuska/load"
 &nbsp;
-    async requestTimeoffPOST<span class="fstat-no" title="function not covered" >(s</span>tartDate:string, endDate:string, codeLeaveReason:string){
-<span class="cstat-no" title="statement not covered" >        try {</span>
-<span class="cstat-no" title="statement not covered" >            console.</span>log(codeLeaveReason)
-            const testJSON = <span class="cstat-no" title="statement not covered" >{</span>
+    async requestTimeoffPOST(startDate:string, endDate:string, codeLeaveReason:string){
+        try {
+            console.log(codeLeaveReason)
+            const testJSON = {
                 "Person_Number": this.employeeNumber,
                 "startDate": startDate,
                 "endDate" : endDate,
                 "leaveReason" : codeLeaveReason
             }
             
-<span class="cstat-no" title="statement not covered" >            return a</span>wait axios.post(this.requestTimeoffURL, testJSON);
+            return await axios.post(this.requestTimeoffURL, testJSON);
         } catch (err){
 <span class="cstat-no" title="statement not covered" >            return e</span>rr;
         }
@@ -264,7 +264,7 @@ export interface Team { // team object attributes
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 03 2021 10:43:10 GMT+0100 (Central European Standard Time)
+                at Wed Nov 03 2021 14:55:52 GMT+0100 (Central European Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

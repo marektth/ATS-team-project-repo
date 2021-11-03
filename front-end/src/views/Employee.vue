@@ -3,7 +3,7 @@
      <nc-layout horizontal>
        <nc-layout-aside>
 
-         <nc-button @click="openForm">Register timeoff</nc-button>
+         <nc-button id="OpenFormButton" @click="openForm">Register timeoff</nc-button>
 
          <nc-form class="user-form" v-if="this.showForm == 1">
 
@@ -27,7 +27,7 @@
             <input class="form-control" type="text" id="ReasonID" placeholder="Enter reason" v-model="timeoffRequestForm.reason" />
           </div>
           
-          <nc-button variant="primary" @click="requestTimeoff">Request timeoff</nc-button>
+          <nc-button id="FormSubmitButton" variant="primary" @click="requestTimeoff">Request timeoff</nc-button>
         </nc-form>
        </nc-layout-aside>
       <nc-layout-content>

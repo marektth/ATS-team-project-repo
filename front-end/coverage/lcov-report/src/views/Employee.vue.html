@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.67% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/12</span>
+                <span class='fraction'>10/12</span>
             </div>
         
             
@@ -36,16 +36,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.67% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/12</span>
+                <span class='fraction'>10/12</span>
             </div>
         
             
@@ -54,7 +54,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -254,7 +254,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,29 +267,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -313,7 +313,7 @@
      &lt;nc-layout horizontal&gt;
        &lt;nc-layout-aside&gt;
 &nbsp;
-         &lt;nc-button @click="openForm"&gt;Register timeoff&lt;/nc-button&gt;
+         &lt;nc-button id="OpenFormButton" @click="openForm"&gt;Register timeoff&lt;/nc-button&gt;
 &nbsp;
          &lt;nc-form class="user-form" v-if="this.showForm == 1"&gt;
 &nbsp;
@@ -337,7 +337,7 @@
             &lt;input class="form-control" type="text" id="ReasonID" placeholder="Enter reason" v-model="timeoffRequestForm.reason" /&gt;
           &lt;/div&gt;
           
-          &lt;nc-button variant="primary" @click="requestTimeoff"&gt;Request timeoff&lt;/nc-button&gt;
+          &lt;nc-button id="FormSubmitButton" variant="primary" @click="requestTimeoff"&gt;Request timeoff&lt;/nc-button&gt;
         &lt;/nc-form&gt;
        &lt;/nc-layout-aside&gt;
       &lt;nc-layout-content&gt;
@@ -392,14 +392,14 @@ export default Vue.extend({
       }
   }, 
   methods: {
-<span class="fstat-no" title="function not covered" >    toFullDate(date:Date) : string {</span>
-<span class="cstat-no" title="statement not covered" >      return date.toLocaleString().split(",")[0]</span>
+    toFullDate(date:Date) : string {
+      return date.toLocaleString().split(",")[0]
     },
-<span class="fstat-no" title="function not covered" >    async requestTimeoff(){</span>
+    async requestTimeoff(){
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      const api = new ApiService()</span>
+      const api = new ApiService()
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      const request = {</span>
+      const request = {
         id: this.requests.length + 1,
         startDate: this.toFullDate(this.timeoffRequestForm.startDate),
         endDate: this.toFullDate(this.timeoffRequestForm.endDate),
@@ -408,9 +408,9 @@ export default Vue.extend({
         status: "pending"
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      this.requests.push(request)</span>
+      this.requests.push(request)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      const response = await api.requestTimeoffPOST(request.startDate, request.endDate, request.codeLeaveReason)</span>
+      const response = await api.requestTimeoffPOST(request.startDate, request.endDate, request.codeLeaveReason)
 <span class="cstat-no" title="statement not covered" >      console.log(response)</span>
     },
     openForm(){
@@ -441,7 +441,7 @@ export default Vue.extend({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 03 2021 10:43:10 GMT+0100 (Central European Standard Time)
+                at Wed Nov 03 2021 14:55:52 GMT+0100 (Central European Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
