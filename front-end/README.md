@@ -20,7 +20,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ## File structure
-
+```
 ├── .gitignore
 ├── babel.config.js
 ├── coverage/
@@ -75,3 +75,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 │       └── example.spec.ts
 ├── tsconfig.json
 └── vue.config.js
+```
