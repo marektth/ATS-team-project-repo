@@ -1,5 +1,5 @@
 TN:
-SF:Users/front-end/src/main.ts
+SF:/home/ludovit/ATS-team-project-repo/front-end/src/main.ts
 FN:13,(anonymous_0)
 FNF:1
 FNH:0
@@ -19,7 +19,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:front-end/src/router/index.ts
+SF:/home/ludovit/ATS-team-project-repo/front-end/src/router/index.ts
 FN:19,(anonymous_0)
 FNF:1
 FNH:0
@@ -38,7 +38,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:front-end/src/services/api.ts
+SF:/home/ludovit/ATS-team-project-repo/front-end/src/services/api.ts
 FN:38,(anonymous_0)
 FN:43,(anonymous_1)
 FN:59,(anonymous_2)
@@ -65,7 +65,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:front-end/src/views/Employee.vue
+SF:/home/ludovit/ATS-team-project-repo/front-end/src/views/Employee.vue
 FN:72,(anonymous_1)
 FN:85,(anonymous_2)
 FN:88,(anonymous_3)
@@ -96,7 +96,7 @@ BRF:2
 BRH:1
 end_of_record
 TN:
-SF:front-end/src/views/Manager.vue
+SF:/home/ludovit/ATS-team-project-repo/front-end/src/views/Manager.vue
 FN:44,(anonymous_1)
 FNF:1
 FNH:0
@@ -109,7 +109,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:front-end/tests/unit/index.ts
+SF:/home/ludovit/ATS-team-project-repo/front-end/tests/unit/index.ts
 FNF:0
 FNH:0
 DA:1,0
