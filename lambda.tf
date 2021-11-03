@@ -101,9 +101,11 @@ resource "aws_api_gateway_method" "get" {
 }
 
 resource "aws_lambda_permission" "apigw" {
+  count = "${length(var.lambdas)}"
+  name = "${element(var.lambdas,count.index )}"
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.post_lambda.function_name}"
+  function_name = "${aws_lambda_function.name.function_name}"
   principal     = "apigateway.amazonaws.com"
 
   # The /*/* portion grants access from any method on any resource
