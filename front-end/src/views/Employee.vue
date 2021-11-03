@@ -9,12 +9,12 @@
 
           <div class="form-group">
             <label for="Name">Start date</label>
-            <nc-datepicker v-model="timeoffRequestForm.startDate" />
+            <nc-datepicker v-model="timeoffRequestForm.startDate" disable-past-days/>
           </div>
 
           <div class="form-group">
             <label for="Name">End date</label>
-            <nc-datepicker v-model="timeoffRequestForm.endDate" />
+            <nc-datepicker v-model="timeoffRequestForm.endDate" disable-past-days/>
           </div>
 
           <div class="form-group">
@@ -35,6 +35,7 @@
           <thead>
             <nc-table-row>
               <th scope="col">#</th>
+              <th scope="col">Request Date</th>
               <th scope="col">Start Date</th>
               <th scope="col">End Date</th>
               <th scope="col">Code leave reason</th>
@@ -45,6 +46,7 @@
           <tbody>
             <nc-table-row v-for="request in requests" v-bind:key="request.id">
               <td>{{ request.id }}</td>
+              <td>dd/mm/yyyy</td>
               <td>{{ request.startDate }}</td>
               <td>{{ request.endDate }}</td>
               <td>{{ request.codeLeaveReason }}</td>
@@ -91,14 +93,14 @@ export default Vue.extend({
         id: this.requests.length + 1,
         startDate: this.toFullDate(this.timeoffRequestForm.startDate),
         endDate: this.toFullDate(this.timeoffRequestForm.endDate),
-        codeLeaveReason: this.timeoffRequestForm.reason,
-        reason: String(this.timeoffRequestForm.codeLeaveReason),
+        codeLeaveReason: String(this.timeoffRequestForm.codeLeaveReason),
+        reason: this.timeoffRequestForm.reason,
         status: "pending"
       }
 
       this.requests.push(request)
 
-      const response = await api.requestTimeoffPOST(request.startDate, request.endDate, request.reason)
+      const response = await api.requestTimeoffPOST(request.startDate, request.endDate, request.codeLeaveReason)
       console.log(response)
     },
     openForm(){
