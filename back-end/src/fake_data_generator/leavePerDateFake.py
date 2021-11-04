@@ -6,57 +6,57 @@ import random
 import datetime
 import numpy as np
 #%%
-def generateLeavePerDate(dfPerDays):
-    HoursOfLeave = ("4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00")
+def generate_leave_per_date(df_per_days):
+    hours_of_leave = ("4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00")
 
-    ListOfPersonNumber = []
-    ListOfEmploymentNumber = []
-    ListOfLeaveYear = []
-    ListOfLeaveTypeCode = []
-    ListOfHoursOfLeave = []
-    ListOfSequenceNumbers = []
-    ListOfDateOfLeave = []
+    list_of_person_number = []
+    list_of_employment_number = []
+    list_of_leave_per_year = []
+    list_leave_type_code = []
+    list_of_hours_leave = []
+    list_of_sequence_number = []
+    list_of_date_of_leaves = []
 
     for x in range(df.shape[0]):
         start = datetime.datetime.strptime(df['StartDate'][x], '%d/%m/%Y')
-        hourse = random.choice(HoursOfLeave)
+        hourse = random.choice(hours_of_leave)
         number = datetime.datetime.strptime(df['EndDate'][x], '%d/%m/%Y').date()- datetime.datetime.strptime(df['StartDate'][x], '%d/%m/%Y').date()
         for y in range(number.days +1):
-            ListOfPersonNumber.append(df['PersonNumber'][x])
-            ListOfEmploymentNumber.append(df['EmploymentNumber'][x])
-            ListOfLeaveYear.append(df['LeaveYear'][x])
-            ListOfLeaveTypeCode.append(df['LeaveTypeCode'][x])
-            ListOfSequenceNumbers.append(df['SequenceNumber'][x])
+            list_of_person_number.append(df['PersonNumber'][x])
+            list_of_employment_number.append(df['EmploymentNumber'][x])
+            list_of_leave_per_year.append(df['LeaveYear'][x])
+            list_leave_type_code.append(df['LeaveTypeCode'][x])
+            list_of_sequence_number.append(df['SequenceNumber'][x])
 
-            ListOfHoursOfLeave.append(hourse)
-            ListOfDateOfLeave.append(start)
+            list_of_hours_leave.append(hourse)
+            list_of_date_of_leaves.append(start)
             start = (start  + datetime.timedelta(days=1))
 
-    dfPerDays["PersonNumber"] = ListOfPersonNumber
-    dfPerDays["EmploymentNumber"] = ListOfEmploymentNumber
-    dfPerDays["LeaveYear"] = ListOfLeaveYear
-    dfPerDays["LeaveTypeCode"] = ListOfLeaveTypeCode
-    dfPerDays["SequenceNumber"] = ListOfSequenceNumbers
-    dfPerDays["HoursOfLeave"] = ListOfHoursOfLeave
-    dfPerDays["DateOfLeave"] = ListOfDateOfLeave
+    df_per_days["PersonNumber"] = list_of_person_number
+    df_per_days["EmploymentNumber"] = list_of_employment_number
+    df_per_days["LeaveYear"] = list_of_leave_per_year
+    df_per_days["LeaveTypeCode"] = list_leave_type_code
+    df_per_days["SequenceNumber"] = list_of_sequence_number
+    df_per_days["hoursOfLeave"] = list_of_hours_leave
+    df_per_days["DateOfLeave"] = list_of_date_of_leaves
 
-    return dfPerDays
+    return df_per_days
 
 # %%
 df = pd.read_csv("database.csv")
 
 # %%
-dfPerDays = pd.DataFrame()  
-dfPerDays = generateLeavePerDate(dfPerDays)
+df_per_days = pd.DataFrame()  
+df_per_days = generate_leave_per_date(df_per_days)
 #%%
-dfPerDays['DateOfLeave'] = dfPerDays["DateOfLeave"].dt.strftime("%d/%m/%Y")
+df_per_days['DateOfLeave'] = df_per_days["DateOfLeave"].dt.strftime("%d/%m/%Y")
 #%%
-for column in dfPerDays:
-    dfPerDays[column] = dfPerDays[column].apply(str) 
+for column in df_per_days:
+    df_per_days[column] = df_per_days[column].apply(str) 
 
 # %%
-print(dfPerDays)
+print(df_per_days)
 # %%
-dfPerDays.to_csv("databasePerDay.csv")
+df_per_days.to_csv("databasePerDay.csv")
 
 # %%
