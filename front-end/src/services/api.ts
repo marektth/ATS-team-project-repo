@@ -12,11 +12,12 @@ export interface LeavePeriod {
 // API endpoint 1. -> get last five timeoff records for specific person (API returns array of TimeoffRecord data)
 
 export interface TimeoffRecord {
+    id: number,
     dateOfRequest:string, // timestamp when request was created
     startDate:string,
     endDate:string,
     codeLeaveReason:string,
-    reason?:string,
+    leaveReason:string,
     status:string // pending | accepted | declined
 }
 
@@ -28,8 +29,7 @@ export interface TeamMember { // team member object attributes
     position:string
 }
 
-export interface Team { // team object attributes
-    name:string,
+export interface Team { // team object attributescodeL    name:string,
     members: TeamMember[]
 }
 
@@ -37,17 +37,20 @@ export interface Team { // team object attributes
 
 export class ApiService {
     private employeeNumber:string = "123457"
-    private requestTimeoffURL:string = "https://ulniobyl6l.execute-api.eu-central-1.amazonaws.com/skuska/submit"
-    private codeLeaveURL:string = "https://ulniobyl6l.execute-api.eu-central-1.amazonaws.com/skuska/load"
+    private requestTimeoffURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/test/submit"
+    private codeLeaveURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/test/load"
 
-    async requestTimeoffPOST(startDate:string, endDate:string, codeLeaveReason:string){
+    async requestTimeoffPOST(request:TimeoffRecord){
         try {
-            console.log(codeLeaveReason)
+           // console.log(request)
             const testJSON = {
                 "Person_Number": this.employeeNumber,
-                "startDate": startDate,
-                "endDate" : endDate,
-                "leaveReason" : codeLeaveReason
+                "dateOfRequest": request.dateOfRequest,
+                "startDate": request.startDate,
+                "endDate" : request.endDate,
+                "codeLeaveReason" : request.codeLeaveReason,
+                "leaveReason": request.leaveReason,
+                "status": "pending"
             }
             
             return await axios.post(this.requestTimeoffURL, testJSON);
@@ -56,9 +59,12 @@ export class ApiService {
         }
     }
 
-    async codeLeaveGET(){
+
+    async requestsTimeoffGET() : Promise<any>{
         try {
-            return await axios.get(this.codeLeaveURL);
+            const response = await axios.get(this.codeLeaveURL)
+            //console.log(response.data)
+            return response.data;
         } catch(err){
             return err;
         }

@@ -46,11 +46,11 @@
           <tbody>
             <nc-table-row v-for="request in requests" v-bind:key="request.id">
               <td>{{ request.id }}</td>
-              <td>dd/mm/yyyy</td>
+              <td>{{ request.dateOfRequest }}</td>
               <td>{{ request.startDate }}</td>
               <td>{{ request.endDate }}</td>
               <td>{{ request.codeLeaveReason }}</td>
-              <td>{{ request.reason }}</td>
+              <td>{{ request.leaveReason }}</td>
               <td>{{ request.status }}</td>
             </nc-table-row>
           </tbody>
@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { ApiService, LeavePeriod } from '../services/api'
+import { ApiService, LeavePeriod, TimeoffRecord } from '../services/api'
 
 export default Vue.extend({
   name: 'Home',
@@ -78,30 +78,53 @@ export default Vue.extend({
         codeLeaveReason: "" as string,
         reason: "" as string,
       } as LeavePeriod,
-      requests: [] as Object[]
+      requests: [] as TimeoffRecord[]
       }
   }, 
+  async created(){
+    const api = new ApiService()
+    const response = await api.requestsTimeoffGET()
+    this.remove(response)
+  },
   methods: {
+    remove(arr : TimeoffRecord[]){
+      arr.forEach((request: TimeoffRecord) => {
+       // console.log(request.leaveReason)
+      this.requests.push(
+        {
+          id: this.requests.length + 1,
+          dateOfRequest: request.dateOfRequest.replaceAll('"', ''),
+          startDate: request.startDate.replaceAll('"', ''),
+          endDate: request.endDate.replaceAll('"', ''),
+          codeLeaveReason: request.codeLeaveReason.replaceAll('"', ''),
+          leaveReason: request.leaveReason.replaceAll('"', ''),
+          status: request.status.replaceAll('"', '')
+        }
+      )
+    });
+    },
     toFullDate(date:Date) : string {
       return date.toLocaleString().split(",")[0]
     },
     async requestTimeoff(){
 
       const api = new ApiService()
-
-      const request = {
+      const date = new Date()
+      const request: TimeoffRecord = {
         id: this.requests.length + 1,
+        dateOfRequest:this.toFullDate(date),
         startDate: this.toFullDate(this.timeoffRequestForm.startDate),
         endDate: this.toFullDate(this.timeoffRequestForm.endDate),
         codeLeaveReason: String(this.timeoffRequestForm.codeLeaveReason),
-        reason: this.timeoffRequestForm.reason,
+        leaveReason: String(this.timeoffRequestForm.reason),
         status: "pending"
       }
 
-      this.requests.push(request)
-
-      const response = await api.requestTimeoffPOST(request.startDate, request.endDate, request.codeLeaveReason)
-      console.log(response)
+      const responsePOST = await api.requestTimeoffPOST(request)
+      //console.log(responsePOST)
+      this.requests = []
+      const responseGET = await api.requestsTimeoffGET()
+      this.remove(responseGET)
     },
     openForm(){
       if (this.showForm == 0) {
