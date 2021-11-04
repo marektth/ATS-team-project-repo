@@ -33,7 +33,7 @@ resource "aws_lambda_function" "post_lambda" {
   function_name = "API_POST_LAMBDA"
 
   s3_bucket = "apitest-bucket-123"
-  s3_key    = "v1.0.0/example.zip"
+  s3_key    = "v1.0.0/post.zip"
 
   handler = "main.lambda_handler"
   runtime = "python3.8"
@@ -45,7 +45,7 @@ resource "aws_lambda_function" "get_lambda" {
   function_name = "API_GET_LAMBDA"
 
   s3_bucket = "apitest-bucket-123"
-  s3_key    = "v1.0.0/example.zip"
+  s3_key    = "v1.0.0/get.zip"
 
   handler = "main.lambda_handler"
   runtime = "python3.8"
@@ -115,7 +115,7 @@ resource "aws_lambda_permission" "apigw2" {
 
   statement_id  = "AllowAPIGatewayInvoke_GET"
   action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.post_lambda.function_name}"
+  function_name = "${aws_lambda_function.get_lambda.function_name}"
   principal     = "apigateway.amazonaws.com"
 
   # The /*/* portion grants access from any method on any resource
