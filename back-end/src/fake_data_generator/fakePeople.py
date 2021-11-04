@@ -39,7 +39,7 @@ def drop_overlaping_dates_of_the_same_person(df):
 def generate_data_of_people(df,df_of_peoples,leave_type_code):
     fake = Faker()
 
-    list_Of_leave_type_code = []
+    list_of_leave_type_code = []
     list_of_persons = []
     list_of_sequence_numbers = []
     list_of_jobs = []
@@ -55,7 +55,7 @@ def generate_data_of_people(df,df_of_peoples,leave_type_code):
         list_of_jobs.append(df_of_peoples['EmploymentNumber'][idx_of_job[0]])
 
         if sequence_number == 1:
-            list_Of_leave_type_code.append(random.choice(leave_type_code))
+            list_of_leave_type_code.append(random.choice(leave_type_code))
             new_interval_start_date = fake.date_between(start_date='-600d', end_date='today')
             new_interval_enddate = (pd.to_datetime(new_interval_start_date) + datetime.timedelta(days=10)).date()
 
@@ -70,13 +70,13 @@ def generate_data_of_people(df,df_of_peoples,leave_type_code):
 
             list_of_start_dates.append(new_interval_start_date)
             list_of_end_dates.append(fake.date_between(start_date=new_interval_start_date, end_date=new_interval_enddate))
-            list_Of_leave_type_code.append(list_Of_leave_type_code[idx])
+            list_of_leave_type_code.append(list_of_leave_type_code[idx])
             list_of_years.append(new_interval_start_date.year)
 
     df['SequenceNumber'] = list_of_sequence_numbers
     df['EmploymentNumber'] = list_of_jobs
     df['LeaveYear'] = list_of_years
-    df['LeaveTypeCode'] = list_Of_leave_type_code
+    df['LeaveTypeCode'] = list_of_leave_type_code
     df['StartDate'] = list_of_start_dates
     df['EndDate'] = list_of_end_dates
     return df
