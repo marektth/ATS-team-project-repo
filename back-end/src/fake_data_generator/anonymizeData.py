@@ -18,9 +18,3 @@ df_per_day
 df = anonymize(df)
 df_per_day = anonymize(df_per_day)
 # %%
-df
-
-#%%
-df_per_day
-
-# %%
