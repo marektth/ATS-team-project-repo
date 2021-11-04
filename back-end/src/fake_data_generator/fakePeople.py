@@ -76,7 +76,7 @@ def generate_data_of_people(df,df_of_peoples,leave_type_code):
     df['SequenceNumber'] = list_of_sequence_numbers
     df['EmploymentNumber'] = list_of_jobs
     df['LeaveYear'] = list_of_years
-    df['leave_type_code'] = list_Of_leave_type_code
+    df['LeaveTypeCode'] = list_Of_leave_type_code
     df['StartDate'] = list_of_start_dates
     df['EndDate'] = list_of_end_dates
     return df
@@ -121,7 +121,7 @@ df = df.reset_index(drop=True)
 #%%
 df = reset_sequence_number(df)
 #%%
-df = df[['PersonNumber', 'EmploymentNumber', 'SequenceNumber', 'LeaveYear', 'leave_type_code', 'StartDate', 'EndDate', 'CodeLeaveReason']]
+df = df[['PersonNumber', 'EmploymentNumber', 'SequenceNumber', 'LeaveYear', 'LeaveTypeCode', 'StartDate', 'EndDate', 'CodeLeaveReason']]
 #%%
 df['StartDate'] = df["StartDate"].dt.strftime("%d/%m/%Y")
 df['EndDate'] = df["EndDate"].dt.strftime("%d/%m/%Y")
