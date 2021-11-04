@@ -1,0 +1,576 @@
+Quick report: 
+
+Security log from: 11/04/2021 @ 13:56:10
+Last scan submitted at: 2021-11-04 13:55:54
+Last scan executed at: 2021-11-04 13:56:00
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_coverage, status: ERROR, actual value: 7.14, error threshold: 80
+	Metric: new_security_hotspots_reviewed, status: ERROR, actual value: 0.00, error threshold: 100
+Issues found: 40
+Issues Authors:
+	72217029+tomasvank -> 34 issues (85.0%)
+	marektoth199 -> 6 issues (15.0%)
+=================
+Issues report: 
+
+Key: AXzrBS6nEdiWnLBqUS9U
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:example_API_Handler/POST_API_LAMBDA/main.py
+From LINE: 12 to LINE: 12, with START_OFFSET: 4 to END_OFFSET: 35
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-04 13:28:06
+Updated at : 2021-11-04 13:54:56
+----------------------------------------------------
+
+Key: AXzrBS6nEdiWnLBqUS9T
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:example_API_Handler/POST_API_LAMBDA/main.py
+From LINE: 14 to LINE: 14, with START_OFFSET: 4 to END_OFFSET: 12
+Issue comment: Remove the unused local variable "dynamodb".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-11-04 13:28:06
+Updated at : 2021-11-04 13:54:56
+----------------------------------------------------
+
+Key: AXzrBS6mEdiWnLBqUS9S
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:example_API_Handler/POST_API_LAMBDA/main.py
+From LINE: 16 to LINE: 16, with START_OFFSET: 4 to END_OFFSET: 13
+Issue comment: Rename this local variable "TableName" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-04 13:28:06
+Updated at : 2021-11-04 13:54:56
+----------------------------------------------------
+
+Key: AXzrBS6nEdiWnLBqUS9V
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:example_API_Handler/POST_API_LAMBDA/main.py
+From LINE: 33 to LINE: 33, with START_OFFSET: 4 to END_OFFSET: 33
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-04 13:28:06
+Updated at : 2021-11-04 13:54:56
+----------------------------------------------------
+
+Key: AXzrBS6nEdiWnLBqUS9W
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:example_API_Handler/POST_API_LAMBDA/main.py
+From LINE: 48 to LINE: 48, with START_OFFSET: 4 to END_OFFSET: 16
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-04 13:28:06
+Updated at : 2021-11-04 13:54:56
+----------------------------------------------------
+
+Key: AXzrBS6mEdiWnLBqUS9R
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:example_API_Handler/POST_API_LAMBDA/main.py
+From LINE: 52 to LINE: 52, with START_OFFSET: 4 to END_OFFSET: 8
+Issue comment: Rename this local variable "Item" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-04 13:28:06
+Updated at : 2021-11-04 13:54:56
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnb
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 8 to LINE: 8, with START_OFFSET: 30 to END_OFFSET: 45
+Issue comment: Rename this parameter "CodeLeaveReason" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnc
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 8 to LINE: 8, with START_OFFSET: 16 to END_OFFSET: 29
+Issue comment: Rename this parameter "listOfPeoples" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQng
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 15 to LINE: 15, with START_OFFSET: 4 to END_OFFSET: 38
+Issue comment: Rename function "DropOverLapingDatesOftheSamePerson" to match the regular expression ^[a-z_][a-z0-9_]*$.
+Effort: 10min
+Rule: python:S1542
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnf
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 16 to LINE: 16, with START_OFFSET: 4 to END_OFFSET: 13
+Issue comment: Rename this local variable "uniPerson" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQne
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 19 to LINE: 19, with START_OFFSET: 8 to END_OFFSET: 22
+Issue comment: Rename this local variable "numberOfLeaves" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnh
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 39 to LINE: 39, with START_OFFSET: 40 to END_OFFSET: 53
+Issue comment: Rename this parameter "LeaveTypeCode" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQni
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 39 to LINE: 39, with START_OFFSET: 28 to END_OFFSET: 39
+Issue comment: Rename this parameter "dfOfPeoples" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnu
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 39 to LINE: 39, with START_OFFSET: 4 to END_OFFSET: 24
+Issue comment: Rename function "generateDataOfPeople" to match the regular expression ^[a-z_][a-z0-9_]*$.
+Effort: 10min
+Rule: python:S1542
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnm
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 42 to LINE: 42, with START_OFFSET: 4 to END_OFFSET: 23
+Issue comment: Rename this local variable "listOfLeaveTypeCode" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnn
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 43 to LINE: 43, with START_OFFSET: 4 to END_OFFSET: 17
+Issue comment: Rename this local variable "listOfPersons" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQno
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 44 to LINE: 44, with START_OFFSET: 4 to END_OFFSET: 25
+Issue comment: Rename this local variable "listOfSequenceNumbers" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnl
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 45 to LINE: 45, with START_OFFSET: 4 to END_OFFSET: 21
+Issue comment: Rename this local variable "listOfJobsIndexes" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnq
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 46 to LINE: 46, with START_OFFSET: 4 to END_OFFSET: 19
+Issue comment: Rename this local variable "listOfleaveYear" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnp
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 47 to LINE: 47, with START_OFFSET: 4 to END_OFFSET: 20
+Issue comment: Rename this local variable "listOfStartDates" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnk
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 48 to LINE: 48, with START_OFFSET: 4 to END_OFFSET: 18
+Issue comment: Rename this local variable "listOfEndDates" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnt
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 52 to LINE: 52, with START_OFFSET: 8 to END_OFFSET: 21
+Issue comment: Rename this local variable "sequnceNumber" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnj
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 54 to LINE: 54, with START_OFFSET: 8 to END_OFFSET: 16
+Issue comment: Rename this local variable "idxOfJob" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQns
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 59 to LINE: 59, with START_OFFSET: 12 to END_OFFSET: 32
+Issue comment: Rename this local variable "newIntervalStartDate" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnr
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 60 to LINE: 60, with START_OFFSET: 12 to END_OFFSET: 29
+Issue comment: Rename this local variable "newIntervaEndDate" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQny
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 84 to LINE: 84, with START_OFFSET: 4 to END_OFFSET: 23
+Issue comment: Rename function "resetSequenceNumber" to match the regular expression ^[a-z_][a-z0-9_]*$.
+Effort: 10min
+Rule: python:S1542
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnv
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 85 to LINE: 85, with START_OFFSET: 4 to END_OFFSET: 17
+Issue comment: Rename this local variable "listOfPersons" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnw
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 86 to LINE: 86, with START_OFFSET: 4 to END_OFFSET: 25
+Issue comment: Rename this local variable "listOfSequenceNumbers" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5ZaEdiWnLBqUQnx
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 91 to LINE: 91, with START_OFFSET: 8 to END_OFFSET: 21
+Issue comment: Rename this local variable "sequnceNumber" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnY
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 9 to LINE: 9, with START_OFFSET: 25 to END_OFFSET: 34
+Issue comment: Rename this parameter "dfPerDays" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnZ
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 9 to LINE: 9, with START_OFFSET: 4 to END_OFFSET: 24
+Issue comment: Rename function "generateLeavePerDate" to match the regular expression ^[a-z_][a-z0-9_]*$.
+Effort: 10min
+Rule: python:S1542
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnQ
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 10 to LINE: 10, with START_OFFSET: 4 to END_OFFSET: 16
+Issue comment: Rename this local variable "HoursOfLeave" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnW
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 12 to LINE: 12, with START_OFFSET: 4 to END_OFFSET: 22
+Issue comment: Rename this local variable "ListOfPersonNumber" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnS
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 13 to LINE: 13, with START_OFFSET: 4 to END_OFFSET: 26
+Issue comment: Rename this local variable "ListOfEmploymentNumber" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnV
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 14 to LINE: 14, with START_OFFSET: 4 to END_OFFSET: 19
+Issue comment: Rename this local variable "ListOfLeaveYear" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnU
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 15 to LINE: 15, with START_OFFSET: 4 to END_OFFSET: 23
+Issue comment: Rename this local variable "ListOfLeaveTypeCode" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnT
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 16 to LINE: 16, with START_OFFSET: 4 to END_OFFSET: 22
+Issue comment: Rename this local variable "ListOfHoursOfLeave" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnX
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 17 to LINE: 17, with START_OFFSET: 4 to END_OFFSET: 25
+Issue comment: Rename this local variable "ListOfSequenceNumbers" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQnR
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 18 to LINE: 18, with START_OFFSET: 4 to END_OFFSET: 21
+Issue comment: Rename this local variable "ListOfDateOfLeave" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQna
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 24 to LINE: 24, with START_OFFSET: 12 to END_OFFSET: 13
+Issue comment: Remove the unused local variable "y".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
