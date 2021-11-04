@@ -21,7 +21,7 @@ def generate_leave_per_date(df_per_days):
         start = datetime.datetime.strptime(df['StartDate'][x], '%d/%m/%Y')
         hourse = random.choice(hours_of_leave)
         number = datetime.datetime.strptime(df['EndDate'][x], '%d/%m/%Y').date()- datetime.datetime.strptime(df['StartDate'][x], '%d/%m/%Y').date()
-        for y in range(number.days +1):
+        for _ in range(number.days +1):
             list_of_person_number.append(df['PersonNumber'][x])
             list_of_employment_number.append(df['EmploymentNumber'][x])
             list_of_leave_per_year.append(df['LeaveYear'][x])
