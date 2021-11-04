@@ -1,0 +1,28 @@
+Quick report: 
+
+Security log from: 11/04/2021 @ 23:31:36
+Last scan submitted at: 2021-11-04 23:31:22
+Last scan executed at: 2021-11-04 23:31:27
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_coverage, status: ERROR, actual value: 6.93, error threshold: 80
+Issues found: 1
+Issues Authors:
+	fhavel99 -> 1 issues (100.0%)
+=================
+Issues report: 
+
+Key: AXzrPG_LEdiWnLBqUT1i
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 123 to LINE: 123, with START_OFFSET: 12 to END_OFFSET: 24
+Issue comment: Remove this useless assignment to variable "responsePOST".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-04 15:02:28
+----------------------------------------------------
+
