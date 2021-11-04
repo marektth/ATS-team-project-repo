@@ -49,12 +49,12 @@ def generate_data_of_people(df,df_of_peoples,leave_type_code):
 
     for x in range (df.shape[0]):
         list_of_persons.append(df['PersonNumber'][x])
-        sequnceNumber = list_of_persons.count(df['PersonNumber'][x])
-        list_of_sequence_numbers.append(sequnceNumber)
+        sequence_number = list_of_persons.count(df['PersonNumber'][x])
+        list_of_sequence_numbers.append(sequence_number)
         idx_of_job = df_of_peoples.index[df_of_peoples['PersonNumber'] == df['PersonNumber'][x]].tolist()
         list_of_jobs.append(df_of_peoples['EmploymentNumber'][idx_of_job[0]])
 
-        if sequnceNumber == 1:
+        if sequence_number == 1:
             list_Of_leave_type_code.append(random.choice(leave_type_code))
             new_interval_start_date = fake.date_between(start_date='-600d', end_date='today')
             new_interval_enddate = (pd.to_datetime(new_interval_start_date) + datetime.timedelta(days=10)).date()
@@ -88,8 +88,8 @@ def reset_sequence_number(df):
     df.drop(['SequenceNumber'], axis=1, inplace=True)
     for x in range (df.shape[0]):
         list_of_persons.append(df['PersonNumber'][x])
-        sequnceNumber =list_of_persons.count(df['PersonNumber'][x])
-        list_of_sequence_numbers.append(sequnceNumber)
+        sequence_number =list_of_persons.count(df['PersonNumber'][x])
+        list_of_sequence_numbers.append(sequence_number)
 
     df['SequenceNumber'] = list_of_sequence_numbers
     return df
