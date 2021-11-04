@@ -1,0 +1,57 @@
+Quick report: 
+
+Security log from: 11/04/2021 @ 14:56:30
+Last scan submitted at: 2021-11-04 14:56:16
+Last scan executed at: 2021-11-04 14:56:20
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_coverage, status: ERROR, actual value: 6.96, error threshold: 80
+Issues found: 3
+Issues Authors:
+	72217029+tomasvank -> 2 issues (66.66666666666666%)
+	fhavel99 -> 1 issues (33.33333333333333%)
+=================
+Issues report: 
+
+Key: AXzrPG-EEdiWnLBqUT1h
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/fakePeople.py
+From LINE: 42 to LINE: 42, with START_OFFSET: 4 to END_OFFSET: 27
+Issue comment: Rename this local variable "list_Of_leave_type_code" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-04 14:55:22
+----------------------------------------------------
+
+Key: AXzrPG_LEdiWnLBqUT1i
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 123 to LINE: 123, with START_OFFSET: 12 to END_OFFSET: 24
+Issue comment: Remove this useless assignment to variable "responsePOST".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-04 14:55:22
+----------------------------------------------------
+
+Key: AXzmv5Y6EdiWnLBqUQna
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_data_generator/leavePerDateFake.py
+From LINE: 24 to LINE: 24, with START_OFFSET: 12 to END_OFFSET: 13
+Issue comment: Remove the unused local variable "y".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-11-03 18:00:28
+Updated at : 2021-11-03 18:00:28
+----------------------------------------------------
+
