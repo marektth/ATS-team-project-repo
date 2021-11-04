@@ -8,33 +8,14 @@ from datetime import datetime
 
 def lambda_handler(event, context):
 
-    
-    #s3_client = boto3.client('s3')
     now = datetime.now()
-    dynamodb = boto3.client('dynamodb')
     dynamodb_res = boto3.resource('dynamodb', region_name = 'eu-central-1')
-    TableName = os.environ['TABLE_NAME']
+    table_name = os.environ['TABLE_NAME']
     
-#  "httpMethod": "POST",    
-#    if event.htttpMethod == POST
-#       save to dynamoDB
-#     else:
-#         return json format
-    #line_to_check = event['httpMethod']
-    #method_test = json.dumps(line_to_check['access-control-request-method'])
-    
-    #print(line_to_check)
-    
-    #if event['headers']['access-control-request-method'] == 'POST':
-    #print(event['headers']['access-control-request-method'])
     print(event)
     line_to_add = json.loads(event['body'])
     print(line_to_add)
-    #print("THIS IS BEING ADDED")
-    #print(line_to_add)
-        
-    #print(event['httpMethod'])     
-    
+       
     actual_date = json.dumps(line_to_add['dateOfRequest'])
     person_num = json.dumps(line_to_add['Person_Number'])
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")+"_"+person_num
@@ -43,13 +24,9 @@ def lambda_handler(event, context):
     end_date = json.dumps(line_to_add['endDate'])
     leave_reason = json.dumps(line_to_add['leaveReason'])
     status = json.dumps(line_to_add['status'])
-    table = dynamodb_res.Table(TableName)
+    table = dynamodb_res.Table(table_name)
         
-    #print(name)
-    #print(surname)
-    #print(age)
-        
-    Item = {
+    item = {
         "id": date_time,
         "dateOfRequest": actual_date,
         "Person_Number": person_num,
@@ -60,7 +37,7 @@ def lambda_handler(event, context):
         "status": status
     }
         
-    table.put_item(Item=Item)
+    table.put_item(Item=item)
         
     response = {
         "statusCode": 200,
@@ -71,7 +48,7 @@ def lambda_handler(event, context):
         },
         "body": json.dumps("WRITTEN")
     }
-    
+
     return response
     
   

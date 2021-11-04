@@ -39,6 +39,12 @@ resource "aws_lambda_function" "post_lambda" {
   runtime = "python3.8"
 
   role = "${aws_iam_role.lambda_exec.arn}"
+
+   environment {
+    variables = {
+      TABLE_NAME = "Absence_Data"
+    }
+  }
 }
 
 resource "aws_lambda_function" "get_lambda" {
@@ -51,6 +57,12 @@ resource "aws_lambda_function" "get_lambda" {
   runtime = "python3.8"
 
   role = "${aws_iam_role.lambda_exec.arn}"
+
+   environment {
+    variables = {
+      TABLE_NAME = "Absence_Data"
+    }
+  }
 }
 
 
