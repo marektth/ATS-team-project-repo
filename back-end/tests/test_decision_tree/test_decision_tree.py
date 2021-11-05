@@ -3,8 +3,7 @@ import unittest
 import pandas as pd
 from pandas.util.testing import assert_frame_equal # <-- for testing dataframes
 
-import src.decision_tree_pkg as dt
-
+from src.decision_tree import decision_tree as dt
 
 
 class TestDecisiontree(unittest.TestCase):
