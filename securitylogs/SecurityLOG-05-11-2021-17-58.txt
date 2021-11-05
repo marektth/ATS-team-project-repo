@@ -1,0 +1,73 @@
+Quick report: 
+
+Security log from: 11/05/2021 @ 17:58:36
+Last scan submitted at: 2021-11-05 17:58:12
+Last scan executed at: 2021-11-05 17:58:17
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_coverage, status: ERROR, actual value: 14.96, error threshold: 30
+	Metric: new_security_hotspots_reviewed, status: ERROR, actual value: 0.00, error threshold: 100
+Issues found: 4
+Issues Authors:
+	61782339+jarhead28 -> 1 issues (25.0%)
+	fhavel99 -> 1 issues (25.0%)
+	ludex15 -> 2 issues (50.0%)
+=================
+Issues report: 
+
+Key: AXzwtG7bEdiWnLBqUVMd
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: ludex15
+File: ats:back-end/src/decision_tree/decision_tree.py
+From LINE: 3 to LINE: 3, with START_OFFSET: 0 to END_OFFSET: 14
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-05 16:24:23
+Updated at : 2021-11-05 17:52:15
+----------------------------------------------------
+
+Key: AXzwtG7bEdiWnLBqUVMe
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: ludex15
+File: ats:back-end/src/decision_tree/decision_tree.py
+From LINE: 8 to LINE: 8, with START_OFFSET: 0 to END_OFFSET: 17
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-05 16:24:23
+Updated at : 2021-11-05 17:52:15
+----------------------------------------------------
+
+Key: AXzwtG7bEdiWnLBqUVMf
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: 61782339+jarhead28
+File: ats:back-end/src/decision_tree/decision_tree.py
+From LINE: 59 to LINE: 59, with START_OFFSET: 0 to END_OFFSET: 71
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-05 16:24:23
+Updated at : 2021-11-05 17:52:15
+----------------------------------------------------
+
+Key: AXzrPG_LEdiWnLBqUT1i
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 123 to LINE: 123, with START_OFFSET: 12 to END_OFFSET: 24
+Issue comment: Remove this useless assignment to variable "responsePOST".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-04 15:02:28
+----------------------------------------------------
+
