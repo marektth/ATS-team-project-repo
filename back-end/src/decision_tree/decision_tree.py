@@ -1,11 +1,10 @@
 import datetime
 import os
-#import pytest
 
 import matplotlib.image as pltimg
 import matplotlib.pyplot as plt
 import pandas as pd
-#import pydotplus
+import pydotplus
 from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier
 
