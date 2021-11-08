@@ -1,7 +1,9 @@
 import unittest
 import pandas as pd
 from pandas.util.testing import assert_frame_equal
-import decision_tree as dt
+#import decision_tree as dt
+from src.decision_tree import decision_tree as dt
+#pls import dt like this
 
 class TestDecisiontree(unittest.TestCase):
     def test_status_column_add(self):
