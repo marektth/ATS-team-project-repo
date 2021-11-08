@@ -6,7 +6,6 @@ import matplotlib.image as pltimg
 import matplotlib.pyplot as plt
 import pandas as pd
 import pydotplus
-import pytest
 from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier
 
