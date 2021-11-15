@@ -1,0 +1,59 @@
+Quick report: 
+
+Security log from: 11/15/2021 @ 23:32:29
+Last scan submitted at: 2021-11-15 23:32:01
+Last scan executed at: 2021-11-15 23:32:07
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_reliability_rating, status: ERROR, actual value: 5.00, error threshold: 1
+	Metric: new_coverage, status: ERROR, actual value: 27.84, error threshold: 30
+Issues found: 3
+Issues Authors:
+	61782339+jarhead28 -> 1 issues (33.33333333333333%)
+	fhavel99 -> 1 issues (33.33333333333333%)
+	marektoth199 -> 1 issues (33.33333333333333%)
+=================
+Issues report: 
+
+Key: AX0lupkxEdiWnLBqUb-H
+Issue type : BUG
+Severity: BLOCKER
+Issue author: marektoth199
+File: ats:back-end/src/decision_tree/decision_tree.py
+From LINE: 93 to LINE: 93, with START_OFFSET: 2 to END_OFFSET: 16
+Issue comment: Add 2 missing arguments; 'lambda_handler' expects 2 positional arguments.
+Effort: 10min
+Rule: python:S930
+Scope : MAIN
+Created at: 2021-11-15 23:31:00
+Updated at : 2021-11-15 23:31:00
+----------------------------------------------------
+
+Key: AX0A-DxnEdiWnLBqUZJF
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 61782339+jarhead28
+File: ats:back-end/src/decision_tree/decision_tree.py
+From LINE: 74 to LINE: 74, with START_OFFSET: 4 to END_OFFSET: 11
+Issue comment: Remove the unused local variable "imgplot".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-11-08 20:12:33
+Updated at : 2021-11-08 20:12:33
+----------------------------------------------------
+
+Key: AXzrPG_LEdiWnLBqUT1i
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 123 to LINE: 123, with START_OFFSET: 12 to END_OFFSET: 24
+Issue comment: Remove this useless assignment to variable "responsePOST".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-04 15:02:28
+----------------------------------------------------
+
