@@ -14,7 +14,7 @@ jobs:
       - uses: papeloto/action-zip@v1
         with:
           files: back-end/GET_API_LAMBDA main.py
-          dest: back-end/get.zip
+          dest: get.zip
   
   zip-files-POST-LAMBDA:
     runs-on: ubuntu-latest
@@ -23,4 +23,9 @@ jobs:
       - uses: papeloto/action-zip@v1
         with:
           files: back-end/POST_API_LAMBDA main.py
-          dest: back-end/post.zip
+          dest: post.zip
+
+  - uses: actions/upload-artifact@v1
+  with:
+    name: my-artifact
+    path: ${{ github.workspace }}/result.zip
