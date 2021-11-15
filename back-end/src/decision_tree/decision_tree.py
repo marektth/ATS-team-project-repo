@@ -81,7 +81,7 @@ def decision_tree(df):
 #print(dtree.predict([[0]]))
 
 
-def main():
+def lambda_handler(event, context):
   df = pd.read_csv("back-end\src\data\database.csv")
   df = status_column_add(df)
   df = converter(df)
@@ -90,4 +90,4 @@ def main():
 
 
 if __name__ == "__main__":
-  main()
+  lambda_handler()
