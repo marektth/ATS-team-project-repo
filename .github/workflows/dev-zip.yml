@@ -15,10 +15,7 @@ jobs:
         with:
           files: back-end/GET_API_LAMBDA main.py
           dest: get.zip
-      - uses: actions/upload-artifact@v1
-        with:
-          name: my-artifact
-          path: ${{ github.workspace }}/result.zip
+      
   
   zip-files-POST-LAMBDA:
     runs-on: ubuntu-latest
@@ -28,8 +25,5 @@ jobs:
         with:
           files: back-end/POST_API_LAMBDA main.py
           dest: post.zip
-      - uses: actions/upload-artifact@v1
-        with:
-          name: my-artifact
-          path: ${{ github.workspace }}/result.zip
+      
   
