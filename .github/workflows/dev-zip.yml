@@ -1,0 +1,29 @@
+name: Zip Files
+
+on:
+  push:
+    paths:
+    - 'lambda.tf'
+    - 'api_gateway.tf'
+    branches:
+    - dev
+  pull_request:
+
+jobs:
+  zip-files-GET-LAMBDA:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: papeloto/action-zip@v1
+        with:
+          files: back-end/GET_API_LAMBDA main.py
+          dest: back-end/get.zip
+  
+  zip-files-POST-LAMBDA:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: papeloto/action-zip@v1
+        with:
+          files: back-end/POST_API_LAMBDA main.py
+          dest: back-end/post.zip
