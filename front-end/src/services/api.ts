@@ -43,7 +43,7 @@ export class ApiService {
     async requestTimeoffPOST(request:TimeoffRecord){
         try {
            // console.log(request)
-            const testJSON = {
+            const timeoffData = {
                 "Person_Number": this.employeeNumber,
                 "dateOfRequest": request.dateOfRequest,
                 "startDate": request.startDate,
@@ -53,7 +53,7 @@ export class ApiService {
                 "status": "pending"
             }
             
-            return await axios.post(this.requestTimeoffURL, testJSON);
+            return await axios.post(this.requestTimeoffURL, timeoffData);
         } catch (err){
             return err;
         }
