@@ -1,0 +1,43 @@
+Quick report: 
+
+Security log from: 11/06/2021 @ 23:31:41
+Last scan submitted at: 2021-11-06 23:31:17
+Last scan executed at: 2021-11-06 23:31:22
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_coverage, status: ERROR, actual value: 14.96, error threshold: 30
+Issues found: 2
+Issues Authors:
+	61782339+jarhead28 -> 1 issues (50.0%)
+	fhavel99 -> 1 issues (50.0%)
+=================
+Issues report: 
+
+Key: AXzwtG7bEdiWnLBqUVMf
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 61782339+jarhead28
+File: ats:back-end/src/decision_tree/decision_tree.py
+From LINE: 58 to LINE: 58, with START_OFFSET: 0 to END_OFFSET: 71
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-05 16:24:23
+Updated at : 2021-11-05 17:59:46
+----------------------------------------------------
+
+Key: AXzrPG_LEdiWnLBqUT1i
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 123 to LINE: 123, with START_OFFSET: 12 to END_OFFSET: 24
+Issue comment: Remove this useless assignment to variable "responsePOST".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-04 15:02:28
+----------------------------------------------------
+

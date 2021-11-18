@@ -1,17 +1,15 @@
-## File structure of backend
+## Unit testing
+
+Before you do anything, please install tool **Coverage**
 
 ```
-├── src/
-│   ├── data/
-│   │   ├── database.csv
-│   │   └── mydecisiontree.png
-│   ├── decision_tree/
-│   │   └── decision_tree.py
-│   └── fake_data_generator/
-│       ├── anonymizeData.py
-│       ├── fakePeople.py
-│       └── leavePerDateFake.py
-├── tests/
-├── README.md
-└── TODO.md
+pip install coverage
 ```
+
+To run this tool execute:
+
+```
+coverage run -m unittest discover
+```
+
+in Teamproject/back-end directory.

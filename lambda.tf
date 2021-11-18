@@ -28,6 +28,24 @@ resource "aws_dynamodb_table" "dynamodb-terraform-state-lock" {
   }
 }
 
+resource "aws_lambda_function" "manager_lambda" {
+  function_name = "MANAGER_LAMBDA"
+
+  s3_bucket = "apitest-bucket-123"
+  s3_key    = "v1.0.0/manager.zip"
+
+  handler = "decision_tree.lambda_handler"
+  runtime = "python3.8"
+
+  role = "${aws_iam_role.lambda_exec.arn}"
+
+   environment {
+    variables = {
+      TABLE_NAME = "Absence_Data"
+    }
+  }
+}
+
 
 resource "aws_lambda_function" "post_lambda" {
   function_name = "API_POST_LAMBDA"

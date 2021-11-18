@@ -1,0 +1,32 @@
+name: 'ZIP'
+
+on:
+  push:
+    paths:
+    - 'back-end/GET_API_LAMBDA'
+    - 'back-end/POST_API_LAMBDA'
+    branches:
+    - dev
+  pull_request:
+
+jobs:
+  zip-files-GET-LAMBDA:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: papeloto/action-zip@v1
+        with:
+          files: back-end/GET_API_LAMBDA main.py
+          dest: get.zip
+      
+  
+  zip-files-POST-LAMBDA:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: papeloto/action-zip@v1
+        with:
+          files: back-end/POST_API_LAMBDA main.py
+          dest: post.zip
+      
+  
