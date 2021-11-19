@@ -1,0 +1,73 @@
+Quick report: 
+
+Security log from: 11/19/2021 @ 23:32:15
+Last scan submitted at: 2021-11-19 23:31:49
+Last scan executed at: 2021-11-19 23:31:54
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_coverage, status: ERROR, actual value: 25.17, error threshold: 30
+	Metric: new_security_hotspots_reviewed, status: ERROR, actual value: 77.78, error threshold: 100
+Issues found: 4
+Issues Authors:
+	61782339+jarhead28 -> 1 issues (25.0%)
+	72217029+tomasvank -> 2 issues (50.0%)
+	fhavel99 -> 1 issues (25.0%)
+=================
+Issues report: 
+
+Key: AX06U9WGEdiWnLBqUdCJ
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_generator/teams.py
+From LINE: 8 to LINE: 8, with START_OFFSET: 4 to END_OFFSET: 9
+Issue comment: Rename this local variable "listA" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-19 16:29:19
+Updated at : 2021-11-19 23:30:53
+----------------------------------------------------
+
+Key: AX06U9WGEdiWnLBqUdCL
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_generator/teams.py
+From LINE: 17 to LINE: 17, with START_OFFSET: 4 to END_OFFSET: 9
+Issue comment: Rename this local variable "listA" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-19 16:29:19
+Updated at : 2021-11-19 23:30:53
+----------------------------------------------------
+
+Key: AX0A-DxnEdiWnLBqUZJF
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 61782339+jarhead28
+File: ats:back-end/src/decision_tree/decision_tree.py
+From LINE: 74 to LINE: 74, with START_OFFSET: 4 to END_OFFSET: 11
+Issue comment: Remove the unused local variable "imgplot".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-11-08 20:12:33
+Updated at : 2021-11-08 20:12:33
+----------------------------------------------------
+
+Key: AXzrPG_LEdiWnLBqUT1i
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 129 to LINE: 129, with START_OFFSET: 12 to END_OFFSET: 24
+Issue comment: Remove this useless assignment to variable "responsePOST".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-04 15:02:28
+----------------------------------------------------
+
