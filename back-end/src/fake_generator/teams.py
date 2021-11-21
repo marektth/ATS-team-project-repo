@@ -24,8 +24,11 @@ def unique_team_name(num):
 df_teams = pd.DataFrame()
 # %%
 num = 10
-df_teams["team_id"] = unique_numbers(num)
-df_teams["manager_id"] = unique_numbers(num)
-df_teams['minimalCapaCity'] = np.random.randint(5,num, len(df_teams))
-df_teams['teamName'] = unique_team_name(num)
+df_teams["Team_id"] = unique_numbers(num)
+df_teams["Manager_id"] = unique_numbers(num)
+df_teams['MinimalCapaCity'] = np.random.randint(5,num, len(df_teams))
+df_teams['TeamName'] = unique_team_name(num)
 # %%
+df_teams.to_csv("databaseOfTeams.csv")
+# %%
+
