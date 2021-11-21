@@ -47,6 +47,26 @@ resource "aws_lambda_function" "manager_lambda" {
 }
 
 
+
+resource "aws_lambda_function" "ou_lambda" {
+  function_name = "OU_LAMBDA"
+
+  s3_bucket = "apitest-bucket-123"
+  s3_key    = "v1.0.0/manager.zip"
+
+  handler = "decision_tree.lambda_handler"
+  runtime = "python3.8"
+
+  role = "${aws_iam_role.lambda_exec.arn}"
+
+   environment {
+    variables = {
+      TABLE_NAME = "OU_Data"
+    }
+  }
+}
+
+
 resource "aws_lambda_function" "post_lambda" {
   function_name = "API_POST_LAMBDA"
 
@@ -116,6 +136,12 @@ resource "aws_api_gateway_resource" "get" {
   path_part   = "load"
 }
 
+resource "aws_api_gateway_resource" "get_ou" {
+  rest_api_id = "${aws_api_gateway_rest_api.example.id}"
+  parent_id   = "${aws_api_gateway_rest_api.example.root_resource_id}"
+  path_part   = "load_ou"
+}
+
 resource "aws_api_gateway_method" "post" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
   resource_id   = "${aws_api_gateway_resource.post.id}"
@@ -126,6 +152,13 @@ resource "aws_api_gateway_method" "post" {
 resource "aws_api_gateway_method" "get" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
   resource_id   = "${aws_api_gateway_resource.get.id}"
+  http_method   = "GET"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_method" "get_ou" {
+  rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
+  resource_id   = "${aws_api_gateway_resource.get_ou.id}"
   http_method   = "GET"
   authorization = "NONE"
 }
