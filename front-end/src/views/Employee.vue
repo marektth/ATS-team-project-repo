@@ -84,10 +84,10 @@ export default Vue.extend({
   async created(){
     const api = new ApiService()
     const response = await api.requestsTimeoffGET()
-    this.remove(response)
+    this.loadDataToTable(response)
   },
   methods: {
-    remove(arr : TimeoffRecord[]){
+    loadDataToTable(arr : TimeoffRecord[]){
       arr.forEach((request: TimeoffRecord) => {
        // console.log(request.leaveReason)
       this.requests.push(
@@ -105,6 +105,12 @@ export default Vue.extend({
     },
     toFullDate(date:Date) : string {
       return date.toLocaleString().split(",")[0]
+    },
+    clearFormInputs(){
+      this.timeoffRequestForm.startDate = new Date()
+      this.timeoffRequestForm.endDate = new Date()
+      this.timeoffRequestForm.codeLeaveReason = ""
+      this.timeoffRequestForm.reason = ""
     },
     async requestTimeoff(){
 
@@ -124,7 +130,8 @@ export default Vue.extend({
       //console.log(responsePOST)
       this.requests = []
       const responseGET = await api.requestsTimeoffGET()
-      this.remove(responseGET)
+      this.loadDataToTable(responseGET)
+      this.clearFormInputs()
     },
     openForm(){
       if (this.showForm == 0) {

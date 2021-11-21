@@ -1,27 +1,36 @@
 #%%
-from faker import Faker
-import faker
 import pandas as pd
 import random
-import datetime
-import numpy as np
+import names
 # %%
-fake = Faker()
-teams = ("team1","team2")
-def create_rows(num=1):
-    output = [{
-                "PersonNumber":random.randint(1,10),
-                "EmploymentNumber":random.randint(1,10),
-                "team":random.choice(teams)
-                } for _ in range(num)]
-    return output
-
-df = pd.DataFrame(create_rows(10))
+def unique_numbers(num):
+    listA = []
+    while(len(listA) < num):
+        x = random.randint(1,100)
+        if x not in listA:
+            listA.append(x)
+    listA.sort()
+    return listA
 
 # %%
-df = df.drop_duplicates(subset=['PersonNumber'], keep='first')
+def unique_names(num):
+    listA = []
+    while(len(listA) < num):
+        x = names.get_full_name()
+        if x not in listA:
+            listA.append(x)
+    return listA
 # %%
-print(df)
+df_people = pd.DataFrame()
+df_teams = pd.read_csv("databaseOfTeams.csv")
+teams = df_teams.Team_id.unique()
+#%%
+num = 50
+df_people["PersonNumber"] = unique_numbers(num)
+df_people["PersonName"] = unique_names(num)
+df_people["EmploymentNumber"] = [random.randint(1,10) for _ in range(len(df_people))]
+df_people["Team"] = [random.choice(teams) for _ in range(len(df_people))]
 # %%
-df.to_csv("databaseOfPeople.csv")
+df_people.to_csv("databaseOfPeople.csv")
 # %%
+
