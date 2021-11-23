@@ -1,92 +1,94 @@
 from numpy import empty
-import db_get_data as csv 
+import db_get_data as db 
 import pandas as pd
-import datetime
+import datetime    
 
 
 
-def get_employees(csv_file):
-    df = pd.read_csv(csv_file)
-    df = pd.DataFrame(df)
-    df = df.where(df["OUID"] == 32).dropna()
-    df = df.head(5)
-
-    return df
-
-def get_absence_data():
-    absence_data = [
-        {
-            "id" : 0,
-            "EmployeeID" : 14,
-            "DateOfAbsence" : "22/10/2021",
-            "Status" : "Accepted"
-        },
-        {
-            "id" : 1,
-            "EmployeeID" : 18,
-            "DateOfAbsence" : "22/10/2021",
-            "Status" : "Accepted"
-        },
-        {
-            "id" : 2,
-            "EmployeeID" : 98,
-            "DateOfAbsence" : "22/10/2021",
-            "Status" : "Accepted"
-        },
-        {
-            "id" : 3,
-            "EmployeeID" : 100,
-            "DateOfAbsence" : "28/10/2021",
-            "Status" : "Accepted"
-        },
-    ]
-
-    df = pd.DataFrame(absence_data)
-    return df
+def capacity_rule(min_capacity, absence_data_accepted, absence_request, full_capacity):
+    '''
+        Check new request if there are overlaping dates with already accepted timeoffs
+    '''
+    if(not absence_data_accepted.empty and not absence_request.empty):
+        
+        #converting datetime to day in year for quick number comparisions
+        absence_data_accepted['DayOfYear'] =  (pd.to_datetime(absence_data_accepted['DateOfAbsence'], format='%d/%m/%Y')).dt.dayofyear
+        absence_request["DayOfYear"] = (pd.to_datetime(absence_request['DateOfAbsence'], format='%d/%m/%Y')).dayofyear
 
 
-
-def capacity_rule(min_capacity, absence_data_accepted, absence_request):
-
-    # if(status != "Pending" or status.empty):
-    #     return absence_request
-
-    if(not absence_data_accepted.empty):
-        absence_data_accepted['DateOfAbsence'] =  (pd.to_datetime(absence_data_accepted['DateOfAbsence'], format='%d/%m/%Y')).dt.dayofyear
-        absence_request["DayOfYear"] = (pd.to_datetime(absence_request['DateOfAbsence'], format='%d/%m/%Y')).dt.dayofyear
-
+        #number of employees that are off on the day of requests
         employee_absence_overlap = 0
-        for idx in range(absence_data_accepted.shape[0]):
-            if absence_request["DayOfYear"][0] - absence_data_accepted['DateOfAbsence'][idx] == 0:
-                employee_absence_overlap += 1
-           
 
-        if employee_absence_overlap > min_capacity:
-            #change in db
-            absence_request["Status"] = "Rejected"
-            return absence_request
+        #iterate over accepted timeoffs
+        for index, absence_data in absence_data_accepted.iterrows():
+            #if employee has accepted timeoff in same day as new request, inrement counter
+            if absence_request["DayOfYear"] == absence_data['DayOfYear']:
+                employee_absence_overlap += 1
+        
+        actual_capacity =  full_capacity - employee_absence_overlap
+
+        if actual_capacity < min_capacity:
+            return False
         else:
-            return absence_request
+            return True
     else:
-        absence_request["Status"] = "Accepted"
-        return absence_request
+        return True
 
 
 def main():
-    absence_data = get_absence_data()
 
-    absence_requests_db = [
-        {
-            "id" : 3,
-            "EmployeeID" : 100,
-            "DateOfAbsence" : "22/10/2021",
-            "Status" : "Pending"
-        }
-    ]
-    absence_requests_db = pd.DataFrame(absence_requests_db)
+    ## ---- loading tables -----
+    path_absence_table = "back-end/src/data/jsons/absence_data.json"
+    path_teams_table = "back-end/src/data/jsons/teams_table.json"
+    path_employees_table = "back-end/src/data/jsons/employees_table.json"
 
-    print(capacity_rule(min_capacity = 2, absence_data_accepted = absence_data, absence_request = absence_requests_db))
+    ##asking for user input
+    absence_data = db.create_absence_request(path_absence_table)
 
+
+    absence_data = db.load_json_table(path_absence_table, as_df=True)
+    teams = db.load_json_table(path_teams_table, as_df=True)
+    employees = db.load_json_table(path_employees_table, as_df=True)
+
+    ## sort requests - only "pending"
+    requests = absence_data.loc[absence_data['Status'] == "Pending"]
+
+    ## sort requests - only "accepted" for comparision in rules
+    absence_data_accepted = absence_data.loc[absence_data['Status'] == "Accepted"]
+
+    try:
+        ### go through every "pending" requests
+        for index, request in  requests.iterrows():
+            ##get OUID of employee asking timeoff
+            requested_from_team_ouid = employees.loc[employees['EmployeeID'] == (request["EmployeeID"])]["OUID"].values[0] 
+
+            ##get minimal capacity fact for OU of employee asking timeoff 
+            minimal_capacity = teams.loc[teams['OUID'] == requested_from_team_ouid]["MinimalCapacity"].values[0]
+
+            ##get all OU members
+            team_members_ids = employees.loc[employees['OUID'] == requested_from_team_ouid]["EmployeeID"].values
+
+            ##get only absence data from OU from which employee is in
+            absence_data_from_team = absence_data_accepted[absence_data_accepted['EmployeeID'].isin(team_members_ids)]
+            
+            ## deciding algorithm (simple if else for now)
+            approval = False
+            #first rule - checking overlaps in dates
+            approval = capacity_rule(minimal_capacity, absence_data_from_team, request, len(team_members_ids))
+            if approval:
+                print("Request Approved")
+                absence_data.loc[absence_data['id'] == request["id"], 'Status'] = "Accepted"
+            else:
+                print("Request Rejected")
+                absence_data.loc[absence_data['id'] == request["id"], 'Status'] = "Rejected"
+
+
+            print(absence_data)
+            ## save updated value to db
+            db.update_json_table(path_absence_table, absence_data)
+
+    except Exception as e: 
+        print(e)
 
 if __name__ == "__main__":
     main()
