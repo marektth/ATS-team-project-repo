@@ -3,6 +3,45 @@ import random
 from faker.providers.person.en import Provider
 import numpy as np
 import string
+import json
+
+
+def load_json_table(path, as_df=False):
+    with open(path) as f:
+        d = json.load(f)
+    if as_df:
+        return pd.DataFrame(d)
+    else:
+        return d
+
+def update_json_table(path, db):
+
+    if isinstance(db, pd.DataFrame):
+        db = db.to_json(orient="records")
+        db = json.loads(db)
+
+    with open(path, 'w') as outfile:
+        json.dump(db, outfile, indent=4)
+
+
+def create_absence_request(path):
+
+    employee_id = int(input("Enter your Employee ID: "))
+    date_of_absence = str(input("Enter single date for your absence (dd/mm/yyyy): "))
+
+    json_db = load_json_table(path)
+
+    request = {
+        "id" : json_db[-1]["id"] + 1,
+        "EmployeeID" : employee_id,
+        "DateOfAbsence" : date_of_absence,
+        "Status" : "Pending"
+    }
+
+    json_db.append(request)    
+    update_json_table(path,json_db)
+
+
 
 
 def generate_unique_numbers(sample_size, lowest_num = 1,highest_num = 100):
