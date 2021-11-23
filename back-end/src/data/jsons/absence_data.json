@@ -1,0 +1,68 @@
+[
+    {
+        "id": 0,
+        "EmployeeID": 14,
+        "DateOfAbsence": "22/10/2021",
+        "Status": "Accepted"
+    },
+    {
+        "id": 1,
+        "EmployeeID": 18,
+        "DateOfAbsence": "22/10/2021",
+        "Status": "Accepted"
+    },
+    {
+        "id": 2,
+        "EmployeeID": 22,
+        "DateOfAbsence": "22/10/2021",
+        "Status": "Accepted"
+    },
+    {
+        "id": 3,
+        "EmployeeID": 24,
+        "DateOfAbsence": "28/10/2021",
+        "Status": "Accepted"
+    },
+    {
+        "id": 4,
+        "EmployeeID": 79,
+        "DateOfAbsence": "23/10/2021",
+        "Status": "Accepted"
+    },
+    {
+        "id": 5,
+        "EmployeeID": 62,
+        "DateOfAbsence": "23/10/2021",
+        "Status": "Accepted"
+    },
+    {
+        "id": 6,
+        "EmployeeID": 96,
+        "DateOfAbsence": "23/10/2021",
+        "Status": "Accepted"
+    },
+    {
+        "id": 7,
+        "EmployeeID": 54,
+        "DateOfAbsence": "23/10/2021",
+        "Status": "Accepted"
+    },
+    {
+        "id": 8,
+        "EmployeeID": 54,
+        "DateOfAbsence": "23/10/2021",
+        "Status": "Rejected"
+    },
+    {
+        "id": 9,
+        "EmployeeID": 96,
+        "DateOfAbsence": "24/10/2021",
+        "Status": "Accepted"
+    },
+    {
+        "id": 10,
+        "EmployeeID": 54,
+        "DateOfAbsence": "24/10/2021",
+        "Status": "Accepted"
+    }
+]
