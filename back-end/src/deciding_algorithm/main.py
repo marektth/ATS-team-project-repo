@@ -28,6 +28,7 @@ def capacity_rule(min_capacity, absence_data_accepted, absence_request, full_cap
         actual_capacity =  full_capacity - employee_absence_overlap
 
         if actual_capacity < min_capacity:
+            #return serverity value
             return False
         else:
             return True
@@ -82,8 +83,6 @@ def main():
                 print("Request Rejected")
                 absence_data.loc[absence_data['id'] == request["id"], 'Status'] = "Rejected"
 
-
-            print(absence_data)
             ## save updated value to db
             db.update_json_table(path_absence_table, absence_data)
 
