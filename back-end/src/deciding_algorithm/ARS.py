@@ -198,20 +198,20 @@ class ARS():
         self.__update_db(self.absence_data)
 
 
-    def __comapre_requests(self):
-        '''
-            to implement,
-            severity could be modified based on overlapping, tresholds, ...
-        '''
+    # def __comapre_requests(self):
+    #     '''
+    #         to implement,
+    #         severity could be modified based on overlapping, tresholds, ...
+    #     '''
         
-        pass
+    #     pass
     
-    def __set_request_status(self):
-        '''
-            to implement,
-            change status "Pending" to "Accepted"/"Declined" based on severity, possibly use fuzzy
-        '''
-        pass
+    # def __set_request_status(self):
+    #     '''
+    #         to implement,
+    #         change status "Pending" to "Accepted"/"Declined" based on severity, possibly use fuzzy
+    #     '''
+    #     pass
 
 
 
