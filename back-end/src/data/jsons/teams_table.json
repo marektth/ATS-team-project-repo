@@ -1,1 +1,14 @@
-[{"OUID":7,"ManagerID":7,"MinimalCapacity":4,"TeamName":"MLB"},{"OUID":21,"ManagerID":10,"MinimalCapacity":2,"TeamName":"WET"}]
+[
+    {
+        "OUID":7,
+        "ManagerID":7,
+        "MinimalCapacity":4,
+        "TeamName":"MLB"
+    },
+    {
+        "OUID":21,
+        "ManagerID":10,
+        "MinimalCapacity":2,
+        "TeamName":"WET"
+    }
+]
