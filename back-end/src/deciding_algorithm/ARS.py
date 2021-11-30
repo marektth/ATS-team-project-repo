@@ -1,7 +1,7 @@
 import pandas as pd
 import json as json
 
-class ARS():
+class ARS(object):
 
     def __init__(self, absence_data, teams, employees, jobs):
         self.absence_data_path = absence_data
