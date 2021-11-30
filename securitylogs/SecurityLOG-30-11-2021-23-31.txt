@@ -1,0 +1,254 @@
+Quick report: 
+
+Security log from: 11/30/2021 @ 23:31:40
+Last scan submitted at: 2021-11-30 23:31:16
+Last scan executed at: 2021-11-30 23:31:21
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_violations, status: ERROR, actual value: 15.00, error threshold: 10
+Issues found: 17
+Issues Authors:
+	chocholacek.ludovit -> 2 issues (11.76470588235294%)
+	fhavel99 -> 1 issues (5.88235294117647%)
+	marektoth199 -> 14 issues (82.35294117647058%)
+=================
+Issues report: 
+
+Key: AX1y-UvXEdiWnLBqUhgk
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 22 to LINE: 22, with START_OFFSET: 84 to END_OFFSET: 99
+Issue comment: Define a constant instead of duplicating this literal 'Vacation Date' 3 times.
+Effort: 6min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-11-30 23:30:28
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgj
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 101 to LINE: 101, with START_OFFSET: 79 to END_OFFSET: 91
+Issue comment: Define a constant instead of duplicating this literal '"Accepted"' 4 times.
+Effort: 8min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-11-30 23:30:28
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgm
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 120 to LINE: 120, with START_OFFSET: 16 to END_OFFSET: 95
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-11-30 23:30:28
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgl
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 125 to LINE: 125, with START_OFFSET: 36 to END_OFFSET: 48
+Issue comment: Define a constant instead of duplicating this literal '"Rejected"' 3 times.
+Effort: 6min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-11-30 23:30:28
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgn
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 126 to LINE: 126, with START_OFFSET: 16 to END_OFFSET: 95
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-11-30 23:30:28
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgo
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 148 to LINE: 148, with START_OFFSET: 12 to END_OFFSET: 89
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-11-30 23:30:28
+----------------------------------------------------
+
+Key: AX1y-UuhEdiWnLBqUhgh
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 19 to LINE: 19, with START_OFFSET: 4 to END_OFFSET: 85
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-11-30 23:30:28
+----------------------------------------------------
+
+Key: AX1y-UuhEdiWnLBqUhgi
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 22 to LINE: 22, with START_OFFSET: 4 to END_OFFSET: 52
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-11-30 23:30:28
+----------------------------------------------------
+
+Key: AX1tpFf3EdiWnLBqUf3E
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: chocholacek.ludovit
+File: ats:back-end/src/deciding_algorithm/ARS.py
+From LINE: 201 to LINE: 201, with START_OFFSET: 4 to END_OFFSET: 35
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-29 22:39:35
+Updated at : 2021-11-29 22:49:34
+----------------------------------------------------
+
+Key: AX1tpFf3EdiWnLBqUf3F
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: chocholacek.ludovit
+File: ats:back-end/src/deciding_algorithm/ARS.py
+From LINE: 209 to LINE: 209, with START_OFFSET: 4 to END_OFFSET: 37
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-29 22:39:35
+Updated at : 2021-11-29 22:49:37
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3B
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 51 to LINE: 51, with START_OFFSET: 4 to END_OFFSET: 34
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-11-29 22:50:17
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3A
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 72 to LINE: 72, with START_OFFSET: 17 to END_OFFSET: 30
+Issue comment: Define a constant instead of duplicating this literal 'Employee ID' 5 times.
+Effort: 10min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-11-29 22:39:35
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3C
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 140 to LINE: 140, with START_OFFSET: 12 to END_OFFSET: 47
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-11-29 22:50:19
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3D
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 144 to LINE: 144, with START_OFFSET: 12 to END_OFFSET: 64
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-11-29 22:50:21
+----------------------------------------------------
+
+Key: AX1O7SIrEdiWnLBqUeMX
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 13 to LINE: 13, with START_OFFSET: 4 to END_OFFSET: 14
+Issue comment: Rename this local variable "employeeID" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-23 23:30:46
+Updated at : 2021-11-29 22:49:58
+----------------------------------------------------
+
+Key: AX1O7SIPEdiWnLBqUeMW
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 23 to LINE: 23, with START_OFFSET: 4 to END_OFFSET: 14
+Issue comment: Rename this local variable "EmployeeID" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-23 23:30:46
+Updated at : 2021-11-29 22:49:59
+----------------------------------------------------
+
+Key: AXzrPG_LEdiWnLBqUT1i
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 129 to LINE: 129, with START_OFFSET: 12 to END_OFFSET: 24
+Issue comment: Remove this useless assignment to variable "responsePOST".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-29 22:50:00
+----------------------------------------------------
+
