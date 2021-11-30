@@ -1,0 +1,142 @@
+Quick report: 
+
+Security log from: 11/30/2021 @ 14:39:00
+Last scan submitted at: 2021-11-30 14:38:34
+Last scan executed at: 2021-11-30 14:38:39
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_coverage, status: ERROR, actual value: 29.21, error threshold: 30
+Issues found: 9
+Issues Authors:
+	chocholacek.ludovit -> 2 issues (22.22222222222222%)
+	fhavel99 -> 1 issues (11.11111111111111%)
+	marektoth199 -> 6 issues (66.66666666666666%)
+=================
+Issues report: 
+
+Key: AX1tpFf3EdiWnLBqUf3E
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: chocholacek.ludovit
+File: ats:back-end/src/deciding_algorithm/ARS.py
+From LINE: 201 to LINE: 201, with START_OFFSET: 4 to END_OFFSET: 35
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-29 22:39:35
+Updated at : 2021-11-29 22:49:34
+----------------------------------------------------
+
+Key: AX1tpFf3EdiWnLBqUf3F
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: chocholacek.ludovit
+File: ats:back-end/src/deciding_algorithm/ARS.py
+From LINE: 209 to LINE: 209, with START_OFFSET: 4 to END_OFFSET: 37
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-29 22:39:35
+Updated at : 2021-11-29 22:49:37
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3B
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 46 to LINE: 46, with START_OFFSET: 4 to END_OFFSET: 34
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-11-29 22:50:17
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3A
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 67 to LINE: 67, with START_OFFSET: 17 to END_OFFSET: 30
+Issue comment: Define a constant instead of duplicating this literal 'Employee ID' 5 times.
+Effort: 10min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-11-29 22:39:35
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3C
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 119 to LINE: 119, with START_OFFSET: 12 to END_OFFSET: 47
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-11-29 22:50:19
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3D
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/lambda_handler.py
+From LINE: 123 to LINE: 123, with START_OFFSET: 12 to END_OFFSET: 64
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-11-29 22:50:21
+----------------------------------------------------
+
+Key: AX1O7SIrEdiWnLBqUeMX
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 13 to LINE: 13, with START_OFFSET: 4 to END_OFFSET: 14
+Issue comment: Rename this local variable "employeeID" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-23 23:30:46
+Updated at : 2021-11-29 22:49:58
+----------------------------------------------------
+
+Key: AX1O7SIPEdiWnLBqUeMW
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 20 to LINE: 20, with START_OFFSET: 4 to END_OFFSET: 14
+Issue comment: Rename this local variable "EmployeeID" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-23 23:30:46
+Updated at : 2021-11-29 22:49:59
+----------------------------------------------------
+
+Key: AXzrPG_LEdiWnLBqUT1i
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 129 to LINE: 129, with START_OFFSET: 12 to END_OFFSET: 24
+Issue comment: Remove this useless assignment to variable "responsePOST".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-29 22:50:00
+----------------------------------------------------
+
