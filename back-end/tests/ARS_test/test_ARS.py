@@ -113,7 +113,10 @@ class TestARS(unittest.TestCase):
         exp_out = pd.DataFrame(exp_out, index=[1])
         assert_frame_equal(request.reset_index(drop=True), exp_out.reset_index(drop=True))
 
-        
+    def test_rule_min_capacity_treshold(self):
+        input_rule_min_capacity = self.ars.rule_min_capacity_treshold(self.request_series)
+        self.assertEqual(input_rule_min_capacity, 1)
+ 
 
 if __name__ == '__main__':
     unittest.main()
