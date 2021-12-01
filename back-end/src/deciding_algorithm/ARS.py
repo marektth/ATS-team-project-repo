@@ -1,6 +1,7 @@
 import pandas as pd
 import json as json
 
+
 class ARS(object):
 
     def __init__(self, absence_data, teams, employees, jobs):
@@ -15,7 +16,7 @@ class ARS(object):
                 "C": self.rule_same_job_overlaps,
                 "D" : self.rule_min_same_job_treshold
                 }
-        self.__rules_structs = ['ABCD'] #, 'BCA', 'CBA']
+        self.__rules_structs = ['ACBD'] #, 'BCA', 'CBA']
 
     def __load_table(self, path, as_df=True):
         with open(path) as f:
@@ -108,7 +109,7 @@ class ARS(object):
         ou_absence_data = self.__get_ou_absence_data(request)
 
         if(ou_absence_data.empty):
-            return None
+            return 0
 
         #convert to day of year
         ou_absence_data = self.__convert_to_dayofyear(data=ou_absence_data, column_to_convert='DateOfAbsence', column_to_add='DayOfYear')
@@ -119,7 +120,7 @@ class ARS(object):
 
         #iterate over accepted timeoffs
         for _, absence_data in ou_absence_data.iterrows():
-            #if employee has accepted timeoff in same day as new request, inrement counter
+            #if employee has accepted timeoff in same da≤<<y as new request, inrement counter
             if request["DayOfYear"] == absence_data['DayOfYear']:
                 employee_absence_overlap_no += 1
         
@@ -147,7 +148,7 @@ class ARS(object):
         same_job_absence_data = self.__get_ou_same_job_absence(request)
 
         if(same_job_absence_data.empty):
-            return None
+            return 0
 
         #convert to day of year
         same_job_absence_data = self.__convert_to_dayofyear(data=same_job_absence_data, column_to_convert='DateOfAbsence', column_to_add='DayOfYear')
@@ -185,15 +186,13 @@ class ARS(object):
 
         pending_requests = self.__get_requests(status = "Pending")
 
-        request_rating = 0
-        for _, request in pending_requests.iterrows():
+        for request_idx, pending_request in pending_requests.iterrows():
+            request_rating = dict()
             for rule in self.__rules_structs[0]:
                 rule_to_call = self.__rules[rule]
-                request_rating += rule_to_call(request)
-
-            self.absence_data.loc[self.absence_data['id'] == request["id"], 'Rating'] = request_rating
-            request_rating = 0
-
+                request_rating[rule] = rule_to_call(pending_request)
+            
+            self.absence_data.at[request_idx, 'Rating'] = dict(sorted(request_rating.items()))
         
         self.__update_db(self.absence_data)
 
