@@ -1,79 +1,14 @@
 [
     {
-        "id": 0,
-        "EmployeeID": 14,
-        "DateOfAbsence": "22/10/2021",
-        "Status": "Accepted",
-        "Rating": 1
-    },
-    {
-        "id": 1,
-        "EmployeeID": 18,
-        "DateOfAbsence": "22/10/2021",
-        "Status": "Accepted",
-        "Rating": 1
-    },
-    {
-        "id": 2,
-        "EmployeeID": 22,
-        "DateOfAbsence": "22/10/2021",
-        "Status": "Accepted",
-        "Rating": 1
-    },
-    {
-        "id": 3,
-        "EmployeeID": 24,
-        "DateOfAbsence": "28/10/2021",
-        "Status": "Accepted",
-        "Rating": 1
-    },
-    {
-        "id": 4,
-        "EmployeeID": 79,
-        "DateOfAbsence": "23/10/2021",
-        "Status": "Accepted",
-        "Rating": 1
-    },
-    {
-        "id": 5,
-        "EmployeeID": 62,
-        "DateOfAbsence": "23/10/2021",
-        "Status": "Accepted",
-        "Rating": 1
-    },
-    {
-        "id": 6,
-        "EmployeeID": 96,
-        "DateOfAbsence": "23/10/2021",
-        "Status": "Accepted",
-        "Rating": 1
-    },
-    {
-        "id": 7,
-        "EmployeeID": 54,
-        "DateOfAbsence": "23/10/2021",
-        "Status": "Accepted",
-        "Rating": 1
-    },
-    {
-        "id": 8,
-        "EmployeeID": 54,
-        "DateOfAbsence": "23/10/2021",
-        "Status": "Accepted",
-        "Rating": 1
-    },
-    {
-        "id": 9,
-        "EmployeeID": 96,
-        "DateOfAbsence": "24/10/2021",
-        "Status": "Pending",
-        "Rating": 2
-    },
-    {
         "id": 10,
         "EmployeeID": 54,
         "DateOfAbsence": "24/10/2021",
         "Status": "Pending",
-        "Rating": 2
+        "Rating": {
+            "A": 0,
+            "B": 1,
+            "C": 0,
+            "D": 1
+        }
     }
 ]
