@@ -23,7 +23,7 @@ class ARS(object):
                         }
 
         self.__rules_structs = ['C','B','A']
-
+        self.__rules_df_sort = [True,False,False]
         self.__rules_tresholds = {
             "A" : 1,
             "B" : 1,
@@ -215,9 +215,9 @@ class ARS(object):
         total_missing_employees = self.rule_overlapping_employees_no(request, normalized=False)
 
         if size_of_ou - total_missing_employees <= min_ou_capacity:
-            return 0
-        else:
             return 1
+        else:
+            return 0
 
 
     def rule_same_job_overlaps(self,request, normalized=True):
@@ -264,9 +264,9 @@ class ARS(object):
         total_missing_employees = self.rule_same_job_overlaps(request, normalized=False)
 
         if same_job_employee_no - total_missing_employees <= min_same_job_tresh:
-            return 0
-        else:
             return 1
+        else:
+            return 0
 
     def rule_set_absence_type_priority(self, request):
         '''
@@ -304,14 +304,9 @@ class ARS(object):
         pending_requests = self.__get_requests(status = "Pending")
         severities_df = pd.DataFrame((pending_requests["Rating"]).apply(pd.Series), index=pending_requests.index)
 
-        order = [True for _ in range(len(self.__rules_structs))]
-
-        severities_df.sort_values(by=self.__rules_structs, ascending=order, inplace=True)
-
-        print(severities_df)
+        severities_df.sort_values(by=self.__rules_structs, ascending=self.__rules_df_sort, inplace=True)
 
         top_request = severities_df.iloc[0]
-
         request_decision = "Accepted"
         for rule_rank in self.__rules_structs:
             #out of treshold - Reject
@@ -326,6 +321,8 @@ class ARS(object):
         while len(self.__get_requests(status = "Pending")):
             self.rating_function()
             self.set_top_priority_request_status()
+
+        print(self.absence_data)
 
 
 
