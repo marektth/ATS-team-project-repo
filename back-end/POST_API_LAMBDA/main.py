@@ -15,8 +15,11 @@ def lambda_handler(event, context):
     print(event)
     line_to_add = json.loads(event['body'])
     print(line_to_add)
+    
+    #convert_to_datetime = datetime.strptime(line_to_add['Vacation Date'],'%d/%m/%Y')
        
-    vacation_date = json.dumps(line_to_add['Vacation Date'])
+    vacation_date = json.dumps(line_to_add['Vacation Date']).strip('"')
+    #vacation_date = json.dumps(convert_to_datetime)
     EmployeeID = json.dumps(line_to_add['Employee ID'])
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")+"_"+EmployeeID
     code_leave_reason = json.dumps(line_to_add['Code Leave Reason'])
