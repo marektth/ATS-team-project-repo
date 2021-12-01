@@ -1,0 +1,22 @@
+[
+    {
+        "AbsenceID": 0,
+        "AbsenceName": "Special",
+        "AbsenceAcronym": "SPE",
+        "AbsenceInfo": "Funeral, sick kid...",
+        "Priority": 1
+    },
+    {
+        "AbsenceID": 1,
+        "AbsenceName": "Parental",
+        "AbsenceAcronym": "PAR",
+        "AbsenceInfo": "Taking care of kid",
+        "Priority": 2
+    },
+    {
+        "AbsenceID": 2,
+        "AbsenceName": "Timeoff",
+        "AbsenceAcronym": "Using leave budget",
+        "Priority": 3
+    }
+]
