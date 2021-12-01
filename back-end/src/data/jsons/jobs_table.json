@@ -2,17 +2,17 @@
     {
         "id": 0,
         "JobName": "Tester",
-        "MinRequirement": 1
+        "MinRequirement": 0
     },
     {
         "id": 1,
         "JobName": "Developer",
-        "MinRequirement": 1
+        "MinRequirement": 0
     },
     {
         "id": 2,
         "JobName": "Support",
-        "MinRequirement": 1
+        "MinRequirement": 0
     },
     {
         "id": 3,
