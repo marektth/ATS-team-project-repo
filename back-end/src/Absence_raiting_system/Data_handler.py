@@ -154,6 +154,9 @@ class DBHandler():
 
     
     def get_request_leave_hours(self, request, working_hours=8):
+        '''
+            returns total leave hours of requested absence
+        '''
         absence_from = pd.to_datetime(request["DateOfAbsence"], format='%d/%m/%Y').dayofyear
         absence_to = pd.to_datetime(request["DateOfAbsence"], format='%d/%m/%Y').dayofyear
 
@@ -161,4 +164,7 @@ class DBHandler():
 
 
     def check_enough_leave_balance(self, request):
+        '''
+            returns True if request has enough leave balance left
+        '''
         return self.get_employee_info(request, info = "LeaveBalance") - self.get_request_leave_hours(request) > 0
