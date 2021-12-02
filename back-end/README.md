@@ -6,6 +6,12 @@ Before you do anything, please install tool **Coverage**
 pip install coverage
 ```
 
+Also install **Unittest**
+
+```
+pip install unittest
+```
+
 To run this tool execute:
 
 ```
