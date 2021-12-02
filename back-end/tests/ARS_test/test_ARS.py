@@ -13,8 +13,11 @@ class TestARS(unittest.TestCase):
         self.path_teams_table = "src/data/jsons/teams_table.json"
         self.path_employees_table = "src/data/jsons/employees_table.json"
         self.path_jobs_table = "src/data/jsons/jobs_table.json"
+        self.path_absence_type_table = "src/data/jsons/absence_type.json"
+
         self.ars = ARS(self.path_absence_table, self.path_teams_table,
-                self.path_employees_table, self.path_jobs_table)
+                       self.path_employees_table, self.path_jobs_table, 
+                       self.path_absence_type_table)
 
         self.request = {
             "id": 1,
@@ -37,11 +40,11 @@ class TestARS(unittest.TestCase):
 
     def test_get_min_capacity_ou(self):
         input_ouid = self.ars._ARS__get_min_capacity_ou(self.request_series)
-        self.assertEqual(input_ouid, 4)
+        self.assertEqual(input_ouid, 1)
 
     def test_get_min_same_job_treshold(self):
         input_threshold = self.ars._ARS__get_min_same_job_treshold(self.request_series)
-        self.assertEqual(input_threshold, 1)
+        self.assertEqual(input_threshold, 0)
 
     def test_get_employee_info(self):
         input_info = self.ars._ARS__get_employee_info(self.request_series)
@@ -115,7 +118,7 @@ class TestARS(unittest.TestCase):
 
     def test_rule_min_capacity_treshold(self):
         input_rule_min_capacity = self.ars.rule_min_capacity_treshold(self.request_series)
-        self.assertEqual(input_rule_min_capacity, 1)
+        self.assertEqual(input_rule_min_capacity, 0)
  
 
 if __name__ == '__main__':
