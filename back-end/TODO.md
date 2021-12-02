@@ -1,6 +1,6 @@
 # Backend
 
-1. Create new GET API method for manager  -> Manager is able to get information about his Team (OU).
+1. Create new GET API method for manager  -> Manager is able to get information about his Team (OU).    * DONE *
 2. Create DELETE API method to be able to delete entries from table (convenient for demo purposes).
 3. Implement new decision rules into the lambda function.
 4. Implement api key verification for the API so only people with the api key can invoke the endpoints.
