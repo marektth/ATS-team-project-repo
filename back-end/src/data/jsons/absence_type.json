@@ -16,7 +16,8 @@
     {
         "AbsenceID": 2,
         "AbsenceName": "Timeoff",
-        "AbsenceAcronym": "Using leave budget",
+        "AbsenceAcronym": "TIM",
+        "AbsenceInfo": "Using leave budget",
         "Priority": 3
     }
 ]
