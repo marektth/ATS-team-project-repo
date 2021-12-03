@@ -3,19 +3,10 @@
 ## ARS
 1. Check ARS output for different situations
 
-<<<<<<< HEAD
 1. Add bucket versioning to the lambda zip bucket, add terraform upload file from repository to S3 functionality.
 2. Add the whole project to IaaC.
 3. Implement new decision rules into the lambda function.
 4. Clean up the code (fix code smell issues), clean up AWS environment.
-=======
-## AWS
-1. Create DELETE API method to be able to delete entries from table (convenient for demo purposes).
-2. Add bucket versioning to the lambda zip bucket, add terraform upload file from repository to S3 functionality.
-3. Add the whole project to IaaC.
-4. Implement new decision rules into the lambda function.
-5. Clean up the code (fix code smell issues), clean up AWS environment.
->>>>>>> ed89723de92233499b2a3fd08a2ea517d17ddeed
 
 
 ## AWS - DONE
