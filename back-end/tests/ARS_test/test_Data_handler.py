@@ -81,10 +81,6 @@ class TestDataHandler(unittest.TestCase):
         assert_frame_equal(output_test_case2.reset_index(drop=True), 
                             input_data_test_case2.reset_index(drop=True))
         
-
-
-
-
     def test_get_ou_same_job_employees(self):
         #if only_id is False
         input_same_job = self.dHandler.get_ou_same_job_employees(self.request_series)
