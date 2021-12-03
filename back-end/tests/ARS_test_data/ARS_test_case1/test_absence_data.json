@@ -1,0 +1,28 @@
+[
+    {
+        "id": 0,
+        "EmployeeID": 54,
+        "DateOfAbsence": "23/10/2021",
+        "AbsenceTypeCode": "TIM",
+        "Status": "Pending",
+        "Rating": {
+            "A": 0,
+            "B": 1,
+            "C": 0,
+            "D": 1
+        }
+    },
+    {
+        "id": 1,
+        "EmployeeID": 96,
+        "DateOfAbsence": "24/10/2021",
+        "AbsenceTypeCode": "TIM",
+        "Status": "Pending",
+        "Rating": {
+            "A": 0,
+            "B": 1,
+            "C": 0,
+            "D": 1
+        }
+    }
+]
