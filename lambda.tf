@@ -163,7 +163,7 @@ resource "aws_api_gateway_method" "get" {
 
 resource "aws_api_gateway_method" "get_ou" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
-  resource_id   = "${aws_api_gateway_resource.get.id}"
+  resource_id   = "${aws_api_gateway_resource.get_ou.id}"
   http_method   = "GET"
   authorization = "NONE"
   api_key_required = "true"
