@@ -128,7 +128,6 @@ class ARS(object):
         '''
             returns absent type priority of given request
         '''
-        self.db.get_request_leave_hours(request)
         if request["AbsenceTypeCode"] == "TIM" and self.db.check_enough_leave_balance(request):
             return self.db.get_employee_info(request, info = "LeaveBalance")
         else:
