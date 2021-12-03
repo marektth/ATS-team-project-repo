@@ -1,0 +1,42 @@
+Quick report: 
+
+Security log from: 12/03/2021 @ 16:08:23
+Last scan submitted at: 2021-12-03 16:07:58
+Last scan executed at: 2021-12-03 16:08:02
+Last scan STATUS: SUCCESS
+Project status: OK
+Issues found: 2
+Issues Authors:
+	daniel.hreha -> 1 issues (50.0%)
+	fhavel99 -> 1 issues (50.0%)
+=================
+Issues report: 
+
+Key: AX2Avd7OEdiWnLBqUji7
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: daniel.hreha
+File: ats:back-end/src/Absence_rating_system/ARS.py
+From LINE: 2 to LINE: 2, with START_OFFSET: 0 to END_OFFSET: 35
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-03 13:27:30
+Updated at : 2021-12-03 15:40:15
+----------------------------------------------------
+
+Key: AXzrPG_LEdiWnLBqUT1i
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 129 to LINE: 129, with START_OFFSET: 12 to END_OFFSET: 24
+Issue comment: Remove this useless assignment to variable "responsePOST".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-11-04 14:55:22
+Updated at : 2021-11-29 22:50:00
+----------------------------------------------------
+
