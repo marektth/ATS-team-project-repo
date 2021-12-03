@@ -34,38 +34,19 @@ resource "aws_lambda_function" "manager_lambda" {
   s3_bucket = "apitest-bucket-123"
   s3_key    = "v1.0.0/manager.zip"
 
-  handler = "decision_tree.lambda_handler"
+  handler = "main.lambda_handler"
   runtime = "python3.8"
 
   role = "${aws_iam_role.lambda_exec.arn}"
 
    environment {
     variables = {
-      TABLE_NAME = "Absence_Data"
+      ABSENCE_TABLE = "Absence_Data"
+      EMPLOYEES_TABLE = "Employees"
+      TEAM_TABLE = OU_Table
     }
   }
 }
-
-
-
-resource "aws_lambda_function" "ou_lambda" {
-  function_name = "OU_LAMBDA"
-
-  s3_bucket = "apitest-bucket-123"
-  s3_key    = "v1.0.0/manager.zip"
-
-  handler = "decision_tree.lambda_handler"
-  runtime = "python3.8"
-
-  role = "${aws_iam_role.lambda_exec.arn}"
-
-   environment {
-    variables = {
-      TABLE_NAME = "OU_Data"
-    }
-  }
-}
-
 
 resource "aws_lambda_function" "post_lambda" {
   function_name = "API_POST_LAMBDA"
@@ -103,6 +84,27 @@ resource "aws_lambda_function" "get_lambda" {
   }
 }
 
+resource "aws_lambda_function" "decision_lambda" {
+  function_name = "DECISION_LAMBDA"
+
+  s3_bucket = "apitest-bucket-123"
+  s3_key    = "v1.0.0/decision.zip"
+
+  handler = "main.lambda_handler"
+  runtime = "python3.8"
+
+  role = "${aws_iam_role.lambda_exec.arn}"
+
+   environment {
+    variables = {
+      ABSENCE_TABLE = "Absence_Data"
+      EMPLOYEES_TABLE = "Employees"
+      TEAM_TABLE = "OU_Table"
+    }
+  }
+}
+
+
 
 resource "aws_iam_role" "lambda_exec" {
   name = "serverless_example_lambda"
@@ -139,7 +141,7 @@ resource "aws_api_gateway_resource" "get" {
 resource "aws_api_gateway_resource" "get_ou" {
   rest_api_id = "${aws_api_gateway_rest_api.example.id}"
   parent_id   = "${aws_api_gateway_rest_api.example.root_resource_id}"
-  path_part   = "load_ou"
+  path_part   = "load_team_absence"
 }
 
 resource "aws_api_gateway_method" "post" {
@@ -147,6 +149,7 @@ resource "aws_api_gateway_method" "post" {
   resource_id   = "${aws_api_gateway_resource.post.id}"
   http_method   = "POST"
   authorization = "NONE"
+  api_key_required = "true"
 }
 
 resource "aws_api_gateway_method" "get" {
@@ -154,6 +157,8 @@ resource "aws_api_gateway_method" "get" {
   resource_id   = "${aws_api_gateway_resource.get.id}"
   http_method   = "GET"
   authorization = "NONE"
+  api_key_required = "true"
+  request_parameters = { "method.request.header.personID" = true }
 }
 
 resource "aws_api_gateway_method" "get_ou" {
@@ -161,6 +166,8 @@ resource "aws_api_gateway_method" "get_ou" {
   resource_id   = "${aws_api_gateway_resource.get_ou.id}"
   http_method   = "GET"
   authorization = "NONE"
+  api_key_required = "true"
+  request_parameters = { "method.request.header.managerID" = true }
 }
 
 resource "aws_lambda_permission" "apigw" {
