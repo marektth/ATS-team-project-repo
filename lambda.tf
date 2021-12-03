@@ -158,7 +158,7 @@ resource "aws_api_gateway_method" "get" {
   http_method   = "GET"
   authorization = "NONE"
   api_key_required = "true"
-  request_parameters = { "method.request.parameters.personID" = true }
+  request_parameters = { "method.request.path.personID" = true }
 }
 
 resource "aws_api_gateway_method" "get_ou" {
@@ -167,7 +167,7 @@ resource "aws_api_gateway_method" "get_ou" {
   http_method   = "GET"
   authorization = "NONE"
   api_key_required = "true"
-  request_parameters = { "method.request.parameters.managerID" = true }
+  request_parameters = { "method.request.path.managerID" = true }
 }
 
 resource "aws_lambda_permission" "apigw" {
