@@ -43,7 +43,7 @@ resource "aws_lambda_function" "manager_lambda" {
     variables = {
       ABSENCE_TABLE = "Absence_Data"
       EMPLOYEES_TABLE = "Employees"
-      TEAM_TABLE = OU_Table
+      TEAM_TABLE = "OU_Table"
     }
   }
 }
