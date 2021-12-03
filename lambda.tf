@@ -141,7 +141,7 @@ resource "aws_api_gateway_resource" "get" {
 resource "aws_api_gateway_resource" "get_ou" {
   rest_api_id = "${aws_api_gateway_rest_api.example.id}"
   parent_id   = "${aws_api_gateway_rest_api.example.root_resource_id}"
-  path_part   = "load_team_absence"
+  path_part   = "load_team_absence_data"
 }
 
 resource "aws_api_gateway_method" "post" {
@@ -163,7 +163,7 @@ resource "aws_api_gateway_method" "get" {
 
 resource "aws_api_gateway_method" "get_ou" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
-  resource_id   = "${aws_api_gateway_resource.get_ou.id}"
+  resource_id   = "${aws_api_gateway_resource.get.id}"
   http_method   = "GET"
   authorization = "NONE"
   api_key_required = "true"
