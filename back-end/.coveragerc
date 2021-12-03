@@ -1,8 +1,8 @@
 [run]
 omit = 
-  *tests*
-  *GET_API_LAMBDA*
-  *POST_API_LAMBDA*
-  *MANAGER_LAMBDA*
-  *DECISION_LAMBDA*
+  tests*
+  GET_API_LAMBDA*
+  POST_API_LAMBDA*
+  MANAGER_LAMBDA*
+  DECISION_LAMBDA*
   
