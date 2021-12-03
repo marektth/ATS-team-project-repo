@@ -6,14 +6,14 @@ from pandas.util.testing import assert_frame_equal
 from src.Absence_rating_system.Data_handler import DBHandler
 
 
-class TestARS(unittest.TestCase):
+class TestDataHandler(unittest.TestCase):
     def setUp(self):
         
         self.path_absence_table = "tests/ARS_test_data/test_absence_data.json"
-        self.path_teams_table = "src/data/jsons/teams_table.json"
-        self.path_employees_table = "src/data/jsons/employees_table.json"
-        self.path_jobs_table = "src/data/jsons/jobs_table.json"
-        self.path_absence_type_table = "src/data/jsons/absence_type.json"
+        self.path_teams_table = "tests/ARS_test_data/test_teams_table.json"
+        self.path_employees_table = "tests/ARS_test_data/test_employees_table.json"
+        self.path_jobs_table = "tests/ARS_test_data/test_jobs_table.json"
+        self.path_absence_type_table = "tests/ARS_test_data/test_absence_type.json"
 
         self.dHandler = DBHandler(self.path_absence_table, self.path_teams_table,
                        self.path_employees_table, self.path_jobs_table, 
@@ -52,7 +52,8 @@ class TestARS(unittest.TestCase):
             "EmployeeID": 96,
             "EmployeeName": "jax barker",
             "EmploymentNumber": 0,
-            "OUID": 7
+            "OUID": 7,
+            "LeaveBalance": 8
         }
         output_df = pd.DataFrame(output, index=[0])
         assert_frame_equal(output_df.reset_index(drop=True), input_info.reset_index(drop=True))
@@ -60,14 +61,15 @@ class TestARS(unittest.TestCase):
     def test_get_ou_employees(self):
         input_id = self.dHandler.get_ou_employees(self.request_series)
         input_id = input_id.tolist()
-        output = [79, 69, 62, 54, 96]
+        output = [79, 69, 62, 54, 96, 192]
         self.assertEqual(input_id, output)
 
     def test_get_size_of_ou(self):
         input_size = self.dHandler.get_size_of_ou(self.request_series)
-        self.assertEqual(input_size, 5)
+        self.assertEqual(input_size, 6)
 
-    def test_get_ou_absence_data(self):
+    def test_get_ou_absence_data(self): 
+        #status_of_absence is Accepted, Reqected, Pending
         input_data = self.dHandler.get_ou_absence_data(self.request_series)
         output = {
             "id": 0,
@@ -77,15 +79,20 @@ class TestARS(unittest.TestCase):
             "Rating": 1
         }
         output_data = pd.DataFrame(output, index=[0])
-        assert_frame_equal(output_data.reset_index(drop=True), input_data.reset_index(drop=True))
+        #status_of_absence is All
+        assert_frame_equal(output_data.reset_index(drop=True), 
+                            input_data.reset_index(drop=True),
+                            status_of_absence = "All")
+
+
 
     def test_get_ou_same_job_employees(self):
         input_same_job = self.dHandler.get_ou_same_job_employees(self.request_series)
         data = {'EmployeeID':[54, 96],
                 'EmployeeName':['axel style', 'jax barker'],
                 'EmploymentNumber':[0, 0],
-                'OUID':[7, 7]}
-        
+                'OUID':[7, 7],
+                'LeaveBalance': [0, 8]}
         output_same_job = pd.DataFrame(data)
         assert_frame_equal(output_same_job.reset_index(drop=True), input_same_job.reset_index(drop=True))
 
