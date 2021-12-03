@@ -100,13 +100,13 @@ class DBHandler():
         '''
             returns OU absence data in which request employee is in
             **future feature - returns only recent dates**
-            optional: if "status_of_absence" is set ("Accepted", "Reqected", "Pending"), returns only specified absence_data
+            optional: if "status_of_absence" is set ("Accepted", "Rejected", "Pending"), returns only specified absence_data
                 otherwise returns all
         '''
-        if status_of_absence in ("Accepted", "Reqected", "Pending"):
+        if status_of_absence in ("Accepted", "Rejected", "Pending"):
             ou_requests_per_status = self.get_requests(status_of_absence)
             return ou_requests_per_status[ou_requests_per_status['EmployeeID'].isin(self.get_ou_employees(request))]
-        if status_of_absence == "All":
+        elif status_of_absence == "All":
             return self.absence_data[self.absence_data['EmployeeID'].isin(self.get_ou_employees(request))]
 
     def get_ou_same_job_employees(self, request, only_id=False):
