@@ -161,7 +161,7 @@ resource "aws_api_gateway_method" "get" {
   request_parameters = { "method.request.header.personID" = true }
 }
 
-resource "aws_api_gateway_method" "get_ou" {
+resource "aws_api_gateway_method" "get_ou_method" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
   resource_id   = "${aws_api_gateway_resource.get_ou.id}"
   http_method   = "GET"
