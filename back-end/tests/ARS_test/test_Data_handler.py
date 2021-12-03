@@ -1,8 +1,10 @@
+import json as json
 import unittest
 
 import numpy as np
 import pandas as pd
-from pandas.util.testing import assert_frame_equal
+from numpy.testing import assert_array_equal
+from pandas.testing import assert_frame_equal, assert_series_equal
 from src.Absence_rating_system.Data_handler import DBHandler
 
 
@@ -14,25 +16,20 @@ class TestDataHandler(unittest.TestCase):
         self.path_employees_table = "tests/ARS_test_data/test_employees_table.json"
         self.path_jobs_table = "tests/ARS_test_data/test_jobs_table.json"
         self.path_absence_type_table = "tests/ARS_test_data/test_absence_type.json"
+        self.path_test_request = "tests/ARS_test_data/test_request.json"
 
         self.dHandler = DBHandler(self.path_absence_table, self.path_teams_table,
                        self.path_employees_table, self.path_jobs_table, 
                        self.path_absence_type_table)
 
-        self.request = {
-            "id": 1,
-            "EmployeeID": 96,
-            "DateOfAbsence": "24/10/2021",
-            "Status": "Pending",
-            "Rating": 2
-        }
-        self.request_pending = pd.DataFrame(self.request,index=[1])
-        self.request_pending = self.request_pending.reset_index(drop=True)
-        self.request_series = pd.Series(self.request)
+        with open(self.path_test_request) as f:
+            json_data = json.load(f)
+        self.request_pending = pd.DataFrame(json_data, index=[1])
+        self.request_series = pd.Series(json_data[0])
 
     def test_get_requests(self):  
         output = self.dHandler.get_requests(status = "Pending")
-        assert_frame_equal(output.reset_index(drop=True), self.request_pending.reset_index(drop=True))
+        assert_frame_equal(output, self.request_pending)
 
     def test_get_ouid_of_request(self):
         input_ouid = self.dHandler.get_ouid_of_request(self.request_series)
@@ -70,23 +67,26 @@ class TestDataHandler(unittest.TestCase):
 
     def test_get_ou_absence_data(self): 
         #status_of_absence is Accepted, Reqected, Pending
-        input_data = self.dHandler.get_ou_absence_data(self.request_series)
-        output = {
-            "id": 0,
-            "EmployeeID": 54,
-            "DateOfAbsence": "23/10/2021",
-            "Status": "Accepted",
-            "Rating": 1
-        }
-        output_data = pd.DataFrame(output, index=[0])
-        #status_of_absence is All
-        assert_frame_equal(output_data.reset_index(drop=True), 
-                            input_data.reset_index(drop=True),
-                            status_of_absence = "All")
+        input_data = self.dHandler.get_ou_absence_data(self.request_series)        
+        output_path = "tests/ARS_test_data/test_ou_absence_data.json"
+        with open(output_path) as f:
+            json_data = json.load(f)
+        output_data = pd.DataFrame(json_data, index=[0])
+        assert_frame_equal(output_data, 
+                            input_data)
+        #status_of_absence is All,
+        input_data_test_case2 = self.dHandler.get_ou_absence_data(self.request_series,
+                                                        status_of_absence = "All")
+        output_test_case2 = self.dHandler.absence_data
+        assert_frame_equal(output_test_case2.reset_index(drop=True), 
+                            input_data_test_case2.reset_index(drop=True))
+        
+
 
 
 
     def test_get_ou_same_job_employees(self):
+        #if only_id is False
         input_same_job = self.dHandler.get_ou_same_job_employees(self.request_series)
         data = {'EmployeeID':[54, 96],
                 'EmployeeName':['axel style', 'jax barker'],
@@ -95,33 +95,62 @@ class TestDataHandler(unittest.TestCase):
                 'LeaveBalance': [0, 8]}
         output_same_job = pd.DataFrame(data)
         assert_frame_equal(output_same_job.reset_index(drop=True), input_same_job.reset_index(drop=True))
-
+        #if only_id is True
+        input_same_job_case2 = self.dHandler.get_ou_same_job_employees(self.request_series, only_id=True)
+        output_case2 = [54, 96]
+        output_case2 = np.array(output_case2, dtype="int64")
+        assert_array_equal(input_same_job_case2, output_case2)
+       
     def test_get_ou_same_job_absence(self):
         input_same_job_absence = self.dHandler.get_ou_same_job_absence(self.request_series)
-        data = {
-            "id": 0,
-            "EmployeeID": 54,
-            "DateOfAbsence": "23/10/2021",
-            "Status": "Accepted",
-            "Rating": 1
-        }
-        output_same_job_absence = pd.DataFrame(data, index=[0])
+        output_path = "tests/ARS_test_data/test_ou_absence_data.json"
+        with open(output_path) as f:
+            json_data = json.load(f)
+        output_same_job_absence = pd.DataFrame(json_data, index=[0])
         assert_frame_equal(output_same_job_absence.reset_index(drop=True), input_same_job_absence.reset_index(drop=True))
 
     def test_convert_to_dayofyear(self):
-        request = self.dHandler.convert_to_dayofyear(self.request_pending,
+        #if is Series
+        request = self.dHandler.convert_to_dayofyear(self.request_series,
                                                       column_to_convert='DateOfAbsence',
                                                       column_to_add='DayOfYear')
         exp_out = {
             "id": 1,
             "EmployeeID": 96,
             "DateOfAbsence": "24/10/2021",
+            "AbsenceTypeCode": "TIM",
             "Status": "Pending",
-            "Rating": 2,
+            "Rating": {
+                'A': 0,
+                'B': 1, 
+                'C': 0, 
+                'D': 1
+                },
             "DayOfYear": 297,  
         }
-        exp_out = pd.DataFrame(exp_out, index=[1])
-        assert_frame_equal(request.reset_index(drop=True), exp_out.reset_index(drop=True))
+        exp_out = pd.Series(exp_out)
+        assert_series_equal(request.reset_index(drop=True), exp_out.reset_index(drop=True))
+        #if is Dataframe
+        request_caseDF = self.dHandler.convert_to_dayofyear(self.request_pending,
+                                                      column_to_convert='DateOfAbsence',
+                                                      column_to_add='DayOfYear')
+        exp_out_caseDF = self.request_pending
+        exp_out_caseDF["DayOfYear"] = 297
+        assert_frame_equal(request_caseDF, exp_out_caseDF)
+
+
+
+    def test_get_absence_type_priority(self):
+        input_priority = self.dHandler.get_absence_type_priority(self.request_series)
+        self.assertEqual(input_priority, 3)
+
+    def test_get_request_leave_hours(self):
+        input_leave_hours = self.dHandler.get_request_leave_hours(self.request_series)
+        self.assertEqual(input_leave_hours, 8)
+
+    def test_check_enough_leave_balance(self):
+       input_leave_balance = self.dHandler.check_enough_leave_balance(self.request_series)
+       self.assertEqual(input_leave_balance, True)
 
     # def test_rule_min_capacity_treshold(self):
     #     input_rule_min_capacity = self.ars.rule_min_capacity_treshold(self.request_series)
