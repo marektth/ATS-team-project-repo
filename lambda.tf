@@ -38,7 +38,7 @@ resource "aws_lambda_function" "manager_lambda" {
   runtime = "python3.8"
 
   role = "${aws_iam_role.lambda_exec.arn}"
-
+  layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
       ABSENCE_TABLE = "Absence_Data"
@@ -76,7 +76,7 @@ resource "aws_lambda_function" "get_lambda" {
   runtime = "python3.8"
 
   role = "${aws_iam_role.lambda_exec.arn}"
-
+  layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
       TABLE_NAME = "Absence_Data"
@@ -94,7 +94,7 @@ resource "aws_lambda_function" "decision_lambda" {
   runtime = "python3.8"
 
   role = "${aws_iam_role.lambda_exec.arn}"
-
+  layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
       ABSENCE_TABLE = "Absence_Data"
