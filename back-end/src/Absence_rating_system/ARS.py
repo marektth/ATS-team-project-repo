@@ -20,6 +20,7 @@ class ARS(object):
         self.__rules_tresholds = {
             "A" : 1,
             "B" : 1,
+            "D" : 0,
         }
 
     def rule_overlapping_employees_no(self, request , normalized = True):
@@ -112,7 +113,6 @@ class ARS(object):
         min_same_job_tresh = self.db.get_min_same_job_treshold(request)
         same_job_employee_no = len(self.db.get_ou_same_job_employees(request, only_id=True))
         total_missing_employees = self.rule_same_job_overlaps(request, normalized=False)
-
         if same_job_employee_no - total_missing_employees <= min_same_job_tresh:
             return 1
         else:
@@ -129,7 +129,7 @@ class ARS(object):
         '''
             returns absent type priority of given request
         '''
-        if request["AbsenceTypeCode"] == "TIM" and self.db.check_enough_leave_balance(request):
+        if self.db.check_enough_leave_balance(request):
             return self.db.get_employee_info(request, info = "LeaveBalance")
         else:
             return 0
@@ -173,12 +173,12 @@ class ARS(object):
         for rule_rank in self.__rules_structs:
             #out of treshold - Reject
             #future feature - maybe do helper microrules to really decide if rejected
-            if rule_rank in self.__rules_tresholds and top_request[rule_rank] >= self.__rules_tresholds[rule_rank]:
+            if rule_rank in self.__rules_tresholds and top_request[rule_rank] == self.__rules_tresholds[rule_rank]:
                 request_decision = "Rejected"
                 break
                    
         self.db.update_item(request_decision, top_request.name, "Status", self.db.absence_data)
-        print(self.db.get_ou_absence_data(request, "All")) 
+        #print(self.db.get_ou_absence_data(request, "All")) 
 
     def absence_requests_handler(self):
         '''
@@ -190,7 +190,8 @@ class ARS(object):
             self.rating_function()
             self.set_top_priority_request_status(request)
 
-        print(self.db.absence_data)
+        #print(self.db.absence_data)
+        return self.db.absence_data
 
 
 if __name__ == "__main__":
@@ -201,5 +202,5 @@ if __name__ == "__main__":
     path_absence_type_table = "back-end/src/data/jsons/absence_type.json"
 
     ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table)
-    ars.absence_requests_handler()
+    result = ars.absence_requests_handler()
 
