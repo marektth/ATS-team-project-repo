@@ -31,30 +31,20 @@
         </nc-form>
        </nc-layout-aside>
       <nc-layout-content>
+
         <nc-table class="data-table">
           <thead>
-            <nc-table-row>
-              <th scope="col">#</th>
-              <th scope="col">Request Date</th>
-              <th scope="col">Start Date</th>
-              <th scope="col">End Date</th>
-              <th scope="col">Code leave reason</th>
-              <th scope="col">Reason</th>
-              <th scope="col">Status</th>
+            <nc-table-row v-for="(idx,header) in headers" v-bind:key="header + '_' + idx">
+              <th scope="col">header</th>
             </nc-table-row>
           </thead>
-          <tbody>
-            <nc-table-row v-for="request in requests" v-bind:key="request.id">
-              <td>{{ request.id }}</td>
-              <td>{{ request.dateOfRequest }}</td>
-              <td>{{ request.startDate }}</td>
-              <td>{{ request.endDate }}</td>
-              <td>{{ request.codeLeaveReason }}</td>
-              <td>{{ request.leaveReason }}</td>
-              <td>{{ request.status }}</td>
+          <!-- <tbody v-for="request in requests" v-bind:key="request.id">
+            <nc-table-row>
+              <td>{{ request }}</td>
             </nc-table-row>
-          </tbody>
+          </tbody> -->
         </nc-table>
+
       </nc-layout-content>
     </nc-layout>
   </nc-container>
@@ -71,6 +61,7 @@ export default Vue.extend({
   },
   data: function () {
     return {
+      employeeNumber: 123456,
       showForm: 0,
       timeoffRequestForm: {
         startDate: new Date(),
@@ -78,33 +69,22 @@ export default Vue.extend({
         codeLeaveReason: "" as string,
         reason: "" as string,
       } as LeavePeriod,
-      requests: [] as TimeoffRecord[]
+      requests: [] as any[],
+      headers: [] as any[]
       }
   }, 
   async created(){
-    const api = new ApiService()
+    const api = new ApiService(this.employeeNumber)
     const response = await api.requestsTimeoffGET()
     this.loadDataToTable(response)
   },
   methods: {
-    loadDataToTable(arr : TimeoffRecord[]){
-      arr.forEach((request: TimeoffRecord) => {
-       // console.log(request.leaveReason)
-      this.requests.push(
-        {
-          id: this.requests.length + 1,
-          dateOfRequest: request.dateOfRequest.replaceAll('"', ''),
-          startDate: request.startDate.replaceAll('"', ''),
-          endDate: request.endDate.replaceAll('"', ''),
-          codeLeaveReason: request.codeLeaveReason.replaceAll('"', ''),
-          leaveReason: request.leaveReason.replaceAll('"', ''),
-          status: request.status.replaceAll('"', '')
-        }
-      )
-    });
+    loadDataToTable(res : any){
+      // load to table
     },
     toFullDate(date:Date) : string {
-      return date.toLocaleString().split(",")[0]
+      // function to edit date to specific format
+      return "";
     },
     clearFormInputs(){
       this.timeoffRequestForm.startDate = new Date()
@@ -113,8 +93,8 @@ export default Vue.extend({
       this.timeoffRequestForm.reason = ""
     },
     async requestTimeoff(){
-
-      const api = new ApiService()
+      
+      const api = new ApiService(this.employeeNumber)
       const date = new Date()
       const request: TimeoffRecord = {
         id: this.requests.length + 1,
@@ -126,11 +106,11 @@ export default Vue.extend({
         status: "pending"
       }
 
-      const responsePOST = await api.requestTimeoffPOST(request)
+      //const responsePOST = await api.requestTimeoffPOST(request)
       //console.log(responsePOST)
       this.requests = []
-      const responseGET = await api.requestsTimeoffGET()
-      this.loadDataToTable(responseGET)
+      //const responseGET = await api.requestsTimeoffGET()
+      //this.loadDataToTable(responseGET)
       this.clearFormInputs()
     },
     openForm(){
