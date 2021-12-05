@@ -1,0 +1,931 @@
+Quick report: 
+
+Security log from: 12/05/2021 @ 23:32:05
+Last scan submitted at: 2021-12-05 23:31:40
+Last scan executed at: 2021-12-05 23:31:45
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_reliability_rating, status: ERROR, actual value: 5.00, error threshold: 1
+	Metric: new_duplicated_lines_density, status: ERROR, actual value: 4.36, error threshold: 3
+	Metric: code_smells, status: ERROR, actual value: 59.00, error threshold: 20
+	Metric: new_security_hotspots_reviewed, status: ERROR, actual value: 81.82, error threshold: 100
+	Metric: new_violations, status: ERROR, actual value: 65.00, error threshold: 10
+Issues found: 65
+Issues Authors:
+	72217029+tomasvank -> 4 issues (6.153846153846154%)
+	daniel.hreha -> 4 issues (6.153846153846154%)
+	fhavel99 -> 8 issues (12.307692307692308%)
+	marektoth199 -> 49 issues (75.38461538461539%)
+=================
+Issues report: 
+
+Key: AX2MuXJ5EdiWnLBqUoVS
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 18 to LINE: 18, with START_OFFSET: 4 to END_OFFSET: 17
+Issue comment: Rename this local variable "listOfEntries" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXJ5EdiWnLBqUoVT
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 18 to LINE: 18, with START_OFFSET: 4 to END_OFFSET: 17
+Issue comment: Remove the unused local variable "listOfEntries".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXJ5EdiWnLBqUoVU
+Issue type : BUG
+Severity: BLOCKER
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 28 to LINE: 28, with START_OFFSET: 12 to END_OFFSET: 89
+Issue comment: Change this code so that it raises an object deriving from BaseException.
+Effort: 5min
+Rule: python:S5632
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXJ5EdiWnLBqUoVV
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 48 to LINE: 48, with START_OFFSET: 4 to END_OFFSET: 42
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXJ5EdiWnLBqUoVW
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 51 to LINE: 51, with START_OFFSET: 4 to END_OFFSET: 39
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXJ5EdiWnLBqUoVX
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 54 to LINE: 54, with START_OFFSET: 8 to END_OFFSET: 25
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXJ5EdiWnLBqUoVY
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 60 to LINE: 60, with START_OFFSET: 8 to END_OFFSET: 32
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXK5EdiWnLBqUoVq
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 18 to LINE: 18, with START_OFFSET: 4 to END_OFFSET: 18
+Issue comment: Refactor this function to reduce its Cognitive Complexity from 24 to the 15 allowed.
+Effort: 14min
+Rule: python:S3776
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXK5EdiWnLBqUoVr
+Issue type : BUG
+Severity: BLOCKER
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 35 to LINE: 35, with START_OFFSET: 12 to END_OFFSET: 97
+Issue comment: Change this code so that it raises an object deriving from BaseException.
+Effort: 5min
+Rule: python:S5632
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXK5EdiWnLBqUoVs
+Issue type : BUG
+Severity: BLOCKER
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 42 to LINE: 42, with START_OFFSET: 12 to END_OFFSET: 95
+Issue comment: Change this code so that it raises an object deriving from BaseException.
+Effort: 5min
+Rule: python:S5632
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXK5EdiWnLBqUoVt
+Issue type : BUG
+Severity: BLOCKER
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 49 to LINE: 49, with START_OFFSET: 12 to END_OFFSET: 99
+Issue comment: Change this code so that it raises an object deriving from BaseException.
+Effort: 5min
+Rule: python:S5632
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXK5EdiWnLBqUoVu
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 89 to LINE: 89, with START_OFFSET: 4 to END_OFFSET: 60
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXK5EdiWnLBqUoVv
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 95 to LINE: 95, with START_OFFSET: 8 to END_OFFSET: 50
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXK5EdiWnLBqUoVw
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 101 to LINE: 101, with START_OFFSET: 8 to END_OFFSET: 48
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXK5EdiWnLBqUoVx
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 112 to LINE: 112, with START_OFFSET: 8 to END_OFFSET: 56
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKZEdiWnLBqUoVc
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 16 to LINE: 16, with START_OFFSET: 4 to END_OFFSET: 25
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKZEdiWnLBqUoVd
+Issue type : BUG
+Severity: BLOCKER
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 29 to LINE: 29, with START_OFFSET: 12 to END_OFFSET: 89
+Issue comment: Change this code so that it raises an object deriving from BaseException.
+Effort: 5min
+Rule: python:S5632
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKZEdiWnLBqUoVa
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 36 to LINE: 36, with START_OFFSET: 4 to END_OFFSET: 14
+Issue comment: Remove the unused local variable "LOCAL_FILE".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKZEdiWnLBqUoVZ
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 44 to LINE: 44, with START_OFFSET: 4 to END_OFFSET: 14
+Issue comment: Rename this local variable "EmployeeID" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKZEdiWnLBqUoVf
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 48 to LINE: 48, with START_OFFSET: 4 to END_OFFSET: 59
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKZEdiWnLBqUoVg
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 50 to LINE: 50, with START_OFFSET: 4 to END_OFFSET: 43
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKZEdiWnLBqUoVb
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 87 to LINE: 87, with START_OFFSET: 4 to END_OFFSET: 11
+Issue comment: Remove the unused local variable "next_id".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-12-05 23:30:37
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKnEdiWnLBqUoVj
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 16 to LINE: 16, with START_OFFSET: 4 to END_OFFSET: 25
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 17:41:34
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKnEdiWnLBqUoVk
+Issue type : BUG
+Severity: BLOCKER
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 29 to LINE: 29, with START_OFFSET: 12 to END_OFFSET: 89
+Issue comment: Change this code so that it raises an object deriving from BaseException.
+Effort: 5min
+Rule: python:S5632
+Scope : MAIN
+Created at: 2021-12-05 17:41:34
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKnEdiWnLBqUoVi
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 36 to LINE: 36, with START_OFFSET: 4 to END_OFFSET: 14
+Issue comment: Remove the unused local variable "LOCAL_FILE".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-12-05 17:41:34
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKnEdiWnLBqUoVm
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 40 to LINE: 40, with START_OFFSET: 4 to END_OFFSET: 85
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 17:41:34
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKnEdiWnLBqUoVn
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 43 to LINE: 43, with START_OFFSET: 4 to END_OFFSET: 52
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 17:41:34
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKnEdiWnLBqUoVh
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 44 to LINE: 44, with START_OFFSET: 4 to END_OFFSET: 14
+Issue comment: Rename this local variable "EmployeeID" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-12-05 17:41:34
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKnEdiWnLBqUoVo
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 48 to LINE: 48, with START_OFFSET: 4 to END_OFFSET: 59
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 17:41:34
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2MuXKnEdiWnLBqUoVp
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 50 to LINE: 50, with START_OFFSET: 4 to END_OFFSET: 43
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-05 17:41:34
+Updated at : 2021-12-05 23:30:37
+----------------------------------------------------
+
+Key: AX2HkwtgEdiWnLBqUnv7
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/services/api.ts
+From LINE: 2 to LINE: 2, with START_OFFSET: 7 to END_OFFSET: 8
+Issue comment: Remove this unused import of '_'.
+Effort: 2min
+Rule: typescript:S1128
+Scope : MAIN
+Created at: 2021-12-04 23:30:32
+Updated at : 2021-12-04 23:30:32
+----------------------------------------------------
+
+Key: AX2HkwtgEdiWnLBqUnv8
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: fhavel99
+File: ats:front-end/src/services/api.ts
+From LINE: 73 to LINE: 75, with START_OFFSET: 47 to END_OFFSET: 5
+Issue comment: Unexpected empty async method 'employeeTimeoffGET'.
+Effort: 5min
+Rule: typescript:S1186
+Scope : MAIN
+Created at: 2021-12-04 23:30:32
+Updated at : 2021-12-04 23:30:32
+----------------------------------------------------
+
+Key: AX2HkwtgEdiWnLBqUnv9
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: fhavel99
+File: ats:front-end/src/services/api.ts
+From LINE: 103 to LINE: 105, with START_OFFSET: 48 to END_OFFSET: 5
+Issue comment: Unexpected empty async method 'requestTimeoffDELETE'.
+Effort: 5min
+Rule: typescript:S1186
+Scope : MAIN
+Created at: 2021-12-04 23:30:32
+Updated at : 2021-12-04 23:30:32
+----------------------------------------------------
+
+Key: AX2HkwtgEdiWnLBqUnv-
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: fhavel99
+File: ats:front-end/src/services/api.ts
+From LINE: 111 to LINE: 113, with START_OFFSET: 60 to END_OFFSET: 5
+Issue comment: Unexpected empty async method 'requestTimeoffUPDATE'.
+Effort: 5min
+Rule: typescript:S1186
+Scope : MAIN
+Created at: 2021-12-04 23:30:32
+Updated at : 2021-12-04 23:30:32
+----------------------------------------------------
+
+Key: AX2HkwtgEdiWnLBqUnv_
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: fhavel99
+File: ats:front-end/src/services/api.ts
+From LINE: 116 to LINE: 118, with START_OFFSET: 62 to END_OFFSET: 5
+Issue comment: Unexpected empty async method 'requestTimeoffStatusUPDATE'.
+Effort: 5min
+Rule: typescript:S1186
+Scope : MAIN
+Created at: 2021-12-04 23:30:32
+Updated at : 2021-12-04 23:30:32
+----------------------------------------------------
+
+Key: AX2HkwtDEdiWnLBqUnv6
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 41 to LINE: 41, with START_OFFSET: 0 to END_OFFSET: 74
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: Web:AvoidCommentedOutCodeCheck
+Scope : MAIN
+Created at: 2021-12-04 23:30:32
+Updated at : 2021-12-04 23:30:32
+----------------------------------------------------
+
+Key: AX2HkwtDEdiWnLBqUnv4
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 97 to LINE: 97, with START_OFFSET: 12 to END_OFFSET: 15
+Issue comment: Remove this useless assignment to variable "api".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-12-04 23:30:32
+Updated at : 2021-12-04 23:30:32
+----------------------------------------------------
+
+Key: AX2HkwtDEdiWnLBqUnv5
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 99 to LINE: 99, with START_OFFSET: 12 to END_OFFSET: 34
+Issue comment: Remove this useless assignment to variable "request".
+Effort: 15min
+Rule: typescript:S1854
+Scope : MAIN
+Created at: 2021-12-04 23:30:32
+Updated at : 2021-12-04 23:30:32
+----------------------------------------------------
+
+Key: AX2CSTgvEdiWnLBqUlbl
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 24 to LINE: 24, with START_OFFSET: 4 to END_OFFSET: 13
+Issue comment: Rename this local variable "managerID" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-12-03 16:14:01
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX2CSTgvEdiWnLBqUlbm
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 58 to LINE: 58, with START_OFFSET: 4 to END_OFFSET: 42
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-03 16:14:01
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX2CSTgvEdiWnLBqUlbo
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 108 to LINE: 108, with START_OFFSET: 16 to END_OFFSET: 41
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-03 16:14:01
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX2CSTgvEdiWnLBqUlbp
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 119 to LINE: 119, with START_OFFSET: 8 to END_OFFSET: 45
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-03 16:14:01
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX2CSTgvEdiWnLBqUlbq
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/MANAGER_LAMBDA/main.py
+From LINE: 133 to LINE: 133, with START_OFFSET: 8 to END_OFFSET: 32
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-03 16:14:01
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX2Avd7OEdiWnLBqUji7
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: daniel.hreha
+File: ats:back-end/src/Absence_rating_system/ARS.py
+From LINE: 2 to LINE: 2, with START_OFFSET: 0 to END_OFFSET: 35
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-03 13:27:30
+Updated at : 2021-12-03 16:14:17
+----------------------------------------------------
+
+Key: AX2Avd73EdiWnLBqUji9
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: daniel.hreha
+File: ats:back-end/tests/ARS_test/test_Data_handler.py
+From LINE: 130 to LINE: 130, with START_OFFSET: 8 to END_OFFSET: 22
+Issue comment: Rename this local variable "request_caseDF" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-12-03 12:28:01
+Updated at : 2021-12-03 23:05:19
+----------------------------------------------------
+
+Key: AX2Avd73EdiWnLBqUji8
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: daniel.hreha
+File: ats:back-end/tests/ARS_test/test_Data_handler.py
+From LINE: 133 to LINE: 133, with START_OFFSET: 8 to END_OFFSET: 22
+Issue comment: Rename this local variable "exp_out_caseDF" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-12-03 12:28:01
+Updated at : 2021-12-03 23:05:19
+----------------------------------------------------
+
+Key: AX2Avd73EdiWnLBqUji-
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: daniel.hreha
+File: ats:back-end/tests/ARS_test/test_Data_handler.py
+From LINE: 151 to LINE: 151, with START_OFFSET: 4 to END_OFFSET: 48
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-03 10:35:38
+Updated at : 2021-12-03 23:05:19
+----------------------------------------------------
+
+Key: AX17hnUIEdiWnLBqUiUe
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 80 to LINE: 80, with START_OFFSET: 8 to END_OFFSET: 32
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-02 15:21:39
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgk
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 22 to LINE: 22, with START_OFFSET: 84 to END_OFFSET: 99
+Issue comment: Define a constant instead of duplicating this literal 'Vacation Date' 3 times.
+Effort: 6min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgj
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 101 to LINE: 101, with START_OFFSET: 79 to END_OFFSET: 91
+Issue comment: Define a constant instead of duplicating this literal '"Accepted"' 4 times.
+Effort: 8min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgm
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 120 to LINE: 120, with START_OFFSET: 16 to END_OFFSET: 95
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgl
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 125 to LINE: 125, with START_OFFSET: 36 to END_OFFSET: 48
+Issue comment: Define a constant instead of duplicating this literal '"Rejected"' 3 times.
+Effort: 6min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgn
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 126 to LINE: 126, with START_OFFSET: 16 to END_OFFSET: 95
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1y-UvXEdiWnLBqUhgo
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 148 to LINE: 148, with START_OFFSET: 12 to END_OFFSET: 89
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1y-UuhEdiWnLBqUhgh
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 40 to LINE: 40, with START_OFFSET: 4 to END_OFFSET: 85
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1y-UuhEdiWnLBqUhgi
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 43 to LINE: 43, with START_OFFSET: 4 to END_OFFSET: 52
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-30 23:30:28
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3B
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 51 to LINE: 51, with START_OFFSET: 4 to END_OFFSET: 34
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3A
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 72 to LINE: 72, with START_OFFSET: 17 to END_OFFSET: 30
+Issue comment: Define a constant instead of duplicating this literal 'Employee ID' 5 times.
+Effort: 10min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3C
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 140 to LINE: 140, with START_OFFSET: 12 to END_OFFSET: 47
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1tpFfJEdiWnLBqUf3D
+Issue type : CODE_SMELL
+Severity: INFO
+Issue author: marektoth199
+File: ats:back-end/DECISION_LAMBDA/main.py
+From LINE: 144 to LINE: 144, with START_OFFSET: 12 to END_OFFSET: 64
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-11-27 12:59:58
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1O7SIrEdiWnLBqUeMX
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: marektoth199
+File: ats:back-end/GET_API_LAMBDA/main.py
+From LINE: 17 to LINE: 17, with START_OFFSET: 4 to END_OFFSET: 14
+Issue comment: Rename this local variable "employeeID" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-23 23:30:46
+Updated at : 2021-12-03 22:51:55
+----------------------------------------------------
+
+Key: AX1EoI3ZEdiWnLBqUdZp
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_generator/databaseOfPeople.py
+From LINE: 7 to LINE: 7, with START_OFFSET: 4 to END_OFFSET: 9
+Issue comment: Rename this local variable "listA" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-21 23:30:50
+Updated at : 2021-12-03 23:05:19
+----------------------------------------------------
+
+Key: AX1EoI3ZEdiWnLBqUdZr
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_generator/databaseOfPeople.py
+From LINE: 17 to LINE: 17, with START_OFFSET: 4 to END_OFFSET: 9
+Issue comment: Rename this local variable "listA" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-21 23:30:50
+Updated at : 2021-12-03 23:05:19
+----------------------------------------------------
+
+Key: AX06U9WGEdiWnLBqUdCJ
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_generator/teams.py
+From LINE: 8 to LINE: 8, with START_OFFSET: 4 to END_OFFSET: 9
+Issue comment: Rename this local variable "listA" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-19 16:29:19
+Updated at : 2021-12-03 23:05:19
+----------------------------------------------------
+
+Key: AX06U9WGEdiWnLBqUdCL
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: 72217029+tomasvank
+File: ats:back-end/src/fake_generator/teams.py
+From LINE: 17 to LINE: 17, with START_OFFSET: 4 to END_OFFSET: 9
+Issue comment: Rename this local variable "listA" to match the regular expression ^[_a-z][a-z0-9_]*$.
+Effort: 2min
+Rule: python:S117
+Scope : MAIN
+Created at: 2021-11-19 16:29:19
+Updated at : 2021-12-03 23:05:19
+----------------------------------------------------
+
