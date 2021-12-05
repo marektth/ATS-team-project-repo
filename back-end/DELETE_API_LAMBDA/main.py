@@ -42,7 +42,7 @@ def lambda_handler(event, context):
     vacation_date = line_to_add['DateOfAbsence']
     #vacation_date = json.dumps(convert_to_datetime)
     EmployeeID = line_to_add['EmployeeID']
-    table_id = 0
+    table_id = line_to_add['id']
     code_leave_reason = line_to_add['AbsenceTypeCode']
     rating = {}
     #leave_reason = json.dumps(line_to_add['Leave Reason'])
@@ -84,16 +84,16 @@ def lambda_handler(event, context):
     
     json_data = json.load(data)
     #print(json_data)
-    next_id = 0
+    id_to_append = []
     counter = 1
     for i in json_data:
-        i['id'] = counter
-        counter = counter + 1
+        if i['id'] != local_data['id']:
+            i['id'] = counter
+            id_to_append.append(i)
+            counter = counter + 1
             
-    local_data['id'] = counter
-    json_data.append(local_data)
-    print(json_data)
-    s3_c.put_object(Bucket=s3_bucket_name, Key=s3_key_website, Body=json.dumps(json_data).encode('UTF-8'))
+    #print(json_data)
+    s3_c.put_object(Bucket=s3_bucket_name, Key=s3_key_website, Body=json.dumps(id_to_append).encode('UTF-8'))
     
     
     #s3_c.put_object( Body=(bytes(json.dumps(item).encode('UTF-8'))), ContentType='application/json',Bucket=s3_bucket_name ,Key=s3_key_website )
