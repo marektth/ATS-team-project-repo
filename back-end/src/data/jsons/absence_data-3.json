@@ -1,0 +1,107 @@
+[
+    {
+      "id": 1,
+      "EmployeeID": 96,
+      "DateOfAbsence": "24/10/2021",
+      "AbsenceTypeCode": "TIM",
+      "Status": "Pending",
+      "LeaveReason": "Booked vacation",
+      "Rating": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 1
+      }
+    },
+    {
+      "id": 2,
+      "EmployeeID": 69,
+      "DateOfAbsence": "24/10/2021",
+      "AbsenceTypeCode": "SPE",
+      "Status": "Pending",
+      "LeaveReason": "Need to go to medical exam",
+      "Rating": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 1
+      }
+    },
+    {
+      "id": 3,
+      "EmployeeID": 62,
+      "DateOfAbsence": "24/10/2021",
+      "AbsenceTypeCode": "SPE",
+      "Status": "Pending",
+      "LeaveReason": "My grandma died",
+      "Rating": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 1
+      }
+    },
+    {
+      "id": 4,
+      "EmployeeID": 79,
+      "DateOfAbsence": "24/10/2021",
+      "AbsenceTypeCode": "SPE",
+      "Status": "Pending",
+      "LeaveReason": "I am very sick (of this)",
+      "Rating": {
+        "A": 0,
+        "B": 0,
+        "C": 1
+      }
+    },
+    {
+      "id": 5,
+      "EmployeeID": 96,
+      "DateOfAbsence": "24/10/2021",
+      "AbsenceTypeCode": "TIM",
+      "Status": "Pending",
+      "LeaveReason": "i have enough, need time off",
+      "Rating": {
+        "A": 0,
+        "B": 1,
+        "C": 0,
+        "D": 1
+      }
+    },
+    {
+      "id": 6,
+      "EmployeeID": 192,
+      "DateOfAbsence": "24/10/2021",
+      "AbsenceTypeCode": "PAR",
+      "Status": "Pending",
+      "LeaveReason": "New kid in da house",
+      "Rating": {}
+    },
+    {
+      "id": 7,
+      "EmployeeID": 69,
+      "DateOfAbsence": "23/12/2021",
+      "AbsenceTypeCode": "TIM",
+      "Status": "Pending",
+      "LeaveReason": "demo reason",
+      "Rating": {}
+    },
+    {
+      "id": 8,
+      "EmployeeID": 96,
+      "DateOfAbsence": "07/12/2021",
+      "AbsenceTypeCode": "SPE",
+      "Status": "Pending",
+      "LeaveReason": "Daľší test reason",
+      "Rating": {}
+    },
+    {
+      "id": 9,
+      "EmployeeID": 96,
+      "DateOfAbsence": "10/12/2021",
+      "AbsenceTypeCode": "TIM",
+      "Status": "Pending",
+      "LeaveReason": "Idzem pic",
+      "Rating": {}
+    }
+  ]
