@@ -34,6 +34,17 @@ resource "aws_api_gateway_integration" "lambda3" {
 
 }
 
+resource "aws_api_gateway_integration" "lambda4" {
+  rest_api_id = "${aws_api_gateway_rest_api.example.id}"
+  resource_id = "${aws_api_gateway_method.delete.resource_id}"
+  http_method = "${aws_api_gateway_method.delete.http_method}"
+
+  integration_http_method = "DELETE"
+  type                    = "AWS_PROXY"
+  uri                     = "${aws_lambda_function.delete_lambda.invoke_arn}"
+
+}
+
 resource "aws_api_gateway_deployment" "example" {
   depends_on = [
     "aws_api_gateway_integration.lambda"

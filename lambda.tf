@@ -41,9 +41,10 @@ resource "aws_lambda_function" "manager_lambda" {
   layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
-      ABSENCE_TABLE = "Absence_Data"
-      EMPLOYEES_TABLE = "Employees"
-      TEAM_TABLE = "OU_Table"
+      BUCKET_NAME = "database-bucket-absence"
+      OBJECT_NAME_ABSENCE = "absence_data.json"
+      OBJECT_NAME_EMPLOYEES = "employees_table.json"
+      OBJECT_NAME_TEAMS = "teams_table.json"
     }
   }
 }
@@ -61,7 +62,8 @@ resource "aws_lambda_function" "post_lambda" {
 
    environment {
     variables = {
-      TABLE_NAME = "Absence_Data"
+      BUCKET_NAME = "database-bucket-absence"
+      OBJECT_NAME = "absence_data.json"
     }
   }
 }
@@ -79,7 +81,8 @@ resource "aws_lambda_function" "get_lambda" {
   layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
-      TABLE_NAME = "Absence_Data"
+      BUCKET_NAME = "database-bucket-absence"
+      OBJECT_NAME = "absence_data.json"
     }
   }
 }
@@ -97,9 +100,31 @@ resource "aws_lambda_function" "decision_lambda" {
   layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
-      ABSENCE_TABLE = "Absence_Data"
-      EMPLOYEES_TABLE = "Employees"
-      TEAM_TABLE = "OU_Table"
+      BUCKET_NAME = "database-bucket-absence"
+      OBJECT_NAME_ABSENCE = "absence_data.json"
+      OBJECT_NAME_ABSENCE_TYPE = "absence_type.json"
+      OBJECT_NAME_EMPLOYEES = "employees_table.json"
+      OBJECT_NAME_JOBS = "jobs_table.json"
+      OBJECT_NAME_TEAMS = "teams_table.json"
+    }
+  }
+}
+
+resource "aws_lambda_function" "delete_lambda" {
+  function_name = "DELETE_LAMBDA"
+
+  s3_bucket = "apitest-bucket-123"
+  s3_key    = "v1.0.0/delete.zip"
+
+  handler = "main.lambda_handler"
+  runtime = "python3.8"
+
+  role = "${aws_iam_role.lambda_exec.arn}"
+  layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
+   environment {
+    variables = {
+      BUCKET_NAME = "database-bucket-absence"
+      OBJECT_NAME = "absence_data.json"
     }
   }
 }
@@ -144,6 +169,12 @@ resource "aws_api_gateway_resource" "get_ou" {
   path_part   = "load_team_absence"
 }
 
+resource "aws_api_gateway_resource" "delete" {
+  rest_api_id = "${aws_api_gateway_rest_api.example.id}"
+  parent_id   = "${aws_api_gateway_rest_api.example.root_resource_id}"
+  path_part   = "delete"
+}
+
 resource "aws_api_gateway_method" "post" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
   resource_id   = "${aws_api_gateway_resource.post.id}"
@@ -170,6 +201,14 @@ resource "aws_api_gateway_method" "get_ou" {
   request_parameters = { "method.request.querystring.managerID" = true }
 }
 
+resource "aws_api_gateway_method" "delete" {
+  rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
+  resource_id   = "${aws_api_gateway_resource.delete.id}"
+  http_method   = "DELETE"
+  authorization = "NONE"
+  api_key_required = "true"
+}
+
 resource "aws_lambda_permission" "apigw" {
   statement_id  = "AllowAPIGatewayInvoke_POST"
   action        = "lambda:InvokeFunction"
@@ -186,6 +225,18 @@ resource "aws_lambda_permission" "apigw2" {
   statement_id  = "AllowAPIGatewayInvoke_GET"
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.get_lambda.function_name}"
+  principal     = "apigateway.amazonaws.com"
+
+  # The /*/* portion grants access from any method on any resource..
+  # within the API Gateway "REST API"..
+  source_arn = "${aws_api_gateway_rest_api.example.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "apigw3" {
+
+  statement_id  = "AllowAPIGatewayInvoke_DELETE"
+  action        = "lambda:InvokeFunction"
+  function_name = "${aws_lambda_function.delete_lambda.function_name}"
   principal     = "apigateway.amazonaws.com"
 
   # The /*/* portion grants access from any method on any resource..
