@@ -129,10 +129,13 @@ class ARS(object):
         '''
             returns absent type priority of given request
         '''
-        if self.db.check_enough_leave_balance(request):
+        if self.db.check_enough_leave_balance(request) and request["AbsenceTypeCode"] == "TIM" :
             return self.db.get_employee_info(request, info = "LeaveBalance")
-        else:
+        elif not (self.db.check_enough_leave_balance(request)) and request["AbsenceTypeCode"] == "TIM":
             return 0
+        else:
+            return 1
+
 
         
         
@@ -164,37 +167,38 @@ class ARS(object):
                 based on priorities of rules in "rules_struct"
         '''
         pending_ou_requests = self.db.get_ou_absence_data(request, "Pending")
-        severities_df = pd.DataFrame((pending_ou_requests["Rating"]).apply(pd.Series), index=pending_ou_requests.index)
+        pending_ou_requests.set_index(keys="id", inplace=True)
 
+        severities_df = pd.DataFrame((pending_ou_requests["Rating"]).apply(pd.Series), index=pending_ou_requests.index)
         severities_df.sort_values(by=self.__rules_structs, ascending=self.__rules_df_sort, inplace=True)
 
         top_request = severities_df.iloc[0]
-        top_request_absence_data = self.db.get_request_by_id(top_request.name)
+        top_request_absence_data = self.db.absence_data[self.db.absence_data['id'] == top_request.name]
+        top_request_absence_data_series = top_request_absence_data.squeeze()
+
         request_decision = "Accepted"
         for rule_rank in self.__rules_structs:
             #out of treshold - Reject
             #future feature - maybe do helper microrules to really decide if rejected
             if rule_rank in self.__rules_tresholds and \
                 (
-                    (top_request[rule_rank] == self.__rules_tresholds[rule_rank]  and 
-                top_request_absence_data["AbsenceTypeCode"] != "TIM" and rule_rank != "D") 
+                    (top_request[rule_rank] == self.__rules_tresholds[rule_rank] and rule_rank != "D") 
                 ## treshold has been reached and its not because of leave balance \
                 or 
                 ## treshold has been reached for time off leave balance
-                    (top_request[rule_rank] == self.__rules_tresholds[rule_rank]  and 
-                top_request_absence_data["AbsenceTypeCode"] == "TIM" and rule_rank == "D")
+                    (top_request[rule_rank] == self.__rules_tresholds[rule_rank] and rule_rank == "D")
                 ):
                     request_decision = "Rejected"   
                     break
                    
         #update request status in Absence data DataFrame
-        self.db.update_item(request_decision, top_request.name, "Status", self.db.absence_data)
+        self.db.update_item(request_decision, top_request_absence_data.index, "Status", self.db.absence_data)
 
         #update employee leave balance
-        if request_decision == "Accepted" and top_request_absence_data["AbsenceTypeCode"] == "TIM":
+        if request_decision == "Accepted" and top_request_absence_data_series["AbsenceTypeCode"] == "TIM":
             
-            new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") - self.db.get_request_leave_hours(top_request_absence_data)
-            employee_id = self.db.get_employee_info(top_request_absence_data, "EmployeeID")
+            new_leave_balance = self.db.get_employee_info(top_request_absence_data_series, "LeaveBalance") - self.db.get_request_leave_hours(top_request_absence_data_series)
+            employee_id = self.db.get_employee_info(top_request_absence_data_series, "EmployeeID")
             employee_idx = self.db.employees[self.db.employees['EmployeeID'] == employee_id].index
             self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
 
@@ -203,6 +207,8 @@ class ARS(object):
             handle all pending requests until there is none left
         '''
         pending_request_indices = []
+        print(self.db.absence_data)
+        print(self.db.employees)
         for index, request in self.db.get_requests(status = "Pending").iterrows():
             pending_request_indices.append(index)
             self.rating_function()
@@ -210,11 +216,13 @@ class ARS(object):
 
         #self.db.update_db(self.db.absence_data)
         #self.db.update_db(self.db.employees)
+        print(self.db.absence_data)
+        print(self.db.employees)
         return self.db.absence_data
 
 
 if __name__ == "__main__":
-    path_absence_table = "back-end/src/data/jsons/absence_data.json"
+    path_absence_table = "back-end/src/data/jsons/absence_data-3.json"
     path_teams_table = "back-end/src/data/jsons/teams_table.json"
     path_employees_table = "back-end/src/data/jsons/employees_table.json"
     path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
