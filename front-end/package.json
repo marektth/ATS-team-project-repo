@@ -8,6 +8,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^2.0.6",
     "@vismaux/nordic-cool-vue": "^1.1.36",
     "axios": "^0.23.0",
     "cache-loader": "^4.1.0",

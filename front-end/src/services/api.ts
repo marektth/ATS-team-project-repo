@@ -10,6 +10,16 @@ export interface TimeoffRequest {
     leaveReason:string
 }
 
+export interface EmployeeTimeoff {
+    id:number
+    EmployeeID:string
+    DateOfAbsence:string
+    AbsenceTypeCode:string
+    Rating:Object
+    LeaveReason:string
+    Status:string
+}
+
 export class ApiService {
     private employeeNumber:number;
     private header = {
@@ -121,7 +131,6 @@ export class ApiService {
                     "id": requestID
                 }
             })
-            
         } catch (err) {
             console.error(err)
         }

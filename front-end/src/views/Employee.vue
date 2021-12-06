@@ -27,24 +27,38 @@
             <input class="form-control" type="text" id="ReasonID" placeholder="Enter reason" v-model="timeoffRequestForm.leaveReason" />
           </div>
           
-          <nc-button id="FormSubmitButton" variant="primary" @click="requestTimeoff">Request timeoff</nc-button>
+          <nc-button id="FormSubmitButton"  @click.prevent="requestTimeoff">Request timeoff</nc-button>
         </nc-form>
        </nc-layout-aside>
       <nc-layout-content>
 
-        <nc-table class="data-table">
+        <nc-table class="data-table" v-if="this.requests.length > 0">
           <thead>
-            <nc-table-row v-for="(idx,header) in headers" v-bind:key="header + '_' + idx">
-              <th scope="col">header</th>
+            <nc-table-row>
+              <th scope="col">#</th>
+              <th scope="col">Request ID</th>
+              <th scope="col">Employee ID</th>
+              <th scope="col">Date Of Absence</th>
+              <th scope="col">Absence Type Code</th>
+              <th scope="col">Leave Reason</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
             </nc-table-row>
           </thead>
-          <!-- <tbody v-for="request in requests" v-bind:key="request.id">
+          <tbody v-for="(request,idx) in requests" v-bind:key="String(request.EmployeeID) + '_'+ String(idx)">
             <nc-table-row>
-              <td>{{ request }}</td>
+              <td>{{ idx + 1 }}</td>
+              <td>{{ request.id }}</td>
+              <td>{{ request.EmployeeID }}</td>
+              <td>{{ request.DateOfAbsence }}</td>
+              <td>{{ request.AbsenceTypeCode }}</td>
+              <td>{{ request.LeaveReason }}</td>
+              <td>{{ request.Status }}</td>
+              <td><a @click.prevent="deleteTimeoff(request.id)">Delete</a></td>
             </nc-table-row>
-          </tbody> -->
+          </tbody>
         </nc-table>
-
+        <h1 v-else>No data</h1>
       </nc-layout-content>
     </nc-layout>
   </nc-container>
@@ -52,7 +66,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { ApiService, TimeoffRequest } from '../services/api'
+import { ApiService, EmployeeTimeoff, TimeoffRequest } from '../services/api'
 
 export default Vue.extend({
   name: 'Home',
@@ -61,47 +75,70 @@ export default Vue.extend({
   },
   data: function () {
     return {
-      employeeID: 38,
+      employeeID: 96,
       showForm: 0,
       timeoffRequestForm: {
         endDate: new Date(),
         codeLeaveReason: "" as string,
         leaveReason: "" as string,
       } as TimeoffRequest,
-      requests: [] as any[],
-      headers: [] as any[]
+      requests: [] as EmployeeTimeoff[]
       }
   }, 
   async created(){
-    // const api = new ApiService(this.employeeID)
-    // const response = await api.requestTimeoffDELETE(13)
-    // const response = await api.employeeTimeoffRequestsGET()
-    // console.log(response)
+    this.getEmployeeData()
   },
   methods: {
-    loadDataToTable(res : any){
-      // load to table
-    },
-    toFullDate(date:Date) : string {
-      // function to edit date to specific format
-      return "";
-    },
-    clearFormInputs(){
-      this.timeoffRequestForm.endDate = new Date()
-      this.timeoffRequestForm.codeLeaveReason = ""
-      this.timeoffRequestForm.leaveReason = ""
+
+    async getEmployeeData() {
+      
+      const api = new ApiService(this.employeeID)
+      //const response = await api.requestTimeoffDELETE(10)
+      const response:EmployeeTimeoff[] = await api.employeeTimeoffRequestsGET()
+      console.log(response)
+      if(this.requests.length > 0){
+        this.requests = []
+      }
+
+      if (response.length > 0){
+        response.forEach(request => {
+          this.requests.push(request)
+        });
+      }
     },
     async requestTimeoff(){
       // request time off from form
       const api = new ApiService(this.employeeID)
       const response = await api.requestTimeoffPOST(this.timeoffRequestForm)
       console.log(response)
+      this.getEmployeeData()
+      this.clearFormInputs()
     },
-    async deleteTimeoff(id:number, data:TimeoffRequest){
-      const api = new ApiService(this.employeeID)
-      const response = await api.requestTimeoffDELETE(id)
-      console.log(response)
+    async deleteTimeoff(id:number){
+      const confirmation = prompt(`If you want to delete your request enter: DELETE ${id}`);
+      if(confirmation === `DELETE ${id}`){
+        const api = new ApiService(this.employeeID)
+        const response = await api.requestTimeoffDELETE(id)
+        console.log(response)
+        this.getEmployeeData()
+      }
     },
+    
+    // helper functions
+
+    loadDataToTable(res : any){
+      // load to table
+    },
+    clearFormInputs(){
+      // form clear
+      this.timeoffRequestForm.endDate = new Date()
+      this.timeoffRequestForm.codeLeaveReason = ""
+      this.timeoffRequestForm.leaveReason = ""
+      
+    },
+    
+    // actions
+    
     openForm(){
       if (this.showForm == 0) {
         this.showForm = 1
