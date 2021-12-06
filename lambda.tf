@@ -95,6 +95,7 @@ resource "aws_lambda_function" "decision_lambda" {
 
   handler = "main.lambda_handler"
   runtime = "python3.8"
+  timeout = 10
 
   role = "${aws_iam_role.lambda_exec.arn}"
   layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
