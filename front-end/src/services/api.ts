@@ -2,7 +2,7 @@ import axios from "axios"
 import _ from 'underscore';
 import { KEY } from "@/utils/key_enum";
 
-// Leave period data format 
+// INTERFACES
 
 export interface TimeoffRequest {
 	endDate:Date,
@@ -15,27 +15,36 @@ export class ApiService {
     private header = {
         "x-api-key": KEY.AWS
     }
-    //URLs
+
+    // URL'S
+    // ---------------------------------------
 
     // GET URL 
-
+    private employeeTimeoffRequestURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load?personID="
+    private managerTimeoffRequestsURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load_team_absence?managerID=";
+    
     // POST URL
-
+    private requestTimeoffURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/submit"
+    
     // DELETE URL
+    private requestTimeoffDeleteURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/delete"
 
     // UPDATE URL
-
-    //private requestTimeoffURL:string;
-    //private codeLeaveURL:string;
 
     constructor(employeeNumber: number) {
         this.employeeNumber = employeeNumber
     }
 
+    // HELPER FUNCTIONS
+    // ---------------------------------------
 
     dateConvert(date:Date) : string {
         return  ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear()
     }
+
+
+    // REQUESTS
+    // ---------------------------------------
 
     // GET
 
@@ -43,7 +52,7 @@ export class ApiService {
     async employeeTimeoffRequestsGET() {
         try {
             const response:any = await axios.get(
-                `https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load?personID=${this.employeeNumber}`,
+                this.employeeTimeoffRequestURL + String(this.employeeNumber),
                 { headers: this.header }
             )
             if(response.data.length === 0){
@@ -53,7 +62,7 @@ export class ApiService {
             }
            
         } catch(err){
-            console.log(err)
+            console.error(err)
             return "No data";
         }
     }
@@ -63,7 +72,7 @@ export class ApiService {
     async managerTimeoffRequestsGET() {
         try {
             const response:any = await axios.get(
-                `https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load_team_absence?managerID=${this.employeeNumber}`,
+                this.managerTimeoffRequestsURL + String(this.employeeNumber),
                 { headers: this.header }
             )
             if(response.data.length === 0){
@@ -73,14 +82,13 @@ export class ApiService {
             }
            
         } catch(err){
-            console.log(err)
+            console.error(err)
             return "No data";
         }
     }
 
 
     // POST
-
 
     // POST time off request -> employee
     async requestTimeoffPOST(request:TimeoffRequest){
@@ -92,11 +100,11 @@ export class ApiService {
                 "AbsenceTypeCode" : request.codeLeaveReason,
                 "LeaveReason": request.leaveReason, 
                 "Status": "Pending"
-}
-           // console.log(request)
-            
-            return await axios.post("https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/submit", timeoffData, { headers: this.header });
+            }
+          
+            return await axios.post(this.requestTimeoffURL, timeoffData, { headers: this.header });
         } catch (err){
+            console.error(err)
             return err;
         }
     }
@@ -106,12 +114,17 @@ export class ApiService {
 
     // DELETE specific time off request
     async requestTimeoffDELETE(requestID:number){
-        return await axios.delete("https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/delete",{
-            headers: this.header,
-            data: {
-                "id": requestID
-            }
-          })
+        try {
+            return await axios.delete(this.requestTimeoffDeleteURL,{
+                headers: this.header,
+                data: {
+                    "id": requestID
+                }
+            })
+            
+        } catch (err) {
+            console.error(err)
+        }
     }
 }
 
