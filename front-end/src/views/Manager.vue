@@ -1,41 +1,42 @@
 <template>
   <nc-container>
-   <nc-layout horizontal> 
-     <nc-table class="data-table">
-          <thead>
-            <nc-table-row>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Team</th>
-              <th scope="col">Code leave reason</th>
-              <th scope="col">Reason</th>
-              <th scope="col">Date of request</th>
-              <th scope="col">Start date</th>
-              <th scope="col">End date</th>
-              <th scope="col">Status</th>
-            </nc-table-row>
-          </thead>
-          <tbody>
-            <nc-table-row v-for="request in requests" v-bind:key="request.id + '_' + request.name">
-              <td>{{ request.id }}</td>
-              <td>{{ request.name }}</td>
-              <td>{{ request.team }}</td>
-              <td>{{ request.codeLeaveReason }}</td>
-              <td>{{ request.reason }}</td>
-              <td>{{ request.dateOfRequest }}</td>
-              <td>{{ request.startDate }}</td>
-              <td>{{ request.endDate }}</td>
-              <td>{{ request.status }}</td>
-            </nc-table-row>
-          </tbody>
-        </nc-table>
+   <nc-layout horizontal>
+      <nc-button @click.prevent="triggerARS">Decide</nc-button>
+
+      <nc-table class="data-table" v-if="this.requests.length > 0">
+        <thead>
+          <nc-table-row>
+            <th scope="col">#</th>
+            <th scope="col">Request ID</th>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Date Of Absence</th>
+            <th scope="col">Absence Type Code</th>
+            <th scope="col">Leave Reason</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </nc-table-row>
+        </thead>
+        <tbody v-for="(request,idx) in requests" v-bind:key="String(request.EmployeeID) + '_'+ String(idx)">
+          <nc-table-row>
+            <td>{{ idx + 1 }}</td>
+            <td>{{ request.id }}</td>
+            <td>{{ request.EmployeeID }}</td>
+            <td>{{ request.DateOfAbsence }}</td>
+            <td>{{ request.AbsenceTypeCode }}</td>
+            <td>{{ request.LeaveReason }}</td>
+            <td>{{ request.Status }}</td>
+            <td><a @click.prevent="deleteTimeoff(request.id)">Delete</a></td>
+          </nc-table-row>
+        </tbody>
+      </nc-table>
+      <h1 v-else>No data</h1>
    </nc-layout>
   </nc-container>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { ApiService} from '../services/api'
+import { ApiService, TimeoffRequest, EmployeeTimeoff} from '../services/api'
 
 export default Vue.extend({
   name: 'Manager',
@@ -45,51 +46,35 @@ export default Vue.extend({
   data: function () {
     return {
       managerID: 7,
-      requests: [
-        { 
-          id: 1,
-          name: "Filip Havel", 
-          team: "ATS", 
-          codeLeaveReason: "BOW",
-          reason: "Health", 
-          dateOfRequest: "26.2.2021", 
-          startDate: "27.2.2021",
-          endDate: "28.2.2021",
-          status: "for approval"
-        },
-        { 
-          id: 2,
-          name: "Filip Havel", 
-          team: "ATS", 
-          codeLeaveReason: "WET",
-          reason: "", 
-          dateOfRequest: "12.7.2021", 
-          startDate: "17.7.2021",
-          endDate: "28.7.2021",
-          status: "denied"
-        },
-        { 
-          id: 3,
-          name: "Filip Havel", 
-          team: "ATS", 
-          codeLeaveReason: "BOW",
-          reason: "Holiday",  
-          dateOfRequest: "2.5.2021", 
-          startDate: "26.5.2021",
-          endDate: "26.5.2021",
-          status: "approved"
-        }
-      ]
+      requests: [] as EmployeeTimeoff[]
       
       }
   }, 
   async created(){
-    const api = new ApiService(this.managerID)
-    const response = await api.managerTimeoffRequestsGET()
-    console.log(response)
+    this.getEmployeeData()
   },
   methods: {
-  
+    async triggerARS(){
+      const api = new ApiService(this.managerID)
+      alert(await api.triggerARSPOST())
+      this.getEmployeeData()
+    },
+    async getEmployeeData() {
+      
+      const api = new ApiService(this.managerID)
+      //const response = await api.requestTimeoffDELETE(10)
+      const response:EmployeeTimeoff[] = await api.managerTimeoffRequestsGET()
+      console.log(response)
+      if(this.requests.length > 0){
+        this.requests = []
+      }
+
+      if (response.length > 0){
+        response.forEach(request => {
+          this.requests.push(request)
+        });
+      }
+    }
   }
   
 });
