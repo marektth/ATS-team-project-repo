@@ -51,12 +51,7 @@ def lambda_handler(event, context):
     
         
     item = {
-        "id": table_id,
-        "EmployeeID": EmployeeID,
-        "DateOfAbsence": vacation_date,
-        "AbsenceTypeCode": code_leave_reason,
-        "Status": status,
-        "Rating": rating
+        "id": table_id
     }
     
     '''

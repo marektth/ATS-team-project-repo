@@ -45,7 +45,7 @@ def lambda_handler(event, context):
     table_id = 0
     code_leave_reason = line_to_add['AbsenceTypeCode']
     rating = {}
-    #leave_reason = json.dumps(line_to_add['Leave Reason'])
+    leave_reason = line_to_add['Leave Reason']
     status = line_to_add['Status']
     #table = dynamodb_res.Table(table_name)
     
@@ -56,6 +56,7 @@ def lambda_handler(event, context):
         "DateOfAbsence": vacation_date,
         "AbsenceTypeCode": code_leave_reason,
         "Status": status,
+        "LeaveReason": leave_reason,
         "Rating": rating
     }
     
