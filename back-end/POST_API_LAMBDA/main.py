@@ -45,7 +45,7 @@ def lambda_handler(event, context):
     table_id = 0
     code_leave_reason = line_to_add['AbsenceTypeCode']
     rating = {}
-    leave_reason = line_to_add['Leave Reason']
+    leave_reason = line_to_add['LeaveReason']
     status = line_to_add['Status']
     #table = dynamodb_res.Table(table_name)
     
