@@ -39,14 +39,14 @@ def lambda_handler(event, context):
     
     #convert_to_datetime = datetime.strptime(line_to_add['Vacation Date'],'%d/%m/%Y')
        
-    vacation_date = line_to_add['DateOfAbsence']
+    #vacation_date = line_to_add['DateOfAbsence']
     #vacation_date = json.dumps(convert_to_datetime)
-    EmployeeID = line_to_add['EmployeeID']
+    #EmployeeID = line_to_add['EmployeeID']
     table_id = line_to_add['id']
-    code_leave_reason = line_to_add['AbsenceTypeCode']
-    rating = {}
+    #code_leave_reason = line_to_add['AbsenceTypeCode']
+    #rating = {}
     #leave_reason = json.dumps(line_to_add['Leave Reason'])
-    status = line_to_add['Status']
+    #status = line_to_add['Status']
     #table = dynamodb_res.Table(table_name)
     
         
@@ -79,6 +79,7 @@ def lambda_handler(event, context):
     
     json_data = json.load(data)
     #print(json_data)
+    '''
     id_to_append = []
     counter = 1
     for i in json_data:
@@ -86,9 +87,14 @@ def lambda_handler(event, context):
             i['id'] = counter
             id_to_append.append(i)
             counter = counter + 1
-            
+    '''
+    for i in range(len(json_data)):
+        if json_data[i]["id"] == table_id:
+            json_data.pop(i)
+            break
+    
     #print(json_data)
-    s3_c.put_object(Bucket=s3_bucket_name, Key=s3_key_website, Body=json.dumps(id_to_append).encode('UTF-8'))
+    s3_c.put_object(Bucket=s3_bucket_name, Key=s3_key_website, Body=json.dumps(json_data).encode('UTF-8'))
     
     
     #s3_c.put_object( Body=(bytes(json.dumps(item).encode('UTF-8'))), ContentType='application/json',Bucket=s3_bucket_name ,Key=s3_key_website )
@@ -105,6 +111,3 @@ def lambda_handler(event, context):
     }
 
     return response
-    
-  
-    
