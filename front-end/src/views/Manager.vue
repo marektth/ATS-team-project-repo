@@ -35,6 +35,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { ApiService} from '../services/api'
 
 export default Vue.extend({
   name: 'Manager',
@@ -43,6 +44,7 @@ export default Vue.extend({
   },
   data: function () {
     return {
+      managerID: 7,
       requests: [
         { 
           id: 1,
@@ -81,8 +83,13 @@ export default Vue.extend({
       
       }
   }, 
+  async created(){
+    const api = new ApiService(this.managerID)
+    const response = await api.managerTimeoffRequestsGET()
+    console.log(response)
+  },
   methods: {
-    
+  
   }
   
 });

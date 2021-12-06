@@ -1,43 +1,20 @@
 import axios from "axios"
 import _ from 'underscore';
+import { KEY } from "@/utils/key_enum";
+
 // Leave period data format 
 
-export interface LeavePeriod {
-	startDate:Date,
+export interface TimeoffRequest {
 	endDate:Date,
 	codeLeaveReason:string
-    reason?:string
+    leaveReason:string
 }
-
-// API endpoint 1. -> get last five timeoff records for specific person (API returns array of TimeoffRecord data)
-
-export interface TimeoffRecord {
-    id:number,
-    dateOfRequest:string, // timestamp when request was created
-    startDate:string,
-    endDate:string,
-    codeLeaveReason:string,
-    leaveReason:string,
-    status:string // pending | accepted | declined
-}
-
-// API endpoint 2. -> get team
-
-export interface TeamMember { // team member object attributes
-    employeeNumber:number,
-    name:string,
-    position:string
-}
-
-export interface Team { // team object attributescodeL    name:string,
-    members: TeamMember[]
-}
-
-
 
 export class ApiService {
     private employeeNumber:number;
-
+    private header = {
+        "x-api-key": KEY.AWS
+    }
     //URLs
 
     // GET URL 
@@ -55,23 +32,50 @@ export class ApiService {
         this.employeeNumber = employeeNumber
     }
 
+
+    dateConvert(date:Date) : string {
+        return  ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear()
+    }
+
     // GET
 
-    // GET all time off requests -> manager 
-    async requestsTimeoffGET() {
+    // GET all time off requests -> employee 
+    async employeeTimeoffRequestsGET() {
         try {
-            const response = await axios.get("URL")
-            console.log(response.data)
-            return response.data;
+            const response:any = await axios.get(
+                `https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load?personID=${this.employeeNumber}`,
+                { headers: this.header }
+            )
+            if(response.data.length === 0){
+                return "No data"
+            } else {
+                return response.data
+            }
+           
         } catch(err){
-            return err;
+            console.log(err)
+            return "No data";
         }
     }
 
 
-    // GET time off requests for specific employee -> employee
-    async employeeTimeoffGET(employeeID:number){
-
+    // GET all time off requests from team -> managaer
+    async managerTimeoffRequestsGET() {
+        try {
+            const response:any = await axios.get(
+                `https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load_team_absence?managerID=${this.employeeNumber}`,
+                { headers: this.header }
+            )
+            if(response.data.length === 0){
+                return "No data"
+            } else {
+                return response.data
+            }
+           
+        } catch(err){
+            console.log(err)
+            return "No data";
+        }
     }
 
 
@@ -79,18 +83,19 @@ export class ApiService {
 
 
     // POST time off request -> employee
-    async requestTimeoffPOST(request:TimeoffRecord){
+    async requestTimeoffPOST(request:TimeoffRequest){
         try {
-           // console.log(request)
+            console.log(this.dateConvert(request.endDate))
             const timeoffData = {
-                "Employee ID": this.employeeNumber,
-                "Vacation Date" : request.endDate,
-                "Code Leave Reason" : request.codeLeaveReason,
-                "Leave Reason": request.leaveReason,
+                "EmployeeID": this.employeeNumber,
+                "DateOfAbsence" : this.dateConvert(request.endDate),
+                "AbsenceTypeCode" : request.codeLeaveReason,
+                "LeaveReason": request.leaveReason, 
                 "Status": "Pending"
-            }
+}
+           // console.log(request)
             
-            return await axios.post("URL", timeoffData);
+            return await axios.post("https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/submit", timeoffData, { headers: this.header });
         } catch (err){
             return err;
         }
@@ -101,20 +106,12 @@ export class ApiService {
 
     // DELETE specific time off request
     async requestTimeoffDELETE(requestID:number){
-
-    }
-
-
-    // UPDATE
-
-    // UPDATE specific time off request (start date, end date, code leave reason, reason) -> employee
-    async requestTimeoffUPDATE(requestID:number, obj:Object){
-
-    }
-
-    // UPDATE specific time off request (status) -> manager
-    async requestTimeoffStatusUPDATE(id:number, status:string){
-
+        return await axios.delete("https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/delete",{
+            headers: this.header,
+            data: {
+                "id": requestID
+            }
+          })
     }
 }
 
