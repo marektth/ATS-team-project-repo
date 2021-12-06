@@ -1,5 +1,5 @@
-from src.Absence_rating_system.Data_handler import DBHandler
-#from Data_handler import DBHandler
+#from src.Absence_rating_system.Data_handler import DBHandler
+from Data_handler import DBHandler
 import pandas as pd
 
 class ARS(object):
@@ -169,16 +169,34 @@ class ARS(object):
         severities_df.sort_values(by=self.__rules_structs, ascending=self.__rules_df_sort, inplace=True)
 
         top_request = severities_df.iloc[0]
+        top_request_absence_data = self.db.get_request_by_id(top_request.name)
         request_decision = "Accepted"
         for rule_rank in self.__rules_structs:
             #out of treshold - Reject
             #future feature - maybe do helper microrules to really decide if rejected
-            if rule_rank in self.__rules_tresholds and top_request[rule_rank] == self.__rules_tresholds[rule_rank]:
-                request_decision = "Rejected"
-                break
+            if rule_rank in self.__rules_tresholds and \
+                (
+                    (top_request[rule_rank] == self.__rules_tresholds[rule_rank]  and 
+                top_request_absence_data["AbsenceTypeCode"] != "TIM" and rule_rank != "D") 
+                ## treshold has been reached and its not because of leave balance \
+                or 
+                ## treshold has been reached for time off leave balance
+                    (top_request[rule_rank] == self.__rules_tresholds[rule_rank]  and 
+                top_request_absence_data["AbsenceTypeCode"] == "TIM" and rule_rank == "D")
+                ):
+                    request_decision = "Rejected"   
+                    break
                    
+        #update request status in Absence data DataFrame
         self.db.update_item(request_decision, top_request.name, "Status", self.db.absence_data)
-        #print(self.db.get_ou_absence_data(request, "All")) 
+
+        #update employee leave balance
+        if request_decision == "Accepted" and top_request_absence_data["AbsenceTypeCode"] == "TIM":
+            
+            new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") - self.db.get_request_leave_hours(top_request_absence_data)
+            employee_id = self.db.get_employee_info(top_request_absence_data, "EmployeeID")
+            employee_idx = self.db.employees[self.db.employees['EmployeeID'] == employee_id].index
+            self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
 
     def absence_requests_handler(self):
         '''
@@ -190,7 +208,8 @@ class ARS(object):
             self.rating_function()
             self.set_top_priority_request_status(request)
 
-        #print(self.db.absence_data)
+        #self.db.update_db(self.db.absence_data)
+        #self.db.update_db(self.db.employees)
         return self.db.absence_data
 
 
