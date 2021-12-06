@@ -1,5 +1,5 @@
-#from src.Absence_rating_system.Data_handler import DBHandler
-from Data_handler import DBHandler
+from src.Absence_rating_system.Data_handler import DBHandler
+#from Data_handler import DBHandler
 import pandas as pd
 
 class ARS(object):
