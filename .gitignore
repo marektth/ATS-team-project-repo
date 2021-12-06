@@ -1,6 +1,5 @@
 #sonarqube
 .scannerwork/
-sonar-project.properties
 securitylogs/scripts
 shouldUpdateSecLog.py
 
