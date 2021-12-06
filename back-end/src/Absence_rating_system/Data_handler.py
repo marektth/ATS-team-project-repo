@@ -50,6 +50,13 @@ class DBHandler():
         '''
         return self.absence_data.loc[self.absence_data['Status'] == status]
 
+    def get_request_by_id(self, request_id):
+        '''
+            returns request record by its id
+        '''
+        absence_request = self.absence_data.loc[self.absence_data["id"] == request_id]
+        return absence_request.iloc[0]
+
     def get_ouid_of_request(self, request):
         '''
             returns ID of OU of given request
