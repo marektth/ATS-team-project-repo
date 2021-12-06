@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { ApiService, TimeoffRequest, EmployeeTimeoff} from '../services/api'
+import { ApiService, EmployeeTimeoff} from '../services/api'
 
 export default Vue.extend({
   name: 'Manager',

@@ -7,11 +7,6 @@
 
          <nc-form class="user-form" v-if="this.showForm == 1">
 
-          <!-- <div class="form-group">
-            <label for="Name">Start date</label>
-            <nc-datepicker v-model="timeoffRequestForm.startDate" disable-past-days/>
-          </div> -->
-
           <div class="form-group">
             <label for="Name">Date of time off</label>
             <nc-datepicker v-model="timeoffRequestForm.endDate" disable-past-days/>

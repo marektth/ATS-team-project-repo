@@ -1,5 +1,4 @@
 import axios from "axios"
-import _ from 'underscore';
 import { KEY } from "@/utils/key_enum";
 
 // INTERFACES
@@ -126,8 +125,7 @@ export class ApiService {
     async triggerARSPOST() {
         try {
             const response = await axios.post(this.triggerARSURL, { "alg-trigger": "true" }, { headers: this.header });
-            const result:string = String(response.data)
-            return result
+            return String(response.data)
         } catch (err){
             console.error(err)
             return err;
