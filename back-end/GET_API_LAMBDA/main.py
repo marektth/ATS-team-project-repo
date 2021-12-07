@@ -25,7 +25,6 @@ def lambda_handler(event, context):
         else:
             print(f"File ({s3_key_website}) required by this function is not accessible!")
             raise e
-            return f"File ({s3_key_website}) required by this function is not accessible!"
     try:
        
         obj = s3.Object(s3_bucket_name, s3_key_website)
@@ -47,8 +46,8 @@ def lambda_handler(event, context):
     
       
         for index in range (len(json_data)):
-            if str(json_data[index]['employee_id']) == employee_id:
-                json_data[index]['employee_id'] = employee_id
+            if str(json_data[index]['EmployeeID']) == employee_id:
+                json_data[index]['EmployeeID'] = employee_id
                 return_data.append(json_data[index])
                 
       
