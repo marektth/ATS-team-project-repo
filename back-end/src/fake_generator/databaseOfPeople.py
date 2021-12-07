@@ -4,22 +4,22 @@ import random
 import names
 # %%
 def unique_numbers(num):
-    listA = []
-    while(len(listA) < num):
+    list_a = []
+    while(len(list_a) < num):
         x = random.randint(1,100)
-        if x not in listA:
-            listA.append(x)
-    listA.sort()
-    return listA
+        if x not in list_a:
+            list_a.append(x)
+    list_a.sort()
+    return list_a
 
 # %%
 def unique_names(num):
-    listA = []
-    while(len(listA) < num):
+    list_a = []
+    while(len(list_a) < num):
         x = names.get_full_name()
-        if x not in listA:
-            listA.append(x)
-    return listA
+        if x not in list_a:
+            list_a.append(x)
+    return list_a
 # %%
 df_people = pd.DataFrame()
 df_teams = pd.read_csv("databaseOfTeams.csv")

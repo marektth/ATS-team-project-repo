@@ -5,21 +5,21 @@ import random
 import string
 #%%
 def unique_numbers(num):
-    listA = []
-    while(len(listA) < num):
+    list_a = []
+    while(len(list_a) < num):
         x = random.randint(1,100)
-        if x not in listA:
-            listA.append(x)
-    listA.sort()
-    return listA
+        if x not in list_a:
+            list_a.append(x)
+    list_a.sort()
+    return list_a
 #%%
 def unique_team_name(num):
-    listA = []
-    while(len(listA) < num):
+    list_a = []
+    while(len(list_a) < num):
         x = ''.join(random.choice(string.ascii_uppercase) for _ in range(3))
-        if x not in listA:
-            listA.append(x)
-    return listA
+        if x not in list_a:
+            list_a.append(x)
+    return list_a
 # %%
 df_teams = pd.DataFrame()
 # %%
