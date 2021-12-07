@@ -74,6 +74,15 @@ export default Vue.extend({
           this.requests.push(request)
         });
       }
+    },
+     async deleteTimeoff(id:number){
+      const confirmation = prompt(`If you want to delete your request enter: DELETE ${id}`);
+      if(confirmation === `DELETE ${id}`){
+        const api = new ApiService(this.managerID)
+        const response = await api.requestTimeoffDELETE(id)
+        console.log(response)
+        this.getEmployeeData()
+      }
     }
   }
   

@@ -29,15 +29,15 @@ export class ApiService {
     // ---------------------------------------
 
     // GET URL 
-    private employeeTimeoffRequestURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load?personID="
-    private managerTimeoffRequestsURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load_team_absence?managerID=";
+    private employeeTimeoffRequestURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/load?personID="
+    private managerTimeoffRequestsURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/load_team_absence?managerID=";
     
     // POST URL
-    private requestTimeoffURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/submit"
-    private triggerARSURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/invoke_decision"
+    private requestTimeoffURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/submit"
+    private triggerARSURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/invoke_decision"
     
     // DELETE URL
-    private requestTimeoffDeleteURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/delete"
+    private requestTimeoffDeleteURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/delete"
 
     // UPDATE URL
 
