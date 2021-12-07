@@ -140,7 +140,7 @@ resource "aws_iam_role_policy" "test_policy" {
       {
         Action = [
           "s3:*",
-          "s3-object-lambda:*"
+          "s3-object-lambda:*",
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
