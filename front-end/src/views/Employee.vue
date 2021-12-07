@@ -14,7 +14,11 @@
 
           <div class="form-group">
             <label for="Name">Code leave reason</label>
-            <input class="form-control" type="text" id="CodeLeaveReasonID" placeholder="Enter code leave reason" v-model="timeoffRequestForm.codeLeaveReason" />
+            <select class="form-control" id="CodeLeaveReasonID" v-model="timeoffRequestForm.codeLeaveReason">
+                <option value="TIM">TIM</option>
+                <option value="SPE">SPE</option>
+                <option value="PAR">PAR</option>
+            </select>
           </div>
 
           <div class="form-group">
