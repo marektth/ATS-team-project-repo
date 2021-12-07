@@ -18,7 +18,7 @@ s3_key_website_employees = os.environ.get('OBJECT_NAME_EMPLOYEES')
 def lambda_handler(event, context):
     # TODO implement
     s3 = boto3.resource('s3')
-    managerID = event["queryStringParameters"]['managerID']
+    manager_id = event["queryStringParameters"]['managerID']
     
     try:
         s3.Object(s3_bucket_name, s3_key_website_absence).load()
@@ -62,8 +62,8 @@ def lambda_handler(event, context):
        
         
         for index in range (len(json_data_teams)):
-            if str(json_data_teams[index]['ManagerID']) == managerID:
-                json_data_teams[index]['ManagerID'] = managerID
+            if str(json_data_teams[index]['ManagerID']) == manager_id:
+                json_data_teams[index]['ManagerID'] = manager_id
                 json_data_teams[index]['OUID'] = str(json_data_teams[index]['OUID'])
                 teams_return_data = json_data_teams[index]['OUID']
         employees_return_data = []
