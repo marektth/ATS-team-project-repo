@@ -23,9 +23,8 @@ def lambda_handler(event, context):
             print(f"File ({s3_key_website})) required by this function does not exist!")
             return f"File ({s3_key_website})) required by this function does not exist!"
         else:
-            raise f"File ({s3_key_website}) required by this function is not accessible!"
             print(f"File ({s3_key_website}) required by this function is not accessible!")
-            return f"File ({s3_key_website}) required by this function is not accessible!"
+            raise e
     
   
     line_to_add = json.loads(event['body'])
@@ -34,7 +33,7 @@ def lambda_handler(event, context):
     
        
     vacation_date = line_to_add['DateOfAbsence']
-    EmployeeID = line_to_add['EmployeeID']
+    employee_id = line_to_add['EmployeeID']
     table_id = 0
     code_leave_reason = line_to_add['AbsenceTypeCode']
     rating = {}
@@ -45,7 +44,7 @@ def lambda_handler(event, context):
         
     item = {
         "id": table_id,
-        "EmployeeID": EmployeeID,
+        "EmployeeID": employee_id,
         "DateOfAbsence": vacation_date,
         "AbsenceTypeCode": code_leave_reason,
         "Status": status,

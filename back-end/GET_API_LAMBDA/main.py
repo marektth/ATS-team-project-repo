@@ -13,8 +13,7 @@ s3_key_website = os.environ.get('OBJECT_NAME')
 def lambda_handler(event, context):
     # TODO implement
     
-    employeeID = event["queryStringParameters"]['personID']
-    listOfEntries = []
+    employee_id = event["queryStringParameters"]['personID']
     s3 = boto3.resource('s3')
     
     try:
@@ -24,8 +23,8 @@ def lambda_handler(event, context):
             print(f"File ({s3_key_website})) required by this function does not exist!")
             return f"File ({s3_key_website})) required by this function does not exist!"
         else:
-            raise f"File ({s3_key_website}) required by this function is not accessible!"
             print(f"File ({s3_key_website}) required by this function is not accessible!")
+            raise e
             return f"File ({s3_key_website}) required by this function is not accessible!"
     try:
        
@@ -33,7 +32,7 @@ def lambda_handler(event, context):
         data = obj.get()['Body'].read().decode('utf-8')
         return_data = []
        
-        if employeeID == "all":
+        if employee_id == "all":
             json_data = json.loads("" + 
             data.replace("}\n{", "},\n{") + 
             "")
@@ -48,8 +47,8 @@ def lambda_handler(event, context):
     
       
         for index in range (len(json_data)):
-            if str(json_data[index]['EmployeeID']) == employeeID:
-                json_data[index]['EmployeeID'] = employeeID
+            if str(json_data[index]['employee_id']) == employee_id:
+                json_data[index]['employee_id'] = employee_id
                 return_data.append(json_data[index])
                 
       

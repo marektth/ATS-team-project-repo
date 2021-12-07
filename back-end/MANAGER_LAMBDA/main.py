@@ -17,8 +17,6 @@ s3_key_website_employees = os.environ.get('OBJECT_NAME_EMPLOYEES')
 
 def lambda_handler(event, context):
     # TODO implement
-    
-    
     s3 = boto3.resource('s3')
     managerID = event["queryStringParameters"]['managerID']
     
@@ -31,26 +29,9 @@ def lambda_handler(event, context):
             print(f"File ({s3_key_website_absence})) required by this function does not exist!")
             return f"File ({s3_key_website_absence})) required by this function does not exist!"
         else:
-            raise f"File ({s3_key_website_absence}) required by this function is not accessible!"
             print(f"File ({s3_key_website_absence}) required by this function is not accessible!")
-            return f"File ({s3_key_website_absence}) required by this function is not accessible!"
-        if e.response['Error']['Code'] == "404":
-            print(f"File ({s3_key_website_teams})) required by this function does not exist!")
-            return f"File ({s3_key_website_teams})) required by this function does not exist!"
-        else:
-            raise f"File ({s3_key_website_teams}) required by this function is not accessible!"
-            print(f"File ({s3_key_website_teams}) required by this function is not accessible!")
-            return f"File ({s3_key_website_teams}) required by this function is not accessible!"
-        if e.response['Error']['Code'] == "404":
-            print(f"File ({s3_key_website_employees})) required by this function does not exist!")
-            return f"File ({s3_key_website_employees})) required by this function does not exist!"
-        else:
-            raise f"File ({s3_key_website_employees}) required by this function is not accessible!"
-            print(f"File ({s3_key_website_employees}) required by this function is not accessible!")
-            return f"File ({s3_key_website_employees}) required by this function is not accessible!"
+            raise e
 
-    
-    
     obj_absence_table = s3.Object(s3_bucket_name, s3_key_website_absence)
     data_absence_table = obj_absence_table.get()['Body'].read().decode('utf-8')
     json_data_absence = json.loads("" + 
