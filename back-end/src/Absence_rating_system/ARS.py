@@ -1,8 +1,11 @@
 from src.Absence_rating_system.Data_handler import DBHandler
-#from Data_handler import DBHandler
 import pandas as pd
 
 class ARS(object):
+    '''
+    If first import is not working then try ths one from Data_handler import DBHandler    
+    '''
+
 
     def __init__(self, absence_data, teams, employees, jobs, absence_type):
 
@@ -206,18 +209,10 @@ class ARS(object):
         '''
             handle all pending requests until there is none left
         '''
-        pending_request_indices = []
-        print(self.db.absence_data)
-        print(self.db.employees)
         for index, request in self.db.get_requests(status = "Pending").iterrows():
-            pending_request_indices.append(index)
             self.rating_function()
             self.set_top_priority_request_status(request)
 
-        #self.db.update_db(self.db.absence_data)
-        #self.db.update_db(self.db.employees)
-        print(self.db.absence_data)
-        print(self.db.employees)
         return self.db.absence_data
 
 

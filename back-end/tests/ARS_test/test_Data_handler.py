@@ -127,12 +127,12 @@ class TestDataHandler(unittest.TestCase):
         exp_out = pd.Series(exp_out)
         assert_series_equal(request.reset_index(drop=True), exp_out.reset_index(drop=True))
         #if is Dataframe
-        request_caseDF = self.dHandler.convert_to_dayofyear(self.request_pending,
+        request_case_df = self.dHandler.convert_to_dayofyear(self.request_pending,
                                                       column_to_convert='DateOfAbsence',
                                                       column_to_add='DayOfYear')
-        exp_out_caseDF = self.request_pending
-        exp_out_caseDF["DayOfYear"] = 297
-        assert_frame_equal(request_caseDF, exp_out_caseDF)
+        exp_out_case_df = self.request_pending
+        exp_out_case_df["DayOfYear"] = 297
+        assert_frame_equal(request_case_df, exp_out_case_df)
 
 
 
@@ -148,10 +148,6 @@ class TestDataHandler(unittest.TestCase):
        input_leave_balance = self.dHandler.check_enough_leave_balance(self.request_series)
        self.assertEqual(input_leave_balance, True)
 
-    # def test_rule_min_capacity_treshold(self):
-    #     input_rule_min_capacity = self.ars.rule_min_capacity_treshold(self.request_series)
-    #     self.assertEqual(input_rule_min_capacity, 0)
- 
 
 if __name__ == '__main__':
     unittest.main()
