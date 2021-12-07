@@ -48,6 +48,16 @@ def lambda_handler(event, context):
         data_employees_table.replace("}\n{", "},\n{") + 
     "")
     
+    response = {
+            "statusCode": 200,
+            "headers": {
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+            },
+            "body": ""
+    }
+
     try:
         teams_return_data = ""
     
@@ -74,26 +84,8 @@ def lambda_handler(event, context):
         parsed = json.dumps(return_data)
     
     except ClientError as e:
-        response = {
-        "statusCode": 200,
-        "headers": {
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-        },
-        "body": e.response['Error']['Message']
-        }
-        
+        response['body'] = e.response['Error']['Message']
         return response
     else:
-        response = {
-        "statusCode": 200,
-        "headers": {
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-        },
-        "body": parsed
-        }
-        
+        response['body'] = parsed
         return response
