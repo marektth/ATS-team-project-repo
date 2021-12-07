@@ -22,8 +22,6 @@ def lambda_handler(event, context):
     
     try:
         s3.Object(s3_bucket_name, s3_key_website_absence).load()
-        s3.Object(s3_bucket_name, s3_key_website_teams).load()
-        s3.Object(s3_bucket_name, s3_key_website_employees).load()
     except botocore.exceptions.ClientError as e:
         if e.response['Error']['Code'] == "404":
             print(f"File ({s3_key_website_absence})) required by this function does not exist!")
@@ -50,17 +48,9 @@ def lambda_handler(event, context):
         data_employees_table.replace("}\n{", "},\n{") + 
     "")
     
-    
-    ## ---- loading tables -----
-    
-    
-    
-    
     try:
-        
         teams_return_data = ""
-       
-        
+    
         for index in range (len(json_data_teams)):
             if str(json_data_teams[index]['ManagerID']) == manager_id:
                 json_data_teams[index]['ManagerID'] = manager_id
@@ -83,9 +73,7 @@ def lambda_handler(event, context):
    
         parsed = json.dumps(return_data)
     
-        
     except ClientError as e:
-        print()
         response = {
         "statusCode": 200,
         "headers": {

@@ -22,10 +22,9 @@ def lambda_handler(event, context):
             print(f"File ({s3_key_website})) required by this function does not exist!")
             return f"File ({s3_key_website})) required by this function does not exist!"
         else:
-            raise f"File ({s3_key_website}) required by this function is not accessible!"
             print(f"File ({s3_key_website}) required by this function is not accessible!")
-            return f"File ({s3_key_website}) required by this function is not accessible!"
-    
+            raise e
+ 
     line_to_add = json.loads(event['body'])
     
     table_id = line_to_add['id']
