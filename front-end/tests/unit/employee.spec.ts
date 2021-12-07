@@ -30,16 +30,4 @@ describe('Testing Component Employee', () => {
 
     expect(requestTimeoff).toBeCalled()
   })
-
-  test('Test call of toFullDate method', async () => {
-    const wrapper = shallowMount(Employee)
-    const toFullDate = jest.fn()
-    wrapper.setMethods({
-      toFullDate: toFullDate
-    })
-    await wrapper.find('#OpenFormButton').trigger('click')
-    await wrapper.find('#FormSubmitButton').trigger('click')
-
-    expect(toFullDate).toBeCalled()
-  })
 })
