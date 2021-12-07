@@ -130,7 +130,27 @@ resource "aws_lambda_function" "delete_lambda" {
   }
 }
 
+resource "aws_iam_role_policy" "test_policy" {
+  name = "test_policy"
+  role = aws_iam_role.lambda_exec.id
 
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "s3:*",
+          "s3-object-lambda:*"
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
 
 resource "aws_iam_role" "lambda_exec" {
   name = "serverless_example_lambda"
