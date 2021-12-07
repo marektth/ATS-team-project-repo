@@ -10,14 +10,14 @@ terraform{
   backend "s3"{
     bucket = "terraform-state-dev-development"
     key = "state/s3-state/terraform.tfstate"
-    dynamodb_table = "terraform-state-lock-dynamo-dev-development"
+    dynamodb_table = "terraform-state-lock-dynamo"
     region = "eu-central-1"
     encrypt = true
   }
 }
 
 resource "aws_dynamodb_table" "dynamodb-terraform-state-lock" {
-  name = "terraform-state-lock-dynamo-dev-development"
+  name = "terraform-state-lock-dynamo"
   hash_key = "LockID"
   read_capacity = 20
   write_capacity = 20
