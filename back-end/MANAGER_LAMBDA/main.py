@@ -6,7 +6,7 @@ from botocore.exceptions import ClientError
 import os
 
 s3 = boto3.client('s3')
-
+s3 = boto3.resource('s3')
 
 
 s3_bucket_name = os.environ.get('BUCKET_NAME')
@@ -15,20 +15,23 @@ s3_key_website_teams = os.environ.get('OBJECT_NAME_TEAMS')
 s3_key_website_employees = os.environ.get('OBJECT_NAME_EMPLOYEES')
 
 
+try:
+    s3.Object(s3_bucket_name, s3_key_website_absence).load()
+except botocore.exceptions.ClientError as e:
+    if e.response['Error']['Code'] == "404":
+        print(f"File ({s3_key_website_absence})) required by this function does not exist!")
+        raise e
+    else:
+        print(f"File ({s3_key_website_absence}) required by this function is not accessible!")
+        raise e
+
+
 def lambda_handler(event, context):
     # TODO implement
-    s3 = boto3.resource('s3')
+    
     manager_id = event["queryStringParameters"]['managerID']
     
-    try:
-        s3.Object(s3_bucket_name, s3_key_website_absence).load()
-    except botocore.exceptions.ClientError as e:
-        if e.response['Error']['Code'] == "404":
-            print(f"File ({s3_key_website_absence})) required by this function does not exist!")
-            return f"File ({s3_key_website_absence})) required by this function does not exist!"
-        else:
-            print(f"File ({s3_key_website_absence}) required by this function is not accessible!")
-            raise e
+    
 
     obj_absence_table = s3.Object(s3_bucket_name, s3_key_website_absence)
     data_absence_table = obj_absence_table.get()['Body'].read().decode('utf-8')
