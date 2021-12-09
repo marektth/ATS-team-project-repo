@@ -1,0 +1,27 @@
+[
+    {
+        "id": 0,
+        "JobName": "Tester",
+        "MinRequirement": 1
+    },
+    {
+        "id": 1,
+        "JobName": "Developer",
+        "MinRequirement": 2
+    },
+    {
+        "id": 2,
+        "JobName": "Support",
+        "MinRequirement": 1
+    },
+    {
+        "id": 3,
+        "JobName": "Security engineer",
+        "MinRequirement": 1
+    },
+    {
+        "id": 4,
+        "JobName": "SCRUM Master",
+        "MinRequirement": 1
+    }
+]
