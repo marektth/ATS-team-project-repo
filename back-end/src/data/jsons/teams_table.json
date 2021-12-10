@@ -1,21 +1,26 @@
 [
     {
-        "OUID":7,
-        "ManagerID":7,
+        "OUID": 7,
+        "ManagerID": 7,
         "MinimalCapacity": 3,
-        "TeamName":"MLB"
+        "TeamName": "MLB",
+        "LastChangeMILIS": 1639165929.68987,
+        "SavedTimeMS": 41.1069393158
     },
     {
-        "OUID":21,
-        "ManagerID":10,
-        "MinimalCapacity":2,
-        "TeamName":"WET"
-    }
-    ,
+        "OUID": 21,
+        "ManagerID": 10,
+        "MinimalCapacity": 2,
+        "TeamName": "WET",
+        "LastChangeMILIS": 1639165929.762624,
+        "SavedTimeMS": 52.7758598328
+    },
     {
-        "OUID":77,
-        "ManagerID":21,
-        "MinimalCapacity":2,
-        "TeamName":"ATS"
+        "OUID": 77,
+        "ManagerID": 21,
+        "MinimalCapacity": 2,
+        "TeamName": "ATS",
+        "LastChangeMILIS": 1639165929.8191319,
+        "SavedTimeMS": 39.519071579
     }
 ]
