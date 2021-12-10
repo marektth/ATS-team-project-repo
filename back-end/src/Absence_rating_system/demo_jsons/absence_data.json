@@ -5,6 +5,7 @@
       "DateOfAbsence": "24/10/2021",
       "AbsenceTypeCode": "TIM",
       "Status": "Pending",
+      "StatusResolution" : "",
       "LeaveReason": "Need to go to medical exam",
       "Rating": {}
     },
@@ -14,6 +15,7 @@
       "DateOfAbsence": "24/10/2021",
       "AbsenceTypeCode": "SPE",
       "Status": "Pending",
+      "StatusResolution" : "",
       "LeaveReason": "I am very sick (of this)",
       "Rating": {}
     },
@@ -23,6 +25,7 @@
       "DateOfAbsence": "24/10/2021",
       "AbsenceTypeCode": "TIM",
       "Status": "Pending",
+      "StatusResolution" : "",
       "LeaveReason": "i have enough, need time off",
       "Rating": {}
     },
@@ -32,6 +35,7 @@
       "DateOfAbsence": "31/12/2021",
       "AbsenceTypeCode": "TIM",
       "Status": "Pending",
+      "StatusResolution" : "",
       "LeaveReason": "Pijatika riadna",
       "Rating": {}
     },
@@ -41,6 +45,7 @@
       "DateOfAbsence": "31/12/2021",
       "AbsenceTypeCode": "TIM",
       "Status": "Pending",
+      "StatusResolution" : "",
       "LeaveReason": "Pijatika riadna",
       "Rating": {}
     }
