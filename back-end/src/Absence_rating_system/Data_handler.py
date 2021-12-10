@@ -1,5 +1,6 @@
 import pandas as pd
-import json as json
+import json
+import time
 
 class DBHandler():
     def __init__(self, absence_data, teams, employees, jobs, absence_type):
@@ -180,3 +181,10 @@ class DBHandler():
             returns True if request has enough leave balance left
         '''
         return self.get_employee_info(request, info = "LeaveBalance") - self.get_request_leave_hours(request) >= 0
+
+    
+    def set_ou_rating_duration(self, ouid, start_time):
+        end_time = time.time()
+        duration = (end_time - start_time)*1000
+        self.teams.loc[self.teams['OUID'] == ouid, 'LastChangeMILIS'] = end_time
+        self.teams.loc[self.teams['OUID'] == ouid, 'SavedTimeMS'] = duration
