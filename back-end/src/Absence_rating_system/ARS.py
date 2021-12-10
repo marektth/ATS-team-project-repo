@@ -138,37 +138,25 @@ class ARS(object):
             return 0
         else:
             return 1
-
-
-        
         
 
-    def rating_function(self):
+    def rating_function(self, request):
         '''
             rate all pending requests based on rules specified in "self.__rules_structs"
             saves ratings in dataframe
         '''
-        pending_requests = self.db.get_requests(status = "Pending")
-
-        for request_idx, pending_request in pending_requests.iterrows():
+        # pending_requests = self.db.get_requests(status = "Pending")
+        ou_pending_requests = self.db.get_ou_absence_data(request, status_of_absence="Pending")
+        for request_idx, pending_request in ou_pending_requests.iterrows():
             request_rating = dict()
             for rule in self.__rules_structs:
                 rule_to_call = self.__rules[rule]
                 request_rating[rule] = rule_to_call(pending_request)
             
-            #place to save item
+            #save request rating
             self.db.update_item(dict(sorted(request_rating.items())), request_idx, "Rating", self.db.absence_data)
-        
-        #for testing purposes only
-        #do not use in AWS !!
-        #self.__update_db(self.absence_data)
 
-
-    def set_top_priority_request_status(self, request):
-        '''
-            set status of first pending request of OU in wich parameter request is 
-                based on priorities of rules in "rules_struct"
-        '''
+    def get_top_priority_request(self, request):
         pending_ou_requests = self.db.get_ou_absence_data(request, "Pending")
         pending_ou_requests.set_index(keys="id", inplace=True)
 
@@ -177,8 +165,12 @@ class ARS(object):
 
         top_request = severities_df.iloc[0]
         top_request_absence_data = self.db.absence_data[self.db.absence_data['id'] == top_request.name]
-        top_request_absence_data_series = top_request_absence_data.squeeze()
 
+        return top_request, top_request_absence_data.squeeze()
+
+
+
+    def determine_top_priority_status(self, top_request):
         request_decision = "Accepted"
         for rule_rank in self.__rules_structs:
             #out of treshold - Reject
@@ -193,31 +185,60 @@ class ARS(object):
                 ):
                     request_decision = "Rejected"   
                     break
-                   
-        #update request status in Absence data DataFrame
-        self.db.update_item(request_decision, top_request_absence_data.index, "Status", self.db.absence_data)
 
-        #update employee leave balance
-        if request_decision == "Accepted" and top_request_absence_data_series["AbsenceTypeCode"] == "TIM":
-            
-            new_leave_balance = self.db.get_employee_info(top_request_absence_data_series, "LeaveBalance") - self.db.get_request_leave_hours(top_request_absence_data_series)
-            employee_id = self.db.get_employee_info(top_request_absence_data_series, "EmployeeID")
-            employee_idx = self.db.employees[self.db.employees['EmployeeID'] == employee_id].index
-            self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
+        return request_decision
+
+
+    def set_ou_requests_statuses(self, request):
+        '''
+            set status of first pending request of OU in wich parameter request is 
+                based on priorities of rules in "rules_struct"
+        '''
+        for _, pending_request in self.db.get_ou_absence_data(request, "Pending").iterrows():
+            top_request, top_request_absence_data = self.get_top_priority_request(pending_request)
+            status_to_set = self.determine_top_priority_status(top_request)
+
+            # update request status in absence_data DataFrame
+            self.db.update_item(status_to_set, top_request_absence_data.name, "Status", self.db.absence_data)
+
+            # update employee leave balance if request accepted and its just timeoff
+            if status_to_set == "Accepted" and top_request_absence_data['AbsenceTypeCode'] == "TIM":
+                new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") - self.db.get_request_leave_hours(top_request_absence_data)
+                employee_idx = self.db.employees[self.db.employees['EmployeeID'] == top_request_absence_data['EmployeeID']].index
+                self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
+
+
+        
+
 
     def absence_requests_handler(self):
         '''
             handle all pending requests until there is none left
         '''
-        for index, request in self.db.get_requests(status = "Pending").iterrows():
-            self.rating_function()
-            self.set_top_priority_request_status(request)
+        all_pending_requests = self.db.get_requests(status = "Pending")
+        
 
+        while not all_pending_requests.empty:
+            old_request_no = all_pending_requests.shape[0]
+
+            request = all_pending_requests.iloc[0]
+            self.rating_function(request)
+            self.set_ou_requests_statuses(request)
+
+            # get fresh data
+            all_pending_requests = self.db.get_requests(status = "Pending")
+            new_request_no = all_pending_requests.shape[0]
+
+            # if nothing changed, break while loop to prevent infinite loop
+            # safety measure
+            if (old_request_no == new_request_no):
+                break
+            
         return self.db.absence_data
 
 
 if __name__ == "__main__":
-    path_absence_table = "back-end/src/data/jsons/absence_data-3.json"
+    path_absence_table = "back-end/src/Absence_rating_system/demo_jsons/absence_data.json"
     path_teams_table = "back-end/src/data/jsons/teams_table.json"
     path_employees_table = "back-end/src/data/jsons/employees_table.json"
     path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
