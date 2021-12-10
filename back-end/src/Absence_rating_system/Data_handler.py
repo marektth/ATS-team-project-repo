@@ -202,4 +202,16 @@ class DBHandler():
 
     
     def get_rules_by_keys(self):
-        return (self.rules[["key","function"]]).to_dict(orient="records")
+        return (self.rules[["key","function"]]).to_dict(orient="records") 
+
+    def get_rules_with_order(self):
+        keys_with_priorities = (self.rules[["key","priority","sortAscending"]]).sort_values(by="priority")
+        return (keys_with_priorities["key"].values).tolist(), (keys_with_priorities["sortAscending"].values).tolist()
+        
+    
+    def get_rule_threshold_by_key(self, rule_key):
+        return self.rules.loc[self.rules['key'] == rule_key]["threshold"].values[0]
+
+    def get_rule_status_failed_resolution(self, rule_key):
+        return self.rules.loc[self.rules['key'] == rule_key]["resolutionFailed"].values[0]
+        
