@@ -1,9 +1,8 @@
-# from src.Absence_rating_system.Data_handler import DBHandler
-from Data_handler import DBHandler    
+from src.Absence_rating_system.Data_handler import DBHandler
 import pandas as pd
 import time
 
-class ARS(object):
+class ARS():
     '''
     If first import is not working then try ths one from Data_handler import DBHandler    
     '''
@@ -13,20 +12,11 @@ class ARS(object):
 
         self.db = DBHandler(absence_data, teams, employees, jobs, absence_type, rules)
 
-        self.__rules = {
-                "A": self.rule_min_capacity_treshold,
-                "B": self.rule_min_same_job_treshold,
-                "C": self.rule_set_absence_type_priority,
-                "D": self.rule_leave_balance
-                }
+        self.__rules = self.db.get_rules_by_keys()
+        self.__rules_structs, self.__rules_df_sort = self.db.get_rules_with_order()
 
-        self.__rules_structs = ['C','B','A','D']
-        self.__rules_df_sort = [True,False,False,False]
-        self.__rules_tresholds = {
-            "A": 1,
-            "B": 1,
-            "D": 0
-        }
+
+
 
     def rule_overlapping_employees_no(self, request , normalized = True):
         '''
@@ -144,15 +134,15 @@ class ARS(object):
 
     def rating_function(self, request):
         '''
-            rate all pending requests based on rules specified in "self.__rules_structs"
+            rate all pending requests based on rules specified in rules priority
             saves ratings in dataframe
         '''
+        
         ou_pending_requests = self.db.get_ou_absence_data(request, status_of_absence="Pending")
         for request_idx, pending_request in ou_pending_requests.iterrows():
             request_rating = dict()
-            for rule in self.__rules_structs:
-                rule_to_call = self.__rules[rule]
-                request_rating[rule] = rule_to_call(pending_request)
+            for rule in self.__rules:
+                request_rating[rule["key"]] = getattr(ars, rule["function"])(pending_request)
             
             #save request rating
             self.db.update_item(dict(sorted(request_rating.items())), request_idx, "Rating", self.db.absence_data)
@@ -162,6 +152,9 @@ class ARS(object):
         pending_ou_requests.set_index(keys="id", inplace=True)
 
         severities_df = pd.DataFrame((pending_ou_requests["Rating"]).apply(pd.Series), index=pending_ou_requests.index)
+
+
+
         severities_df.sort_values(by=self.__rules_structs, ascending=self.__rules_df_sort, inplace=True)
 
         top_request = severities_df.iloc[0]
@@ -177,16 +170,17 @@ class ARS(object):
         for rule_rank in self.__rules_structs:
             #out of treshold - Reject
             #future feature - maybe do helper microrules to really decide if rejected
-            if rule_rank in self.__rules_tresholds and \
+            threshold = self.db.get_rule_threshold_by_key(rule_rank)
+            if not pd.isnull(threshold) and \
                 (
-                    (top_request[rule_rank] == self.__rules_tresholds[rule_rank] and rule_rank != "D") 
+                    (top_request[rule_rank] == threshold and rule_rank != "D") 
                 ## treshold has been reached and its not because of leave balance \
                 or 
                 ## treshold has been reached for time off leave balance
-                    (top_request[rule_rank] == self.__rules_tresholds[rule_rank] and rule_rank == "D")
+                    (top_request[rule_rank] == threshold and rule_rank == "D")
                 ):
                     request_status = "Rejected"
-                    status_resolution =  "nic"
+                    status_resolution = self.db.get_rule_status_failed_resolution(rule_rank)
                     break
 
         return request_status, status_resolution
@@ -199,10 +193,11 @@ class ARS(object):
         '''
         for _, pending_request in self.db.get_ou_absence_data(request, "Pending").iterrows():
             top_request, top_request_absence_data = self.get_top_priority_request(pending_request)
-            status_to_set = self.determine_top_priority_status(top_request)
+            status_to_set, status_resolution = self.determine_top_priority_status(top_request)
 
             # update request status in absence_data DataFrame
             self.db.update_item(status_to_set, top_request_absence_data.name, "Status", self.db.absence_data)
+            self.db.update_item(status_resolution, top_request_absence_data.name, "StatusResolution", self.db.absence_data)
 
             # update employee leave balance if request accepted and its just timeoff
             if status_to_set == "Accepted" and top_request_absence_data['AbsenceTypeCode'] == "TIM":
@@ -215,7 +210,7 @@ class ARS(object):
         '''
             handle all pending requests until there is none left
         '''
-        print(self.db.rules)
+        print(self.db.absence_data)
 
         all_pending_requests = self.db.get_requests(status = "Pending")
         
@@ -240,7 +235,7 @@ class ARS(object):
                 break
 
             self.db.set_ou_rating_duration(request_ouid, start_time)
-
+            print(self.db.absence_data)
         ## do not forget to save also teams table !
         return self.db.absence_data
 
