@@ -3,7 +3,7 @@ import json
 import time
 
 class DBHandler():
-    def __init__(self, absence_data, teams, employees, jobs, absence_type):
+    def __init__(self, absence_data, teams, employees, jobs, absence_type, rules):
         '''
             - initialize all tables from DB
             - initialze rules to use in rating, rules order and rules tresholds
@@ -14,6 +14,7 @@ class DBHandler():
         self.employees = self.__load_table(employees)
         self.jobs = self.__load_table(jobs)
         self.absence_type = self.__load_table(absence_type)
+        self.rules = self.__load_table(rules)
         
 
     def __load_table(self, path, as_df=True):
