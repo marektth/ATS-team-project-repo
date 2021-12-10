@@ -3,126 +3,45 @@
       "id": 1,
       "EmployeeID": 69,
       "DateOfAbsence": "24/10/2021",
-      "AbsenceTypeCode": "SPE",
-      "Status": "Accepted",
+      "AbsenceTypeCode": "TIM",
+      "Status": "Pending",
       "LeaveReason": "Need to go to medical exam",
-      "Rating": {
-        "A": 0,
-        "B": 0,
-        "C": 1,
-        "D": 1
-      }
+      "Rating": {}
     },
     {
-      "id": 2,
+      "id": 8,
       "EmployeeID": 79,
       "DateOfAbsence": "24/10/2021",
       "AbsenceTypeCode": "SPE",
-      "Status": "Accepted",
+      "Status": "Pending",
       "LeaveReason": "I am very sick (of this)",
-      "Rating": {
-        "A": 0,
-        "B": 0,
-        "C": 1,
-        "D": 1
-      }
-    },
-    {
-      "id": 3,
-      "EmployeeID": 96,
-      "DateOfAbsence": "24/10/2021",
-      "AbsenceTypeCode": "TIM",
-      "Status": "Rejected",
-      "LeaveReason": "i have enough, need time off",
-      "Rating": {
-        "A": 0,
-        "B": 0,
-        "C": 3,
-        "D": 0
-      }
-    },
-    {
-      "id": 4,
-      "EmployeeID": 192,
-      "DateOfAbsence": "24/10/2021",
-      "AbsenceTypeCode": "PAR",
-      "Status": "Accepted",
-      "LeaveReason": "New kid in da house",
-      "Rating": {
-        "A": 0,
-        "B": 0,
-        "C": 2,
-        "D": 1
-      }
-    },
-    {
-      "id": 5,
-      "EmployeeID": 96,
-      "DateOfAbsence": "10/12/2021",
-      "AbsenceTypeCode": "TIM",
-      "Status": "Rejected",
-      "LeaveReason": "Idzem pic",
-      "Rating": {
-        "A": 0,
-        "B": 0,
-        "C": 3,
-        "D": 0
-      }
-    },
-    {
-      "id": 6,
-      "EmployeeID": 96,
-      "DateOfAbsence": "24/12/2021",
-      "AbsenceTypeCode": "SPE",
-      "Status": "Accepted",
-      "LeaveReason": "Vianoce suuuuu",
-      "Rating": {
-        "A": 0,
-        "B": 0,
-        "C": 1,
-        "D": 1
-      }
-    },
-    {
-      "id": 7,
-      "EmployeeID": 192,
-      "DateOfAbsence": "31/12/2021",
-      "AbsenceTypeCode": "TIM",
-      "Status": "Accepted",
-      "LeaveReason": "Pijatika riadna",
-      "Rating": {
-        "A": 0,
-        "B": 0,
-        "C": 3,
-        "D": 8
-      }
-    },
-    {
-      "id": 9,
-      "EmployeeID": 69,
-      "DateOfAbsence": "10/12/2021",
-      "AbsenceTypeCode": "TIM",
-      "Status": "Rejected",
-      "LeaveReason": "demo reason 2",
-      "Rating": {
-        "A": 0,
-        "B": 0,
-        "C": 3,
-        "D": 0
-      }
+      "Rating": {}
     },
     {
       "id": 10,
-      "EmployeeID": 69,
-      "DateOfAbsence": "11/12/2021",
-      "AbsenceTypeCode": "SPE",
-      "Status": "Accepted",
-      "LeaveReason": "demo reason 3",
-      "Rating": {
-        "A": 0,
-        "B": 0,
-        "C": 1,
-        "D": 1
-      }
+      "EmployeeID": 38,
+      "DateOfAbsence": "24/10/2021",
+      "AbsenceTypeCode": "TIM",
+      "Status": "Pending",
+      "LeaveReason": "i have enough, need time off",
+      "Rating": {}
+    },
+    {
+      "id": 21,
+      "EmployeeID": 14,
+      "DateOfAbsence": "31/12/2021",
+      "AbsenceTypeCode": "TIM",
+      "Status": "Pending",
+      "LeaveReason": "Pijatika riadna",
+      "Rating": {}
+    },
+    {
+      "id": 57,
+      "EmployeeID": 1111,
+      "DateOfAbsence": "31/12/2021",
+      "AbsenceTypeCode": "TIM",
+      "Status": "Pending",
+      "LeaveReason": "Pijatika riadna",
+      "Rating": {}
     }
   ]

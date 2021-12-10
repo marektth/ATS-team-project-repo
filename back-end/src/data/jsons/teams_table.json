@@ -11,4 +11,11 @@
         "MinimalCapacity":2,
         "TeamName":"WET"
     }
+    ,
+    {
+        "OUID":77,
+        "ManagerID":21,
+        "MinimalCapacity":2,
+        "TeamName":"ATS"
+    }
 ]
