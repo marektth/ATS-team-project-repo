@@ -1,0 +1,8 @@
+Quick report: 
+
+Security log from: 12/10/2021 @ 23:32:25
+Last scan submitted at: 2021-12-10 23:31:59
+Last scan executed at: 2021-12-10 23:32:04
+Last scan STATUS: SUCCESS
+Project status: OK
+Issues found: 0
