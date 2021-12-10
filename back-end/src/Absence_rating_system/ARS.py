@@ -9,40 +9,9 @@ class ARS(object):
     '''
 
 
-    def __init__(self, absence_data, teams, employees, jobs, absence_type):
+    def __init__(self, absence_data, teams, employees, jobs, absence_type, rules):
 
-        self.db = DBHandler(absence_data, teams, employees, jobs, absence_type)
-
-        self.__rules_new = {
-            "A": {
-                "function": self.rule_min_capacity_treshold,
-                "sortAscending": False,
-                "treshold": 1,
-                "priority": 3,
-                "resolutionFailed": "Not enough employees in team"
-            },
-            "B": {
-                "function": self.rule_min_same_job_treshold,
-                "sortAscending": False,
-                "treshold": 1,
-                "priority": 2,
-                "resolutionFailed": "Not enough employees in team with same job"
-            },
-            "C": {
-                "function": self.rule_set_absence_type_priority,
-                "sortAscending": True,
-                "treshold": None,
-                "priority": 1,
-                "resolutionFailed": ""
-            },
-            "D": {
-                "function": self.rule_leave_balance,
-                "sortAscending": False,
-                "treshold": 0,
-                "priority": 4,
-                "resolutionFailed": "Not enough leave balance"
-            }          
-        }
+        self.db = DBHandler(absence_data, teams, employees, jobs, absence_type, rules)
 
         self.__rules = {
                 "A": self.rule_min_capacity_treshold,
@@ -217,7 +186,7 @@ class ARS(object):
                     (top_request[rule_rank] == self.__rules_tresholds[rule_rank] and rule_rank == "D")
                 ):
                     request_status = "Rejected"
-                    status_resolution =   
+                    status_resolution =  "nic"
                     break
 
         return request_status, status_resolution
@@ -246,6 +215,7 @@ class ARS(object):
         '''
             handle all pending requests until there is none left
         '''
+        print(self.db.rules)
 
         all_pending_requests = self.db.get_requests(status = "Pending")
         
@@ -281,8 +251,9 @@ if __name__ == "__main__":
     path_employees_table = "back-end/src/data/jsons/employees_table.json"
     path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
     path_absence_type_table = "back-end/src/data/jsons/absence_type.json"
+    path_rules_table = "back-end/src/data/jsons/rules_table.json"
 
-    ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table)
+    ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
     result = ars.absence_requests_handler()
     
    
