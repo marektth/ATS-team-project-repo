@@ -1,5 +1,6 @@
 from src.Absence_rating_system.Data_handler import DBHandler
 import pandas as pd
+import time
 
 class ARS(object):
     '''
@@ -208,20 +209,21 @@ class ARS(object):
                 self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
 
 
-        
-
-
     def absence_requests_handler(self):
         '''
             handle all pending requests until there is none left
         '''
+
         all_pending_requests = self.db.get_requests(status = "Pending")
         
-
+        #set statuses to whole OU at time
         while not all_pending_requests.empty:
+            start_time = time.time()
+
             old_request_no = all_pending_requests.shape[0]
 
             request = all_pending_requests.iloc[0]
+            request_ouid = self.db.get_ouid_of_request(request)
             self.rating_function(request)
             self.set_ou_requests_statuses(request)
 
@@ -233,7 +235,10 @@ class ARS(object):
             # safety measure
             if (old_request_no == new_request_no):
                 break
-            
+
+            self.db.set_ou_rating_duration(request_ouid, start_time)
+
+        ## do not forget to save also teams table !
         return self.db.absence_data
 
 
@@ -246,4 +251,6 @@ if __name__ == "__main__":
 
     ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table)
     result = ars.absence_requests_handler()
+    
+   
 
