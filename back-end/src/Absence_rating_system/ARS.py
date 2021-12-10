@@ -1,4 +1,5 @@
-from src.Absence_rating_system.Data_handler import DBHandler
+# from src.Absence_rating_system.Data_handler import DBHandler
+from Data_handler import DBHandler    
 import pandas as pd
 import time
 
@@ -11,20 +12,51 @@ class ARS(object):
     def __init__(self, absence_data, teams, employees, jobs, absence_type):
 
         self.db = DBHandler(absence_data, teams, employees, jobs, absence_type)
+
+        self.__rules_new = {
+            "A": {
+                "function": self.rule_min_capacity_treshold,
+                "sortAscending": False,
+                "treshold": 1,
+                "priority": 3,
+                "resolutionFailed": "Not enough employees in team"
+            },
+            "B": {
+                "function": self.rule_min_same_job_treshold,
+                "sortAscending": False,
+                "treshold": 1,
+                "priority": 2,
+                "resolutionFailed": "Not enough employees in team with same job"
+            },
+            "C": {
+                "function": self.rule_set_absence_type_priority,
+                "sortAscending": True,
+                "treshold": None,
+                "priority": 1,
+                "resolutionFailed": ""
+            },
+            "D": {
+                "function": self.rule_leave_balance,
+                "sortAscending": False,
+                "treshold": 0,
+                "priority": 4,
+                "resolutionFailed": "Not enough leave balance"
+            }          
+        }
+
         self.__rules = {
                 "A": self.rule_min_capacity_treshold,
-                "B" : self.rule_min_same_job_treshold,
-                "C" : self.rule_set_absence_type_priority,
-                "D" : self.rule_leave_balance
-
+                "B": self.rule_min_same_job_treshold,
+                "C": self.rule_set_absence_type_priority,
+                "D": self.rule_leave_balance
                 }
 
         self.__rules_structs = ['C','B','A','D']
         self.__rules_df_sort = [True,False,False,False]
         self.__rules_tresholds = {
-            "A" : 1,
-            "B" : 1,
-            "D" : 0,
+            "A": 1,
+            "B": 1,
+            "D": 0
         }
 
     def rule_overlapping_employees_no(self, request , normalized = True):
@@ -146,7 +178,6 @@ class ARS(object):
             rate all pending requests based on rules specified in "self.__rules_structs"
             saves ratings in dataframe
         '''
-        # pending_requests = self.db.get_requests(status = "Pending")
         ou_pending_requests = self.db.get_ou_absence_data(request, status_of_absence="Pending")
         for request_idx, pending_request in ou_pending_requests.iterrows():
             request_rating = dict()
@@ -172,7 +203,8 @@ class ARS(object):
 
 
     def determine_top_priority_status(self, top_request):
-        request_decision = "Accepted"
+        request_status = "Accepted"
+        status_resolution = "OK"
         for rule_rank in self.__rules_structs:
             #out of treshold - Reject
             #future feature - maybe do helper microrules to really decide if rejected
@@ -184,10 +216,11 @@ class ARS(object):
                 ## treshold has been reached for time off leave balance
                     (top_request[rule_rank] == self.__rules_tresholds[rule_rank] and rule_rank == "D")
                 ):
-                    request_decision = "Rejected"   
+                    request_status = "Rejected"
+                    status_resolution =   
                     break
 
-        return request_decision
+        return request_status, status_resolution
 
 
     def set_ou_requests_statuses(self, request):
