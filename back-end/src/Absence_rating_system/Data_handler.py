@@ -15,7 +15,8 @@ class DBHandler():
         self.jobs = self.__load_table(jobs)
         self.absence_type = self.__load_table(absence_type)
         self.rules = self.__load_table(rules)
-        
+
+        self.rules = self.__rules_preprocessing(self.rules)
 
     def __load_table(self, path, as_df=True):
         '''
@@ -45,6 +46,15 @@ class DBHandler():
             updates row at column in table with given value
         '''
         table.at[row_idx, column] = value
+
+
+    def __rules_preprocessing(self, rules):
+        '''
+            drop unused rules for specific customer
+        '''
+        return rules[rules['testByThisRule'] == True]
+
+
 
     def get_requests(self, status = "Pending"):
         '''
@@ -189,3 +199,7 @@ class DBHandler():
         duration = (end_time - start_time)*1000
         self.teams.loc[self.teams['OUID'] == ouid, 'LastChangeMILIS'] = end_time
         self.teams.loc[self.teams['OUID'] == ouid, 'SavedTimeMS'] = duration
+
+    
+    def get_rules_by_keys(self):
+        return (self.rules[["key","function"]]).to_dict(orient="records")
