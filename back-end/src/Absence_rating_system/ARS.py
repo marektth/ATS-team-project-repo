@@ -1,4 +1,5 @@
-from src.Absence_rating_system.Data_handler import DBHandler
+# from src.Absence_rating_system.Data_handler import DBHandler
+from Data_handler import DBHandler    
 import pandas as pd
 import time
 
@@ -33,9 +34,9 @@ class ARS():
         if(ou_absence_data.empty):
             return 0
 
-        #convert to day of year
-        ou_absence_data = self.db.convert_to_dayofyear(data=ou_absence_data, column_to_convert='DateOfAbsence', column_to_add='DayOfYear')
-        request = self.db.convert_to_dayofyear(request, column_to_convert='DateOfAbsence', column_to_add='DayOfYear')
+        #format dates
+        ou_absence_data = self.db.format_absence_dates(ou_absence_data)
+        request = self.db.format_absence_dates(request)
 
         #number of employees that are off on the day of requests
         employee_absence_overlap_no = 0
@@ -43,8 +44,12 @@ class ARS():
         #iterate over accepted timeoffs
         for _, absence_data in ou_absence_data.iterrows():
             #if employee has accepted timeoff in same day as new request, increment counter
-            if request["DayOfYear"] == absence_data['DayOfYear']:
+            latest_start = max(absence_data['AbsenceFrom'], request['AbsenceFrom'])
+            earliest_end = min(absence_data['AbsenceTo'], request['AbsenceTo'])
+            delta = (earliest_end - latest_start).days + 1
+            if delta > 0:
                 employee_absence_overlap_no += 1
+            
         
         if normalized:
             return employee_absence_overlap_no/self.db.get_size_of_ou(request)
@@ -81,9 +86,9 @@ class ARS():
         if(same_job_absence_data.empty):
             return 0
 
-        #convert to day of year
-        same_job_absence_data = self.db.convert_to_dayofyear(data=same_job_absence_data, column_to_convert='DateOfAbsence', column_to_add='DayOfYear')
-        request = self.db.convert_to_dayofyear(request, column_to_convert='DateOfAbsence', column_to_add='DayOfYear')
+        #format dates
+        same_job_absence_data = self.db.format_absence_dates(same_job_absence_data)
+        request = self.db.format_absence_dates(request)
 
         #number of employees that are off on the day of requests
         employee_absence_overlap_no = 0
@@ -91,8 +96,13 @@ class ARS():
         #iterate over accepted timeoffs
         for _, absence_data in same_job_absence_data.iterrows():
             #if employee has accepted timeoff in same day as new request, increment counter
-            if request["DayOfYear"] == absence_data['DayOfYear']:
+            #if employee has accepted timeoff in same day as new request, increment counter
+            latest_start = max(absence_data['AbsenceFrom'], request['AbsenceFrom'])
+            earliest_end = min(absence_data['AbsenceTo'], request['AbsenceTo'])
+            delta = (earliest_end - latest_start).days + 1
+            if delta > 0:
                 employee_absence_overlap_no += 1
+                
         
         if normalized:
             return employee_absence_overlap_no/self.db.get_size_of_ou(request)
@@ -210,7 +220,7 @@ class ARS():
         '''
             handle all pending requests until there is none left
         '''
-        print(self.db.absence_data)
+        # print(self.db.absence_data)
 
         all_pending_requests = self.db.get_requests(status = "Pending")
         
@@ -235,7 +245,7 @@ class ARS():
                 break
 
             self.db.set_ou_rating_duration(request_ouid, start_time)
-            print(self.db.absence_data)
+            # print(self.db.absence_data)
         ## do not forget to save also teams table !
         return self.db.absence_data
 
