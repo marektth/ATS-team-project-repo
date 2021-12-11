@@ -177,8 +177,8 @@ class DBHandler():
             returns total leave hours of requested absence
             future feature - check if year has 356 or 366 days
         '''
-        absence_from = pd.to_datetime(request["DateOfAbsence"], format='%d/%m/%Y')
-        absence_to = pd.to_datetime(request["DateOfAbsence"], format='%d/%m/%Y')
+        absence_from = pd.to_datetime(request["AbsenceFrom"], format='%d/%m/%Y')
+        absence_to = pd.to_datetime(request["AbsenceTo"], format='%d/%m/%Y')
         days_delta = absence_to - absence_from
         
         if days_delta.days == 0:
