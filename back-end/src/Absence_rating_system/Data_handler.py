@@ -151,6 +151,10 @@ class DBHandler():
         return same_job_accepted_requests
 
     def format_absence_dates(self, data, columns=['AbsenceFrom', 'AbsenceTo'], format = '%d/%m/%Y'):
+        '''
+            returns formated specified columns by format in data
+            param columns must be list of 2 columns
+        '''
 
         data[columns[0]] = pd.to_datetime(data[columns[0]], format=format)
         data[columns[1]] = pd.to_datetime(data[columns[1]], format=format)
@@ -188,23 +192,39 @@ class DBHandler():
 
     
     def set_ou_rating_duration(self, ouid, start_time):
+        '''
+            set duration of rating and changing statuses of pending ou requests
+        '''
         end_time = time.time()
         duration = (end_time - start_time)*1000
-        self.teams.loc[self.teams['OUID'] == ouid, 'LastChangeMILIS'] = end_time
-        self.teams.loc[self.teams['OUID'] == ouid, 'SavedTimeMS'] = duration
+        self.teams.loc[self.teams['OUID'] == ouid, 'LastChangeMS'] = end_time
+        self.teams.loc[self.teams['OUID'] == ouid, 'DurationMS'] = duration
 
     
     def get_rules_by_keys(self):
+        '''
+            returns rules keys and corresponding functios to call as DICT
+        '''
         return (self.rules[["key","function"]]).to_dict(orient="records") 
 
     def get_rules_with_order(self):
+        '''
+            returns tuple (rules keys in priority order, sort order booleans)
+            
+        '''
         keys_with_priorities = (self.rules[["key","priority","sortAscending"]]).sort_values(by="priority")
         return (keys_with_priorities["key"].values).tolist(), (keys_with_priorities["sortAscending"].values).tolist()
         
     
     def get_rule_threshold_by_key(self, rule_key):
+        '''
+            returns threshold for specified rule by key
+        '''
         return self.rules.loc[self.rules['key'] == rule_key]["threshold"].values[0]
 
     def get_rule_status_failed_resolution(self, rule_key):
+        '''
+            returns resolution of rule for specified failed rule by key
+        '''
         return self.rules.loc[self.rules['key'] == rule_key]["resolutionFailed"].values[0]
         
