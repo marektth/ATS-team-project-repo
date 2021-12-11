@@ -150,20 +150,13 @@ class DBHandler():
 
         return same_job_accepted_requests
 
+    def format_absence_dates(self, data, columns=['AbsenceFrom', 'AbsenceTo'], format = '%d/%m/%Y'):
 
-    def convert_to_dayofyear(self, data, column_to_convert, column_to_add, format = '%d/%m/%Y'):
-        '''
-            converts date in speficied format to day in year (01/01/2021 -> 1)
-            adds column with specified name in which converted dates are stored in
-            returns dataframe with new column
-        '''
-                
-        if isinstance(data, pd.DataFrame):
-            data[column_to_add] = (pd.to_datetime(data[column_to_convert], format=format)).dt.dayofyear
-        else:
-            data[column_to_add] = (pd.to_datetime(data[column_to_convert], format=format)).dayofyear
-    
+        data[columns[0]] = pd.to_datetime(data[columns[0]], format=format)
+        data[columns[1]] = pd.to_datetime(data[columns[1]], format=format)
+
         return data
+
 
     def get_absence_type_priority(self, request):
         '''
