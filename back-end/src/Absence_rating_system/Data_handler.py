@@ -200,7 +200,7 @@ class DBHandler():
     
     def get_rules_by_keys(self):
         '''
-            returns rules keys and corresponding functios to call as DICT
+            returns rules keys and corresponding functios to call as list of DICTs
         '''
         return (self.rules[["key","function"]]).to_dict(orient="records") 
 
