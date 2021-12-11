@@ -1,5 +1,4 @@
-# from src.Absence_rating_system.Data_handler import DBHandler
-from Data_handler import DBHandler    
+from src.Absence_rating_system.Data_handler import DBHandler
 import pandas as pd
 import time
 
@@ -7,16 +6,12 @@ class ARS():
     '''
     If first import is not working then try ths one from Data_handler import DBHandler    
     '''
-
-
     def __init__(self, absence_data, teams, employees, jobs, absence_type, rules):
 
         self.db = DBHandler(absence_data, teams, employees, jobs, absence_type, rules)
 
         self.__rules = self.db.get_rules_by_keys()
         self.__rules_structs, self.__rules_df_sort = self.db.get_rules_with_order()
-
-
 
 
     def rule_overlapping_employees_no(self, request , normalized = True):
@@ -57,7 +52,7 @@ class ARS():
             return employee_absence_overlap_no
 
 
-    def rule_min_capacity_treshold(self, request):
+    def rule_min_capacity_threshold(self, request):
         '''
             returns if minimal OU capacity treshhold is exceeded
         '''
@@ -111,11 +106,11 @@ class ARS():
 
 
 
-    def rule_min_same_job_treshold(self, request):
+    def rule_min_same_job_threshold(self, request):
         '''
             returns if absent same job employees treshhold is exceeded
         '''
-        min_same_job_tresh = self.db.get_min_same_job_treshold(request)
+        min_same_job_tresh = self.db.get_min_same_job_threshold(request)
         same_job_employee_no = len(self.db.get_ou_same_job_employees(request, only_id=True))
         total_missing_employees = self.rule_same_job_overlaps(request, normalized=False)
         if same_job_employee_no - total_missing_employees <= min_same_job_tresh:
@@ -220,10 +215,8 @@ class ARS():
         '''
             handle all pending requests until there is none left
         '''
-        # print(self.db.absence_data)
-
         all_pending_requests = self.db.get_requests(status = "Pending")
-        
+
         #set statuses to whole OU at time
         while not all_pending_requests.empty:
             start_time = time.time()
@@ -245,7 +238,6 @@ class ARS():
                 break
 
             self.db.set_ou_rating_duration(request_ouid, start_time)
-            # print(self.db.absence_data)
         ## do not forget to save also teams table !
         return self.db.absence_data
 

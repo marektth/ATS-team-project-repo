@@ -6,7 +6,7 @@ class DBHandler():
     def __init__(self, absence_data, teams, employees, jobs, absence_type, rules):
         '''
             - initialize all tables from DB
-            - initialze rules to use in rating, rules order and rules tresholds
+            - initialze rules to use in rating, rules order and rules thresholds
         '''
         self.absence_data_path = absence_data
         self.absence_data = self.__load_table(absence_data)
@@ -81,7 +81,7 @@ class DBHandler():
         '''
         return self.teams.loc[self.teams['OUID'] == self.get_ouid_of_request(request)]["MinimalCapacity"].values[0]
 
-    def get_min_same_job_treshold(self, request):
+    def get_min_same_job_threshold(self, request):
         '''
             returns required minimum of present people with same job as request job
         '''
