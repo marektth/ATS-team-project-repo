@@ -11,6 +11,28 @@
       "Rating": {}
     },
     {
+      "id": 2,
+      "EmployeeID": 192,
+      "AbsenceFrom": "10/10/2021",
+      "AbsenceTo": "25/12/2021",
+      "AbsenceTypeCode": "SPE",
+      "Status": "Accepted",
+      "StatusResolution" : "",
+      "LeaveReason": "Need to go to medical exam",
+      "Rating": {}
+    },
+    {
+      "id": 7,
+      "EmployeeID": 192,
+      "AbsenceFrom": "24/10/2021",
+      "AbsenceTo": "25/11/2021",
+      "AbsenceTypeCode": "SPE",
+      "Status": "Accepted",
+      "StatusResolution" : "",
+      "LeaveReason": "Need to go to medical exam",
+      "Rating": {}
+    },
+    {
       "id": 8,
       "EmployeeID": 79,
       "AbsenceFrom": "24/10/2021",
