@@ -183,13 +183,11 @@ class DBHandler():
         else:
             return days_delta.days*working_hours
 
-
     def check_enough_leave_balance(self, request):
         '''
             returns True if request has enough leave balance left
         '''
         return self.get_employee_info(request, info = "LeaveBalance") - self.get_request_leave_hours(request) >= 0
-
     
     def set_ou_rating_duration(self, ouid, start_time):
         '''
@@ -199,7 +197,6 @@ class DBHandler():
         duration = (end_time - start_time)*1000
         self.teams.loc[self.teams['OUID'] == ouid, 'LastChangeMS'] = end_time
         self.teams.loc[self.teams['OUID'] == ouid, 'DurationMS'] = duration
-
     
     def get_rules_by_keys(self):
         '''
@@ -213,8 +210,7 @@ class DBHandler():
             
         '''
         keys_with_priorities = (self.rules[["key","priority","sortAscending"]]).sort_values(by="priority")
-        return (keys_with_priorities["key"].values).tolist(), (keys_with_priorities["sortAscending"].values).tolist()
-        
+        return (keys_with_priorities["key"].values).tolist(), (keys_with_priorities["sortAscending"].values).tolist()     
     
     def get_rule_threshold_by_key(self, rule_key):
         '''
@@ -227,4 +223,3 @@ class DBHandler():
             returns resolution of rule for specified failed rule by key
         '''
         return self.rules.loc[self.rules['key'] == rule_key]["resolutionFailed"].values[0]
-        
