@@ -232,12 +232,14 @@ class ARS():
                 break
 
             self.db.set_ou_rating_duration(request_ouid, start_time)
+
+        self.db.update_db(self.db.teams, self.db.teams_data_path)
         ## do not forget to save also teams table !
         return self.db.absence_data
 
 
 if __name__ == "__main__":
-    path_absence_table = "back-end/src/Absence_rating_system/demo_jsons/absence_data.json"
+    path_absence_table = "back-end/src/data/jsons/absence_data.json"
     path_teams_table = "back-end/src/data/jsons/teams_table.json"
     path_employees_table = "back-end/src/data/jsons/employees_table.json"
     path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
