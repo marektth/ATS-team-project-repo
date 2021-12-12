@@ -4,9 +4,9 @@
     "EmployeeID": 69,
     "AbsenceRequestedAt": 1639165929.68981,
     "AbsenceFrom": "24/10/2021",
-    "AbsenceTo": "25/10/2021",
+    "AbsenceTo": "28/10/2021",
     "AbsenceTypeCode": "TIM",
-    "Status": "Pending",
+    "Status": "Accepted",
     "StatusResolution" : "",
     "LeaveReason": "Need to go to medical exam",
     "Rating": {}
