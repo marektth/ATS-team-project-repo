@@ -3,12 +3,13 @@ import pandas as pd
 
 
 def load_table(path, as_df=True):
+    if as_df:
+        return pd.read_json(path)
+    else:
         with open(path) as f:
             json_data = json.load(f)
-        if as_df:
-            return pd.DataFrame(json_data)
-        else:
-            return json_data
+        return json_data
+
 
 def get_request_leave_hours(self, request, working_hours=8):
     '''
@@ -42,6 +43,7 @@ if __name__ == "__main__":
 
     # load data - employees and absence
     absence_data = load_table(absence_table_path)
+    print(absence_data)
     employees_data = load_table(employees_table_path)
 
     # get absence request

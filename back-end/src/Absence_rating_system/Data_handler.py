@@ -23,11 +23,11 @@ class DBHandler():
         '''
         here implement AWS table loading functions
         '''
-        with open(path) as f:
-            json_data = json.load(f)
         if as_df:
-            return pd.DataFrame(json_data)
+            return pd.read_json(path)
         else:
+            with open(path) as f:
+                json_data = json.load(f)
             return json_data
 
     def update_db(self, db, data_path):
