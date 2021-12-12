@@ -39,10 +39,7 @@ class ARS():
         #iterate over accepted timeoffs
         for _, absence_data in ou_absence_data.iterrows():
             #if employee has accepted timeoff in same day as new request, increment counter
-            latest_start = max(absence_data['AbsenceFrom'], request['AbsenceFrom'])
-            earliest_end = min(absence_data['AbsenceTo'], request['AbsenceTo'])
-            delta = (earliest_end - latest_start).days + 1
-            if delta > 0:
+            if self.db.get_no_overlapping_days(absence_data, request) > 0:
                 employee_absence_overlap_no += 1
             
         
@@ -92,10 +89,7 @@ class ARS():
         for _, absence_data in same_job_absence_data.iterrows():
             #if employee has accepted timeoff in same day as new request, increment counter
             #if employee has accepted timeoff in same day as new request, increment counter
-            latest_start = max(absence_data['AbsenceFrom'], request['AbsenceFrom'])
-            earliest_end = min(absence_data['AbsenceTo'], request['AbsenceTo'])
-            delta = (earliest_end - latest_start).days + 1
-            if delta > 0:
+            if self.db.get_no_overlapping_days(absence_data, request) > 0:
                 employee_absence_overlap_no += 1
                 
         

@@ -223,3 +223,8 @@ class DBHandler():
             returns resolution of rule for specified failed rule by key
         '''
         return self.rules.loc[self.rules['key'] == rule_key]["resolutionFailed"].values[0]
+
+    def get_no_overlapping_days(self, data_to_compare, request):
+        latest_start = max(data_to_compare['AbsenceFrom'], request['AbsenceFrom'])
+        earliest_end = min(data_to_compare['AbsenceTo'], request['AbsenceTo'])
+        return (earliest_end - latest_start).days + 1
