@@ -123,7 +123,7 @@ class DBHandler():
             optional: if "status_of_absence" is set ("Accepted", "Rejected", "Pending"), returns only specified absence_data
                 otherwise returns all
         '''
-        if status_of_absence in ("Accepted", "Rejected", "Pending"):
+        if status_of_absence in ("Accepted", "Rejected", "Pending", "Cancelled"):
             ou_requests_per_status = self.get_requests(status_of_absence)
             return ou_requests_per_status[ou_requests_per_status['EmployeeID'].isin(self.get_ou_employees(request))]
         elif status_of_absence == "All":
