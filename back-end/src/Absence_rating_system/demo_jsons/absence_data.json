@@ -2,6 +2,7 @@
     {
       "id": 1,
       "EmployeeID": 69,
+      "AbsenceRequestedAt": 1639165929.68981,
       "AbsenceFrom": "24/10/2021",
       "AbsenceTo": "25/10/2021",
       "AbsenceTypeCode": "TIM",
@@ -13,10 +14,11 @@
     {
       "id": 2,
       "EmployeeID": 192,
+      "AbsenceRequestedAt": 1639165929.68982,
       "AbsenceFrom": "10/10/2021",
       "AbsenceTo": "25/12/2021",
       "AbsenceTypeCode": "SPE",
-      "Status": "Accepted",
+      "Status": "Pending",
       "StatusResolution" : "",
       "LeaveReason": "Need to go to medical exam",
       "Rating": {}
@@ -24,10 +26,11 @@
     {
       "id": 7,
       "EmployeeID": 192,
+      "AbsenceRequestedAt": 1639165929.68983,
       "AbsenceFrom": "24/10/2021",
       "AbsenceTo": "25/11/2021",
       "AbsenceTypeCode": "SPE",
-      "Status": "Accepted",
+      "Status": "Pending",
       "StatusResolution" : "",
       "LeaveReason": "Need to go to medical exam",
       "Rating": {}
@@ -35,6 +38,7 @@
     {
       "id": 8,
       "EmployeeID": 79,
+      "AbsenceRequestedAt": 1639165929.68984,
       "AbsenceFrom": "24/10/2021",
       "AbsenceTo": "25/10/2021",
       "AbsenceTypeCode": "SPE",
@@ -46,6 +50,7 @@
     {
       "id": 10,
       "EmployeeID": 38,
+      "AbsenceRequestedAt": 1639165929.68985,
       "AbsenceFrom": "24/10/2021",
       "AbsenceTo": "25/10/2021",
       "AbsenceTypeCode": "TIM",
@@ -57,6 +62,7 @@
     {
       "id": 21,
       "EmployeeID": 14,
+      "AbsenceRequestedAt": 1639165929.68986,
       "AbsenceFrom": "24/10/2021",
       "AbsenceTo": "25/10/2021",
       "AbsenceTypeCode": "TIM",
@@ -68,6 +74,7 @@
     {
       "id": 57,
       "EmployeeID": 1111,
+      "AbsenceRequestedAt": 1639165929.68987,
       "AbsenceFrom": "24/10/2021",
       "AbsenceTo": "25/10/2021",
       "AbsenceTypeCode": "TIM",
