@@ -9,6 +9,7 @@ class DBHandler():
             - initialze rules to use in rating, rules order and rules thresholds
         '''
         self.absence_data_path = absence_data
+        self.teams_data_path = teams
         self.absence_data = self.__load_table(absence_data)
         self.teams = self.__load_table(teams)
         self.employees = self.__load_table(employees)
@@ -29,7 +30,7 @@ class DBHandler():
         else:
             return json_data
 
-    def update_db(self, db):
+    def update_db(self, db, data_path):
         '''
         update db at the end of algorithm
         here implement AWS table updating functions
@@ -38,7 +39,7 @@ class DBHandler():
             db = db.to_json(orient="records")
             db = json.loads(db)
 
-        with open(self.absence_data_path, 'w') as outfile:
+        with open(data_path, 'w') as outfile:
             json.dump(db, outfile, indent=4)
 
     def update_item(self, value, row_idx, column, table):
@@ -196,7 +197,7 @@ class DBHandler():
         end_time = time.time()
         duration = (end_time - start_time)*1000
         self.teams.loc[self.teams['OUID'] == ouid, 'LastChangeMS'] = end_time
-        self.teams.loc[self.teams['OUID'] == ouid, 'DurationMS'] = duration
+        self.teams.loc[self.teams['OUID'] == ouid, 'RatingDurationMS'] = duration
     
     def get_rules_by_keys(self):
         '''
