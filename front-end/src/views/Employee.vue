@@ -30,7 +30,32 @@
         </nc-form>
        </nc-layout-aside>
       <nc-layout-content>
-
+        <nc-container>
+          <nc-row>
+            <nc-column>
+              <nc-panel>
+                <div>
+                  <p>TIM - x hours</p>
+                </div>
+              </nc-panel>
+            </nc-column>
+            <nc-column>
+              <nc-panel>
+                <div>
+                  <p>SPE - x hours</p>
+                </div>
+              </nc-panel>
+            </nc-column>
+            <nc-column>
+              <nc-panel>
+                <div>
+                  <p>PAR - x hours</p>
+                </div>
+              </nc-panel>
+            </nc-column>
+          </nc-row>
+        </nc-container>
+        
         <nc-table class="data-table" v-if="this.requests.length > 0">
           <thead>
             <nc-table-row>
@@ -40,6 +65,7 @@
               <th scope="col">Date Of Absence</th>
               <th scope="col">Absence Type Code</th>
               <th scope="col">Leave Reason</th>
+              <th scope="col">Reject reason</th>
               <th scope="col">Status</th>
               <th scope="col">Action</th>
             </nc-table-row>
@@ -52,6 +78,7 @@
               <td>{{ request.DateOfAbsence }}</td>
               <td>{{ request.AbsenceTypeCode }}</td>
               <td>{{ request.LeaveReason }}</td>
+              <td>{{ request.rejectReason }}</td>
               <td>{{ request.Status }}</td>
               <td><a @click.prevent="deleteTimeoff(request.id)">Delete</a></td>
             </nc-table-row>
@@ -152,11 +179,16 @@ export default Vue.extend({
 
 <style scoped>
 .data-table {
-  padding: 0 1em 0 1em;
+
   color: black;
 }
 
 .user-form {
   padding: 1em;
+}
+
+.time-tabs {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 </style>

@@ -12,6 +12,7 @@
             <th scope="col">Date Of Absence</th>
             <th scope="col">Absence Type Code</th>
             <th scope="col">Leave Reason</th>
+            <th scope="col">Reject Reason</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
           </nc-table-row>
@@ -24,11 +25,13 @@
             <td>{{ request.DateOfAbsence }}</td>
             <td>{{ request.AbsenceTypeCode }}</td>
             <td>{{ request.LeaveReason }}</td>
+            <td>{{ request.rejectReason }}</td>
             <td>{{ request.Status }}</td>
             <td><a @click.prevent="deleteTimeoff(request.id)">Delete</a></td>
           </nc-table-row>
         </tbody>
       </nc-table>
+
       <h1 v-else>No data</h1>
    </nc-layout>
   </nc-container>
@@ -62,7 +65,6 @@ export default Vue.extend({
     async getEmployeeData() {
       
       const api = new ApiService(this.managerID)
-      //const response = await api.requestTimeoffDELETE(10)
       const response:EmployeeTimeoff[] = await api.managerTimeoffRequestsGET()
       console.log(response)
       if(this.requests.length > 0){
