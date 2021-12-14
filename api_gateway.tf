@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "example" {
-  name        = "Absence_Data_API"
+  name        = "Absence_Data_API - Stage"
   description = "First stage of API"
 }
 

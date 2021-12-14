@@ -8,7 +8,7 @@ provider "aws" {
 
 terraform{
   backend "s3"{
-    bucket = "terraform-state-dev-development"
+    bucket = "terraform-state-stage-development"
     key = "state/s3-state/terraform.tfstate"
     dynamodb_table = "terraform-state-lock-dynamo"
     region = "eu-central-1"
@@ -20,7 +20,7 @@ terraform{
 resource "aws_lambda_function" "manager_lambda" {
   function_name = "MANAGER_LAMBDA"
 
-  s3_bucket = "apitest-bucket-123"
+  s3_bucket = "api-stage-be-bucket"
   s3_key    = "v1.0.0/manager.zip"
 
   handler = "main.lambda_handler"
@@ -30,7 +30,7 @@ resource "aws_lambda_function" "manager_lambda" {
   layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
-      BUCKET_NAME = "database-bucket-absence"
+      BUCKET_NAME = "database-bucket-absence-stage"
       OBJECT_NAME_ABSENCE = "absence_data.json"
       OBJECT_NAME_EMPLOYEES = "employees_table.json"
       OBJECT_NAME_TEAMS = "teams_table.json"
@@ -41,7 +41,7 @@ resource "aws_lambda_function" "manager_lambda" {
 resource "aws_lambda_function" "post_lambda" {
   function_name = "API_POST_LAMBDA"
 
-  s3_bucket = "apitest-bucket-123"
+  s3_bucket = "api-stage-be-bucket"
   s3_key    = "v1.0.0/post.zip"
 
   handler = "main.lambda_handler"
@@ -51,7 +51,7 @@ resource "aws_lambda_function" "post_lambda" {
 
    environment {
     variables = {
-      BUCKET_NAME = "database-bucket-absence"
+      BUCKET_NAME = "database-bucket-absence-stage"
       OBJECT_NAME = "absence_data.json"
     }
   }
@@ -60,7 +60,7 @@ resource "aws_lambda_function" "post_lambda" {
 resource "aws_lambda_function" "get_lambda" {
   function_name = "API_GET_LAMBDA"
 
-  s3_bucket = "apitest-bucket-123"
+  s3_bucket = "api-stage-be-bucket"
   s3_key    = "v1.0.0/get.zip"
 
   handler = "main.lambda_handler"
@@ -70,7 +70,7 @@ resource "aws_lambda_function" "get_lambda" {
   layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
-      BUCKET_NAME = "database-bucket-absence"
+      BUCKET_NAME = "database-bucket-absence-stage"
       OBJECT_NAME = "absence_data.json"
     }
   }
@@ -79,7 +79,7 @@ resource "aws_lambda_function" "get_lambda" {
 resource "aws_lambda_function" "decision_lambda" {
   function_name = "DECISION_LAMBDA"
 
-  s3_bucket = "apitest-bucket-123"
+  s3_bucket = "api-stage-be-bucket"
   s3_key    = "v1.0.0/decision.zip"
 
   handler = "main.lambda_handler"
@@ -90,7 +90,7 @@ resource "aws_lambda_function" "decision_lambda" {
   layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
-      BUCKET_NAME = "database-bucket-absence"
+      BUCKET_NAME = "database-bucket-absence-stage"
       OBJECT_NAME_ABSENCE = "absence_data.json"
       OBJECT_NAME_ABSENCE_TYPE = "absence_type.json"
       OBJECT_NAME_EMPLOYEES = "employees_table.json"
@@ -103,7 +103,7 @@ resource "aws_lambda_function" "decision_lambda" {
 resource "aws_lambda_function" "delete_lambda" {
   function_name = "DELETE_LAMBDA"
 
-  s3_bucket = "apitest-bucket-123"
+  s3_bucket = "api-stage-be-bucket"
   s3_key    = "v1.0.0/delete.zip"
 
   handler = "main.lambda_handler"
@@ -113,7 +113,7 @@ resource "aws_lambda_function" "delete_lambda" {
   layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
-      BUCKET_NAME = "database-bucket-absence"
+      BUCKET_NAME = "database-bucket-absence-stage"
       OBJECT_NAME = "absence_data.json"
     }
   }
