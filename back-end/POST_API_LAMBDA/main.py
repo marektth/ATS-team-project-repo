@@ -52,8 +52,7 @@ def lambda_handler(event, context):
         "Rating": rating
     }
     
-  
-    
+
     local_data = item
     
     
