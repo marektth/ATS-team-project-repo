@@ -249,7 +249,7 @@ resource "aws_lambda_permission" "apigw3" {
   function_name = "${aws_lambda_function.delete_lambda.function_name}"
   principal     = "apigateway.amazonaws.com"
 
-  # The /*/* portion grants access from any method on any resource..
+  # The /*/* portion grants access from any method on any resource...
   # within the API Gateway "REST API".........
   source_arn = "${aws_api_gateway_rest_api.example.execution_arn}/*/*"
 }
