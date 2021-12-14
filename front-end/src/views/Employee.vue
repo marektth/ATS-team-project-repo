@@ -8,9 +8,14 @@
          <nc-form class="user-form" v-if="this.showForm == 1">
 
           <div class="form-group">
-            <label for="Name">Date of time off</label>
+            <label for="Name">Date from</label>
+            <nc-datepicker v-model="timeoffRequestForm.startDate" disable-past-days/>
+          </div>
+          <div class="form-group">
+            <label for="Name">Date to</label>
             <nc-datepicker v-model="timeoffRequestForm.endDate" disable-past-days/>
           </div>
+
 
           <div class="form-group">
             <label for="Name">Code leave reason</label>
@@ -35,21 +40,7 @@
             <nc-column>
               <nc-panel>
                 <div>
-                  <p>TIM - x hours</p>
-                </div>
-              </nc-panel>
-            </nc-column>
-            <nc-column>
-              <nc-panel>
-                <div>
-                  <p>SPE - x hours</p>
-                </div>
-              </nc-panel>
-            </nc-column>
-            <nc-column>
-              <nc-panel>
-                <div>
-                  <p>PAR - x hours</p>
+                  <p>TIM - {{ this.leaveBalance }} hours left</p>
                 </div>
               </nc-panel>
             </nc-column>
@@ -62,7 +53,8 @@
               <th scope="col">#</th>
               <th scope="col">Request ID</th>
               <th scope="col">Employee ID</th>
-              <th scope="col">Date Of Absence</th>
+              <th scope="col">Absence From</th>
+              <th scope="col">Absence To</th>
               <th scope="col">Absence Type Code</th>
               <th scope="col">Leave Reason</th>
               <th scope="col">Reject reason</th>
@@ -75,10 +67,11 @@
               <td>{{ idx + 1 }}</td>
               <td>{{ request.id }}</td>
               <td>{{ request.EmployeeID }}</td>
-              <td>{{ request.DateOfAbsence }}</td>
+              <td>{{ request.AbsenceFrom }}</td>
+              <td>{{ request.AbsenceTo }}</td>
               <td>{{ request.AbsenceTypeCode }}</td>
               <td>{{ request.LeaveReason }}</td>
-              <td>{{ request.rejectReason }}</td>
+              <td>{{ request.StatusResolution }}</td>
               <td>{{ request.Status }}</td>
               <td><a @click.prevent="deleteTimeoff(request.id)">Delete</a></td>
             </nc-table-row>
@@ -102,8 +95,10 @@ export default Vue.extend({
   data: function () {
     return {
       employeeID: 69,
+      leaveBalance: 0,
       showForm: 0,
       timeoffRequestForm: {
+        startDate: new Date(),
         endDate: new Date(),
         codeLeaveReason: "" as string,
         leaveReason: "" as string,
@@ -120,17 +115,19 @@ export default Vue.extend({
       
       const api = new ApiService(this.employeeID)
       //const response = await api.requestTimeoffDELETE(10)
-      const response:EmployeeTimeoff[] = await api.employeeTimeoffRequestsGET()
+      const response = await api.employeeTimeoffRequestsGET()
       console.log(response)
       if(this.requests.length > 0){
         this.requests = []
       }
 
-      if (response.length > 0){
-        response.forEach(request => {
+      if (response.absenceData.length > 0){
+        response.absenceData.forEach((request:any) => {
           this.requests.push(request)
         });
       }
+
+      this.leaveBalance = response.leaveBalance
     },
     async requestTimeoff(){
       // request time off from form

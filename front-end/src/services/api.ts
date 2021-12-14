@@ -4,7 +4,8 @@ import { KEY } from "@/utils/key_enum";
 // INTERFACES
 
 export interface TimeoffRequest {
-	endDate:Date,
+    startDate:Date
+	endDate:Date
 	codeLeaveReason:string
     leaveReason:string
 }
@@ -65,11 +66,11 @@ export class ApiService {
                 this.employeeTimeoffRequestURL + String(this.employeeNumber),
                 { headers: this.header }
             )
-            if(response.data.length === 0){
-                return "No data"
-            } else {
-                return response.data
-            }
+            return {
+                absenceData: response.data.AbsenceData as EmployeeTimeoff[],
+                leaveBalance: response.data.EmployeeData[0].LeaveBalance as number
+            } // môže byť viac LeaveBalance? Nie je lepší object?
+            
            
         } catch(err){
             console.error(err)
@@ -103,10 +104,10 @@ export class ApiService {
     // POST time off request -> employee
     async requestTimeoffPOST(request:TimeoffRequest){
         try {
-            console.log(this.dateConvert(request.endDate))
             const timeoffData = {
                 "EmployeeID": this.employeeNumber,
-                "DateOfAbsence" : this.dateConvert(request.endDate),
+                "AbsenceFrom": this.dateConvert(request.startDate),
+                "AbsenceTo" : this.dateConvert(request.endDate),
                 "AbsenceTypeCode" : request.codeLeaveReason,
                 "LeaveReason": request.leaveReason, 
                 "Status": "Pending"
