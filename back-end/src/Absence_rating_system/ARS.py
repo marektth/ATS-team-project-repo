@@ -191,7 +191,7 @@ class ARS():
                 based on priorities of rules in "rules_struct"
         '''
         for _, pending_request in self.db.get_ou_absence_data(request, "Pending").iterrows():
-            self.rating_function(request)
+            self.rating_function(pending_request)
             top_request, top_request_absence_data = self.get_top_priority_request(pending_request)
             status_to_set, status_resolution = self.determine_top_priority_status(top_request)
 
