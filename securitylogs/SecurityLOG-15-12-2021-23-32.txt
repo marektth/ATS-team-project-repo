@@ -1,0 +1,56 @@
+Quick report: 
+
+Security log from: 12/15/2021 @ 23:32:15
+Last scan submitted at: 2021-12-15 23:31:50
+Last scan executed at: 2021-12-15 23:31:56
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_coverage, status: ERROR, actual value: 22.53, error threshold: 30
+Issues found: 3
+Issues Authors:
+	marektoth199 -> 3 issues (100.0%)
+=================
+Issues report: 
+
+Key: AX27E0_iEdiWnLBqU3U-
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 54 to LINE: 54, with START_OFFSET: 48 to END_OFFSET: 73
+Issue comment: Define a constant instead of duplicating this literal 'OPTIONS,POST,GET,DELETE' 3 times.
+Effort: 6min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-12-14 23:31:11
+Updated at : 2021-12-14 23:31:11
+----------------------------------------------------
+
+Key: AX27E0_iEdiWnLBqU3U_
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 86 to LINE: 86, with START_OFFSET: 4 to END_OFFSET: 6
+Issue comment: Remove the unused local variable "s3".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-12-14 23:31:11
+Updated at : 2021-12-14 23:31:11
+----------------------------------------------------
+
+Key: AX27E0-iEdiWnLBqU3U9
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 46 to LINE: 46, with START_OFFSET: 48 to END_OFFSET: 66
+Issue comment: Define a constant instead of duplicating this literal 'OPTIONS,POST,GET' 3 times.
+Effort: 6min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-12-14 23:31:11
+Updated at : 2021-12-14 23:31:11
+----------------------------------------------------
+
