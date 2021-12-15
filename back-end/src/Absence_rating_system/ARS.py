@@ -191,6 +191,7 @@ class ARS():
                 based on priorities of rules in "rules_struct"
         '''
         for _, pending_request in self.db.get_ou_absence_data(request, "Pending").iterrows():
+            self.rating_function(request)
             top_request, top_request_absence_data = self.get_top_priority_request(pending_request)
             status_to_set, status_resolution = self.determine_top_priority_status(top_request)
 
@@ -219,7 +220,6 @@ class ARS():
 
             request = all_pending_requests.iloc[0]
             request_ouid = self.db.get_ouid_of_request(request)
-            self.rating_function(request)
             self.set_ou_requests_statuses(request)
 
             # get fresh data
@@ -234,7 +234,7 @@ class ARS():
             self.db.set_ou_rating_duration(request_ouid, start_time)
 
         self.db.update_db(self.db.teams, self.db.teams_data_path)
-        ## do not forget to save also teams table !
+        ## do not forget to save also teams table on AWS!
         return self.db.absence_data
 
 
