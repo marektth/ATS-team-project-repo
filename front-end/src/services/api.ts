@@ -61,21 +61,17 @@ export class ApiService {
 
     // GET all time off requests -> employee 
     async employeeTimeoffRequestsGET() {
-        try {
-            const response:any = await axios.get(
-                this.employeeTimeoffRequestURL + String(this.employeeNumber),
-                { headers: this.header }
-            )
-            return {
-                absenceData: response.data.AbsenceData as EmployeeTimeoff[],
-                leaveBalance: response.data.EmployeeData[0].LeaveBalance as number
-            } // môže byť viac LeaveBalance? Nie je lepší object?
+     
+        const response:any = await axios.get(
+            this.employeeTimeoffRequestURL + String(this.employeeNumber),
+            { headers: this.header }
+        )
+        return {
+            absenceData: response.data.AbsenceData as EmployeeTimeoff[],
+            leaveBalance: response.data.EmployeeData[0].LeaveBalance as number
+        } // môže byť viac LeaveBalance? Nie je lepší object?
             
            
-        } catch(err){
-            console.error(err)
-            return "No data";
-        }
     }
 
 
@@ -112,6 +108,7 @@ export class ApiService {
                 "LeaveReason": request.leaveReason, 
                 "Status": "Pending"
             }
+            console.log(timeoffData)
           
             return await axios.post(this.requestTimeoffURL, timeoffData, { headers: this.header });
         } catch (err){

@@ -8,14 +8,13 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@fortawesome/free-regular-svg-icons": "^5.15.4",
-    "@fortawesome/vue-fontawesome": "^2.0.6",
-    "@vismaux/nordic-cool-vue": "^1.1.36",
     "axios": "^0.23.0",
+    "bootstrap": "^5.1.3",
+    "bootstrap-vue": "^2.21.2",
     "cache-loader": "^4.1.0",
     "core-js": "^3.6.5",
     "underscore": "^1.13.1",
-    "vue": "^2.6.11",
+    "vue": "^2.6.14",
     "vue-router": "^3.2.0"
   },
   "devDependencies": {

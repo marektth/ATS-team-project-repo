@@ -1,86 +1,75 @@
 <template>
-  <nc-container>
-     <nc-layout horizontal>
-       <nc-layout-aside>
+    <b-container id="EmployeeContainer">
+      <b-row>
+        <b-col cols="3">
+          <b-card>
+            <h5 class="card-title">Card title</h5>
+            <form>
+              <div class="mb-3">
+                <label for="date-from" class="form-label">Date from:</label>
+                <input type="date" class="form-control" id="date-from" v-model="timeoffRequestForm.startDate" required>
+              </div>
+              <div class="mb-3">
+                <label for="date-to" class="form-label">Date to:</label>
+                <input type="date" class="form-control" id="date-to" v-model="timeoffRequestForm.endDate" required>
+              </div>
+              <div class="mb-3">
+                <label for="code-leave-reason-id">Code Leave reason:</label>
+                <select id="code-leave-reason-id" class="form-select" v-model="timeoffRequestForm.codeLeaveReason" required>
+                  <option value="TIM">TIM</option>
+                  <option value="SPE">SPE</option>
+                  <option value="PAR">PAR</option>
+                </select>
+              </div>
 
-         <nc-button id="OpenFormButton" @click="openForm">Register timeoff</nc-button>
+              <div class="mb-3">
+                <label for="leave-reason" class="form-label">Leave reason:</label>
+                <input type="text" placeholder="Enter leave reason..." class="form-control" id="leave-reason" v-model="this.timeoffRequestForm.leaveReason">
+              </div>
 
-         <nc-form class="user-form" v-if="this.showForm == 1">
+              <button id="FormSubmitButton"  @click.prevent="requestTimeoff" class="btn btn-primary">Request timeoff</button>
+            </form>
+          </b-card>
+        </b-col>
 
-          <div class="form-group">
-            <label for="Name">Date from</label>
-            <nc-datepicker v-model="timeoffRequestForm.startDate" disable-past-days/>
-          </div>
-          <div class="form-group">
-            <label for="Name">Date to</label>
-            <nc-datepicker v-model="timeoffRequestForm.endDate" disable-past-days/>
-          </div>
+        <b-col cols="9">
+          <b-card>
+            <table class="table table-striped" v-if="this.requests.length > 0">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Request ID</th>
+                  <th scope="col">Employee ID</th>
+                  <th scope="col">Absence From</th>
+                  <th scope="col">Absence To</th>
+                  <th scope="col">Absence Type Code</th>
+                  <th scope="col">Leave Reason</th>
+                  <th scope="col">Reject reason</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+                <tbody>
+                <tr v-for="(request,idx) in requests" v-bind:key="String(request.EmployeeID) + '_'+ String(idx)">
+                  <td scope="row">{{ idx + 1 }}</td>
+                  <td>{{ request.id }}</td>
+                  <td>{{ request.EmployeeID }}</td>
+                  <td>{{ request.AbsenceFrom }}</td>
+                  <td>{{ request.AbsenceTo }}</td>
+                  <td>{{ request.AbsenceTypeCode }}</td>
+                  <td>{{ request.LeaveReason }}</td>
+                  <td>{{ request.StatusResolution }}</td>
+                  <td>{{ request.Status }}</td>
+                  <td><a @click.prevent="deleteTimeoff(request.id)"><b-icon icon="trash"></b-icon></a></td>
+                </tr>
+              </tbody>
+            </table>
+            <h1 v-else>No data</h1>
 
-
-          <div class="form-group">
-            <label for="Name">Code leave reason</label>
-            <select class="form-control" id="CodeLeaveReasonID" v-model="timeoffRequestForm.codeLeaveReason">
-                <option value="TIM">TIM</option>
-                <option value="SPE">SPE</option>
-                <option value="PAR">PAR</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="Name">Reason</label>
-            <input class="form-control" type="text" id="ReasonID" placeholder="Enter reason" v-model="timeoffRequestForm.leaveReason" />
-          </div>
-          
-          <nc-button id="FormSubmitButton"  @click.prevent="requestTimeoff">Request timeoff</nc-button>
-        </nc-form>
-       </nc-layout-aside>
-      <nc-layout-content>
-        <nc-container>
-          <nc-row>
-            <nc-column>
-              <nc-panel>
-                <div>
-                  <p>TIM - {{ this.leaveBalance }} hours left</p>
-                </div>
-              </nc-panel>
-            </nc-column>
-          </nc-row>
-        </nc-container>
-        
-        <nc-table class="data-table" v-if="this.requests.length > 0">
-          <thead>
-            <nc-table-row>
-              <th scope="col">#</th>
-              <th scope="col">Request ID</th>
-              <th scope="col">Employee ID</th>
-              <th scope="col">Absence From</th>
-              <th scope="col">Absence To</th>
-              <th scope="col">Absence Type Code</th>
-              <th scope="col">Leave Reason</th>
-              <th scope="col">Reject reason</th>
-              <th scope="col">Status</th>
-              <th scope="col">Action</th>
-            </nc-table-row>
-          </thead>
-          <tbody v-for="(request,idx) in requests" v-bind:key="String(request.EmployeeID) + '_'+ String(idx)">
-            <nc-table-row>
-              <td>{{ idx + 1 }}</td>
-              <td>{{ request.id }}</td>
-              <td>{{ request.EmployeeID }}</td>
-              <td>{{ request.AbsenceFrom }}</td>
-              <td>{{ request.AbsenceTo }}</td>
-              <td>{{ request.AbsenceTypeCode }}</td>
-              <td>{{ request.LeaveReason }}</td>
-              <td>{{ request.StatusResolution }}</td>
-              <td>{{ request.Status }}</td>
-              <td><a @click.prevent="deleteTimeoff(request.id)">Delete</a></td>
-            </nc-table-row>
-          </tbody>
-        </nc-table>
-        <h1 v-else>No data</h1>
-      </nc-layout-content>
-    </nc-layout>
-  </nc-container>
+          </b-card>
+        </b-col>
+      </b-row>
+    </b-container>
 </template>
 
 <script lang="ts">
@@ -154,6 +143,7 @@ export default Vue.extend({
     },
     clearFormInputs(){
       // form clear
+      this.timeoffRequestForm.startDate = new Date()
       this.timeoffRequestForm.endDate = new Date()
       this.timeoffRequestForm.codeLeaveReason = ""
       this.timeoffRequestForm.leaveReason = ""
@@ -187,5 +177,9 @@ export default Vue.extend({
 .time-tabs {
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
+}
+
+#EmployeeContainer {
+  margin-top: 2%;
 }
 </style>

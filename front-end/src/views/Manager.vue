@@ -1,40 +1,46 @@
 <template>
-  <nc-container>
-   <nc-layout horizontal>
-      <nc-button @click.prevent="triggerARS">Decide</nc-button>
-
-      <nc-table class="data-table" v-if="this.requests.length > 0">
-        <thead>
-          <nc-table-row>
-            <th scope="col">#</th>
-            <th scope="col">Request ID</th>
-            <th scope="col">Employee ID</th>
-            <th scope="col">Date Of Absence</th>
-            <th scope="col">Absence Type Code</th>
-            <th scope="col">Leave Reason</th>
-            <th scope="col">Reject Reason</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </nc-table-row>
-        </thead>
-        <tbody v-for="(request,idx) in requests" v-bind:key="String(request.EmployeeID) + '_'+ String(idx)">
-          <nc-table-row>
-            <td>{{ idx + 1 }}</td>
-            <td>{{ request.id }}</td>
-            <td>{{ request.EmployeeID }}</td>
-            <td>{{ request.DateOfAbsence }}</td>
-            <td>{{ request.AbsenceTypeCode }}</td>
-            <td>{{ request.LeaveReason }}</td>
-            <td>{{ request.rejectReason }}</td>
-            <td>{{ request.Status }}</td>
-            <td><a @click.prevent="deleteTimeoff(request.id)">Delete</a></td>
-          </nc-table-row>
-        </tbody>
-      </nc-table>
-
-      <h1 v-else>No data</h1>
-   </nc-layout>
-  </nc-container>
+  <b-container id="ManagerContainer">
+   <b-row>
+     <b-col cols="1">
+      <button class="btn btn-success" @click.prevent="triggerARS">Decide</button>
+     </b-col>
+     <b-col>
+      <b-card>
+        <table class="table table-striped" v-if="this.requests.length > 0">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Request ID</th>
+              <th scope="col">Employee ID</th>
+              <th scope="col">Absence From</th>
+              <th scope="col">Absence To</th>
+              <th scope="col">Absence Type Code</th>
+              <th scope="col">Leave Reason</th>
+              <th scope="col">Reject reason</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+            <tbody>
+            <tr v-for="(request,idx) in requests" v-bind:key="String(request.EmployeeID) + '_'+ String(idx)">
+              <td scope="row">{{ idx + 1 }}</td>
+              <td>{{ request.id }}</td>
+              <td>{{ request.EmployeeID }}</td>
+              <td>{{ request.AbsenceFrom }}</td>
+              <td>{{ request.AbsenceTo }}</td>
+              <td>{{ request.AbsenceTypeCode }}</td>
+              <td>{{ request.LeaveReason }}</td>
+              <td>{{ request.StatusResolution }}</td>
+              <td>{{ request.Status }}</td>
+              <td><a @click.prevent="deleteTimeoff(request.id)"><b-icon icon="trash"></b-icon></a></td>
+            </tr>
+          </tbody>
+        </table>
+        <h1 v-else>No data</h1>
+      </b-card>
+     </b-col>
+   </b-row>
+  </b-container>
 </template>
 
 <script lang="ts">
@@ -96,5 +102,11 @@ export default Vue.extend({
   padding: 0 1em 0 1em;
   color: black;
 }
+b-button {
+  text-align: left;
+}
 
+#ManagerContainer {
+  margin-top: 2%;
+}
 </style>
