@@ -200,8 +200,8 @@ class ARS():
             self.db.update_item(status_resolution, top_request_absence_data.name, "StatusResolution", self.db.absence_data)
 
             # update employee leave balance if request accepted and its just timeoff
-            if status_to_set == "Accepted" and top_request_absence_data['AbsenceTypeCode'] == "TIM":
-                new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") - self.db.get_request_leave_hours(top_request_absence_data)
+            if status_to_set == "Rejected" and top_request_absence_data['AbsenceTypeCode'] == "TIM":
+                new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") + self.db.get_request_leave_hours(top_request_absence_data)
                 employee_idx = self.db.employees[self.db.employees['EmployeeID'] == top_request_absence_data['EmployeeID']].index
                 self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
 
