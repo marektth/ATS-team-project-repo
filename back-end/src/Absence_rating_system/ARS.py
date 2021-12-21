@@ -200,10 +200,11 @@ class ARS():
             self.db.update_item(status_resolution, top_request_absence_data.name, "StatusResolution", self.db.absence_data)
 
             # update employee leave balance if request accepted and its just timeoff
-            if status_to_set == "Rejected" and top_request_absence_data['AbsenceTypeCode'] == "TIM":
-                new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") + self.db.get_request_leave_hours(top_request_absence_data)
+            if status_to_set == "Accepted" and top_request_absence_data['AbsenceTypeCode'] == "TIM":
+                new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") - self.db.get_request_leave_hours(top_request_absence_data)
                 employee_idx = self.db.employees[self.db.employees['EmployeeID'] == top_request_absence_data['EmployeeID']].index
                 self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
+                self.db.update_item(new_leave_balance, employee_idx, "LeaveBalanceDisplay", self.db.employees)
 
 
     def absence_requests_handler(self):
@@ -239,15 +240,15 @@ class ARS():
 
 
 if __name__ == "__main__":
-    path_absence_table = "back-end/src/data/jsons/absence_data.json"
-    path_teams_table = "back-end/src/data/jsons/teams_table.json"
-    path_employees_table = "back-end/src/data/jsons/employees_table.json"
-    path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
-    path_absence_type_table = "back-end/src/data/jsons/absence_type.json"
-    path_rules_table = "back-end/src/data/jsons/rules_table.json"
+    # path_absence_table = "back-end/src/data/jsons/absence_data.json"
+    # path_teams_table = "back-end/src/data/jsons/teams_table.json"
+    # path_employees_table = "back-end/src/data/jsons/employees_table.json"
+    # path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
+    # path_absence_type_table = "back-end/src/data/jsons/absence_type.json"
+    # path_rules_table = "back-end/src/data/jsons/rules_table.json"
 
-    ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
-    result = ars.absence_requests_handler()
+    # ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
+    # result = ars.absence_requests_handler()
 
     '''
     Only for testing purposes
@@ -255,7 +256,7 @@ if __name__ == "__main__":
     '''
 
     
-    ''' 
+    
     #Test case 1 - 2 employees are requesting same type and same day but one has more leave hours than other
 
 
@@ -271,7 +272,7 @@ if __name__ == "__main__":
     print(result)
 
     #result - employee with bigger leave balance gets accepted 
-    '''
+    
 
     '''
      
