@@ -1,0 +1,39 @@
+[
+    {
+        "key" : "A",
+        "function": "rule_min_capacity_threshold",
+        "sortAscending": false,
+        "threshold": 1,
+        "priority": 3,
+        "testByThisRule": true,
+        "resolutionFailed": "Not enough employees in team"
+    },
+    {
+        
+        "key" : "B",
+        "function": "rule_min_same_job_threshold",
+        "sortAscending": false,
+        "threshold": 1,
+        "priority": 2,
+        "testByThisRule": true,
+        "resolutionFailed": "Not enough employees in team with same job"
+    },
+    {   
+        "key" : "C",
+        "function": "rule_set_absence_type_priority",
+        "sortAscending": true,
+        "threshold": null,
+        "priority": 1,
+        "testByThisRule": true,
+        "resolutionFailed": null
+    },
+    {   
+        "key" : "D",
+        "function": "rule_leave_balance",
+        "sortAscending": false,
+        "threshold": 0,
+        "priority": 4,
+        "testByThisRule": true,
+        "resolutionFailed": "Not enough leave balance"
+    }          
+]
