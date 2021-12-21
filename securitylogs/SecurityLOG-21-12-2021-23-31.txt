@@ -1,0 +1,172 @@
+Quick report: 
+
+Security log from: 12/21/2021 @ 23:31:52
+Last scan submitted at: 2021-12-21 23:31:27
+Last scan executed at: 2021-12-21 23:31:32
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_reliability_rating, status: ERROR, actual value: 2.00, error threshold: 1
+	Metric: new_coverage, status: ERROR, actual value: 19.14, error threshold: 30
+	Metric: new_violations, status: ERROR, actual value: 11.00, error threshold: 10
+Issues found: 11
+Issues Authors:
+	chocholacek.ludovit -> 2 issues (18.181818181818183%)
+	fhavel99 -> 6 issues (54.54545454545454%)
+	marektoth199 -> 3 issues (27.27272727272727%)
+=================
+Issues report: 
+
+Key: AX3fHv_8EdiWnLBqU7af
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: chocholacek.ludovit
+File: ats:back-end/src/Absence_rating_system/ARS.py
+From LINE: 243 to LINE: 243, with START_OFFSET: 4 to END_OFFSET: 70
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-21 23:30:28
+Updated at : 2021-12-21 23:30:28
+----------------------------------------------------
+
+Key: AX3fHv_8EdiWnLBqU7ag
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: chocholacek.ludovit
+File: ats:back-end/src/Absence_rating_system/ARS.py
+From LINE: 250 to LINE: 250, with START_OFFSET: 4 to END_OFFSET: 135
+Issue comment: Remove this commented out code.
+Effort: 5min
+Rule: python:S125
+Scope : MAIN
+Created at: 2021-12-21 23:30:28
+Updated at : 2021-12-21 23:30:28
+----------------------------------------------------
+
+Key: AX3U0mfkEdiWnLBqU6QB
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/App.vue
+From LINE: 4 to LINE: 4, with START_OFFSET: 4 to END_OFFSET: 46
+Issue comment: Add an "aria-label" or "aria-labbelledby" attribute to this element.
+Effort: None
+Rule: Web:S5255
+Scope : MAIN
+Created at: 2021-12-19 23:30:35
+Updated at : 2021-12-19 23:30:35
+----------------------------------------------------
+
+Key: AX3U0mfkEdiWnLBqU6QC
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/App.vue
+From LINE: 15 to LINE: 15, with START_OFFSET: 12 to END_OFFSET: 30
+Issue comment: Add an "aria-label" or "aria-labbelledby" attribute to this element.
+Effort: None
+Rule: Web:S5255
+Scope : MAIN
+Created at: 2021-12-19 23:30:35
+Updated at : 2021-12-19 23:30:35
+----------------------------------------------------
+
+Key: AX3U0mfFEdiWnLBqU6P_
+Issue type : BUG
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 37 to LINE: 37, with START_OFFSET: 12 to END_OFFSET: 79
+Issue comment: Add a description to this table.
+Effort: 5min
+Rule: Web:TableWithoutCaptionCheck
+Scope : MAIN
+Created at: 2021-12-19 23:30:35
+Updated at : 2021-12-19 23:30:35
+----------------------------------------------------
+
+Key: AX3U0mfFEdiWnLBqU6QA
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 54 to LINE: 54, with START_OFFSET: 18 to END_OFFSET: 34
+Issue comment: Remove this deprecated "scope" attribute.
+Effort: 5min
+Rule: Web:S1827
+Scope : MAIN
+Created at: 2021-12-19 23:30:35
+Updated at : 2021-12-19 23:30:35
+----------------------------------------------------
+
+Key: AX3U0mdlEdiWnLBqU6P9
+Issue type : BUG
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Manager.vue
+From LINE: 9 to LINE: 9, with START_OFFSET: 8 to END_OFFSET: 75
+Issue comment: Add a description to this table.
+Effort: 5min
+Rule: Web:TableWithoutCaptionCheck
+Scope : MAIN
+Created at: 2021-12-19 23:30:35
+Updated at : 2021-12-19 23:30:35
+----------------------------------------------------
+
+Key: AX3U0mdlEdiWnLBqU6P-
+Issue type : CODE_SMELL
+Severity: MAJOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Manager.vue
+From LINE: 26 to LINE: 26, with START_OFFSET: 14 to END_OFFSET: 30
+Issue comment: Remove this deprecated "scope" attribute.
+Effort: 5min
+Rule: Web:S1827
+Scope : MAIN
+Created at: 2021-12-19 23:30:35
+Updated at : 2021-12-19 23:30:35
+----------------------------------------------------
+
+Key: AX27E0_iEdiWnLBqU3U-
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 54 to LINE: 54, with START_OFFSET: 48 to END_OFFSET: 73
+Issue comment: Define a constant instead of duplicating this literal 'OPTIONS,POST,GET,DELETE' 3 times.
+Effort: 6min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-12-14 23:31:11
+Updated at : 2021-12-14 23:31:11
+----------------------------------------------------
+
+Key: AX27E0_iEdiWnLBqU3U_
+Issue type : CODE_SMELL
+Severity: MINOR
+Issue author: marektoth199
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 86 to LINE: 86, with START_OFFSET: 4 to END_OFFSET: 6
+Issue comment: Remove the unused local variable "s3".
+Effort: 5min
+Rule: python:S1481
+Scope : MAIN
+Created at: 2021-12-14 23:31:11
+Updated at : 2021-12-14 23:31:11
+----------------------------------------------------
+
+Key: AX27E0-iEdiWnLBqU3U9
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: marektoth199
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 46 to LINE: 46, with START_OFFSET: 48 to END_OFFSET: 66
+Issue comment: Define a constant instead of duplicating this literal 'OPTIONS,POST,GET' 3 times.
+Effort: 6min
+Rule: python:S1192
+Scope : MAIN
+Created at: 2021-12-14 23:31:11
+Updated at : 2021-12-14 23:31:11
+----------------------------------------------------
+
