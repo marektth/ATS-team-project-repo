@@ -17,10 +17,11 @@ class TestARS(unittest.TestCase):
         self.path_jobs_table = "tests/ARS_test_data/test_jobs_table.json"
         self.path_absence_type_table = "tests/ARS_test_data/test_absence_type.json"
         self.path_test_request = "tests/ARS_test_data/test_request.json"
+        self.path_rules_table =  "tests/ARS_test_data/rules_table.json"
 
         self.ars = ARS(self.path_absence_table, self.path_teams_table,
                        self.path_employees_table, self.path_jobs_table, 
-                       self.path_absence_type_table)
+                       self.path_absence_type_table, self.path_rules_table)
 
         with open(self.path_test_request) as f:
             json_data = json.load(f)
@@ -30,7 +31,7 @@ class TestARS(unittest.TestCase):
 
 
     def test_rule_min_capacity_treshold(self):
-        input_rule_min_capacity = self.ars.rule_min_capacity_treshold(self.request_series)
+        input_rule_min_capacity = self.ars.rule_min_capacity_threshold(self.request_series)
         self.assertEqual(input_rule_min_capacity, 0)
 
     def test_rule_set_absence_type_priority(self):
@@ -45,7 +46,7 @@ class TestARS(unittest.TestCase):
         self.path_absence_table_case1 = "tests/ARS_test_data/ARS_test_case1/test_absence_data.json"
         self.ars = ARS(self.path_absence_table_case1, self.path_teams_table,
                        self.path_employees_table, self.path_jobs_table, 
-                       self.path_absence_type_table)
+                       self.path_absence_type_table, self.path_rules_table)
         
         input_case1 = self.ars.absence_requests_handler()
         self.path_absence_table_case1_correct = "tests/ARS_test_data/ARS_test_case1/test_absence_data_correct.json"
@@ -67,7 +68,7 @@ class TestARS(unittest.TestCase):
         self.path_jobs_table_case2 = "tests/ARS_test_data/ARS_test_case2/test_jobs_table.json"
         self.ars = ARS(self.path_absence_table_case2, self.path_teams_table,
                        self.path_employees_table, self.path_jobs_table_case2, 
-                       self.path_absence_type_table)
+                       self.path_absence_type_table, self.path_rules_table)
         
         input_case2 = self.ars.absence_requests_handler()
         self.path_absence_table_case2_correct = "tests/ARS_test_data/ARS_test_case2/test_absence_data_correct.json"
@@ -90,7 +91,7 @@ class TestARS(unittest.TestCase):
         self.path_employees_table_case3 = "tests/ARS_test_data/ARS_test_case3/test_employees_table.json"
         self.ars = ARS(self.path_absence_table_case3, self.path_teams_table,
                        self.path_employees_table_case3, self.path_jobs_table_case3, 
-                       self.path_absence_type_table)
+                       self.path_absence_type_table, self.path_rules_table)
         
         input_case3 = self.ars.absence_requests_handler()
         self.path_absence_table_case3_correct = "tests/ARS_test_data/ARS_test_case3/test_absence_data_correct.json"
@@ -113,7 +114,7 @@ class TestARS(unittest.TestCase):
         self.path_employees_table_case4 = "tests/ARS_test_data/ARS_test_case4/test_employees_table.json"
         self.ars = ARS(self.path_absence_table_case4, self.path_teams_table,
                        self.path_employees_table_case4, self.path_jobs_table_case4, 
-                       self.path_absence_type_table)
+                       self.path_absence_type_table, self.path_rules_table)
         
         input_case4 = self.ars.absence_requests_handler()
         self.path_absence_table_case4_correct = "tests/ARS_test_data/ARS_test_case4/test_absence_data_correct.json"
@@ -136,7 +137,7 @@ class TestARS(unittest.TestCase):
         self.path_employees_table_case5 = "tests/ARS_test_data/ARS_test_case5/test_employees_table.json"
         self.ars = ARS(self.path_absence_table_case5, self.path_teams_table,
                        self.path_employees_table_case5, self.path_jobs_table_case5, 
-                       self.path_absence_type_table)
+                       self.path_absence_type_table, self.path_rules_table)
         
         input_case5 = self.ars.absence_requests_handler()
         self.path_absence_table_case5_correct = "tests/ARS_test_data/ARS_test_case5/test_absence_data_correct.json"

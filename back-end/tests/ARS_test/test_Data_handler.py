@@ -17,10 +17,12 @@ class TestDataHandler(unittest.TestCase):
         self.path_jobs_table = "tests/ARS_test_data/test_jobs_table.json"
         self.path_absence_type_table = "tests/ARS_test_data/test_absence_type.json"
         self.path_test_request = "tests/ARS_test_data/test_request.json"
+        self.path_rules_table =  "tests/ARS_test_data/rules_table.json"
+
 
         self.dHandler = DBHandler(self.path_absence_table, self.path_teams_table,
                        self.path_employees_table, self.path_jobs_table, 
-                       self.path_absence_type_table)
+                       self.path_absence_type_table, self.path_rules_table)
 
         with open(self.path_test_request) as f:
             json_data = json.load(f)
@@ -40,7 +42,7 @@ class TestDataHandler(unittest.TestCase):
         self.assertEqual(input_ouid, 1)
 
     def test_get_min_same_job_treshold(self):
-        input_threshold = self.dHandler.get_min_same_job_treshold(self.request_series)
+        input_threshold = self.dHandler.get_min_same_job_threshold(self.request_series)
         self.assertEqual(input_threshold, 0)
 
     def test_get_employee_info(self):
@@ -105,48 +107,17 @@ class TestDataHandler(unittest.TestCase):
         output_same_job_absence = pd.DataFrame(json_data, index=[0])
         assert_frame_equal(output_same_job_absence.reset_index(drop=True), input_same_job_absence.reset_index(drop=True))
 
-    def test_convert_to_dayofyear(self):
-        #if is Series
-        request = self.dHandler.convert_to_dayofyear(self.request_series,
-                                                      column_to_convert='DateOfAbsence',
-                                                      column_to_add='DayOfYear')
-        exp_out = {
-            "id": 1,
-            "EmployeeID": 96,
-            "DateOfAbsence": "24/10/2021",
-            "AbsenceTypeCode": "TIM",
-            "Status": "Pending",
-            "Rating": {
-                'A': 0,
-                'B': 1, 
-                'C': 0, 
-                'D': 1
-                },
-            "DayOfYear": 297,  
-        }
-        exp_out = pd.Series(exp_out)
-        assert_series_equal(request.reset_index(drop=True), exp_out.reset_index(drop=True))
-        #if is Dataframe
-        request_case_df = self.dHandler.convert_to_dayofyear(self.request_pending,
-                                                      column_to_convert='DateOfAbsence',
-                                                      column_to_add='DayOfYear')
-        exp_out_case_df = self.request_pending
-        exp_out_case_df["DayOfYear"] = 297
-        assert_frame_equal(request_case_df, exp_out_case_df)
-
-
-
     def test_get_absence_type_priority(self):
         input_priority = self.dHandler.get_absence_type_priority(self.request_series)
         self.assertEqual(input_priority, 3)
 
     def test_get_request_leave_hours(self):
         input_leave_hours = self.dHandler.get_request_leave_hours(self.request_series)
-        self.assertEqual(input_leave_hours, 8)
+        self.assertEqual(input_leave_hours, 88)
 
     def test_check_enough_leave_balance(self):
        input_leave_balance = self.dHandler.check_enough_leave_balance(self.request_series)
-       self.assertEqual(input_leave_balance, True)
+       self.assertEqual(input_leave_balance, False)
 
 
 if __name__ == '__main__':
