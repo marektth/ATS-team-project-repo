@@ -1,15 +1,14 @@
 [
     {
-        "id": 0,
+        "id": 1,
         "EmployeeID": 54,
-        "DateOfAbsence": "23/10/2021",
+        "AbsenceRequestedAt": 1639165929.68981,
+        "AbsenceFrom": "20/12/2021",
+        "AbsenceTo": "31/12/2021",
         "AbsenceTypeCode": "TIM",
         "Status": "Accepted",
-        "Rating": {
-            "A": 0,
-            "B": 1, 
-            "C": 0, 
-            "D": 1
-            }
-    }
+        "StatusResolution" : "",
+        "LeaveReason": "Need to go to medical exam",
+        "Rating": {}
+      }
 ]
