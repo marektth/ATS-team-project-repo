@@ -1,0 +1,72 @@
+[
+    {
+        "EmployeeID": 79,
+        "EmployeeName": "billy style",
+        "EmploymentNumber": 1,
+        "OUID": 7,
+        "LeaveBalance": 8
+    },
+    {
+        "EmployeeID": 69,
+        "EmployeeName": "paul bleacher",
+        "EmploymentNumber": 1,
+        "OUID": 7,
+        "LeaveBalance": 8
+    },
+    {
+        "EmployeeID": 62,
+        "EmployeeName": "jax bleacher",
+        "EmploymentNumber": 1,
+        "OUID": 7,
+        "LeaveBalance": 0
+    },
+    {
+        "EmployeeID": 54,
+        "EmployeeName": "axel style",
+        "EmploymentNumber": 0,
+        "OUID": 7,
+        "LeaveBalance": 0
+    },
+    {
+        "EmployeeID": 38,
+        "EmployeeName": "paul blacker",
+        "EmploymentNumber": 0,
+        "OUID": 21,
+        "LeaveBalance": 8
+    },
+    {
+        "EmployeeID": 96,
+        "EmployeeName": "jax barker",
+        "EmploymentNumber": 0,
+        "OUID": 7,
+        "LeaveBalance": 0
+    },
+    {
+        "EmployeeID": 14,
+        "EmployeeName": "jim rogers",
+        "EmploymentNumber": 1,
+        "OUID": 21,
+        "LeaveBalance": 8
+    },
+    {
+        "EmployeeID": 18,
+        "EmployeeName": "axel spirits",
+        "EmploymentNumber": 2,
+        "OUID": 21,
+        "LeaveBalance": 8
+    },
+    {
+        "EmployeeID": 192,
+        "EmployeeName": "axel spirits",
+        "EmploymentNumber": 2,
+        "OUID": 7,
+        "LeaveBalance": 8
+    },
+    {
+        "EmployeeID": 1111,
+        "EmployeeName": "axel spiritus",
+        "EmploymentNumber": 2,
+        "OUID": 77,
+        "LeaveBalance": 16
+    }
+]
