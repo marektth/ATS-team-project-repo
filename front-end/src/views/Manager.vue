@@ -32,7 +32,10 @@
               <td>{{ request.LeaveReason }}</td>
               <td>{{ request.StatusResolution }}</td>
               <td>{{ request.Status }}</td>
-              <td><a @click.prevent="deleteTimeoff(request.id)"><b-icon icon="trash"></b-icon></a></td>
+              <td v-if="(request.Status != 'Rejected') && (request.Status != 'Cancelled')">
+                <a @click.prevent="deleteTimeoff(request.id)" disabled><b-icon icon="x-octagon"></b-icon></a>
+              </td>
+              <td v-else>-</td>
             </tr>
           </tbody>
         </table>
@@ -81,6 +84,10 @@ export default Vue.extend({
         response.forEach(request => {
           this.requests.push(request)
         });
+      }
+      let el = document.getElementById("user-info")
+      if(el != null){
+        el.innerHTML = `Manager ${this.managerID}`;
       }
     },
      async deleteTimeoff(id:number){

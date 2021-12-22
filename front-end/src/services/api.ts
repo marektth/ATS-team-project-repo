@@ -4,8 +4,8 @@ import { KEY } from "@/utils/key_enum";
 // INTERFACES
 
 export interface TimeoffRequest {
-    startDate:Date
-	endDate:Date
+    startDate:string
+	endDate:string
 	codeLeaveReason:string
     leaveReason:string
 }
@@ -49,11 +49,10 @@ export class ApiService {
     // HELPER FUNCTIONS
     // ---------------------------------------
 
-    dateConvert(date:Date) : string {
-        return  ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear()
+    dateConvert(date:string) : string {
+        let tmp = date.split('-')
+        return `${tmp[2]}/${tmp[1]}/${tmp[0]}`
     }
-
-
     // REQUESTS
     // ---------------------------------------
 
@@ -66,9 +65,10 @@ export class ApiService {
             this.employeeTimeoffRequestURL + String(this.employeeNumber),
             { headers: this.header }
         )
+        console.log(response)
         return {
             absenceData: response.data.AbsenceData as EmployeeTimeoff[],
-            leaveBalance: response.data.EmployeeData[0].LeaveBalance as number
+            employeeData: response.data.EmployeeData[0]
         } // môže byť viac LeaveBalance? Nie je lepší object?
             
            
@@ -111,8 +111,8 @@ export class ApiService {
             console.log(timeoffData)
           
             return await axios.post(this.requestTimeoffURL, timeoffData, { headers: this.header });
-        } catch (err){
-            console.error(err)
+        } catch (err:any){
+            console.error(err.response)
             return err;
         }
     }
