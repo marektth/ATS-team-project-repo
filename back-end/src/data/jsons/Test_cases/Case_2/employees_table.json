@@ -4,7 +4,7 @@
         "EmployeeName": "billy style",
         "EmploymentNumber": 1,
         "OUID": 7,
-        "LeaveBalance": 0,
+        "LeaveBalance": 8,
         "LeaveBalanceDisplay": 0
     },
     {
@@ -12,7 +12,7 @@
         "EmployeeName": "paul bleacher",
         "EmploymentNumber": 1,
         "OUID": 7,
-        "LeaveBalance": 0,
+        "LeaveBalance": 8,
         "LeaveBalanceDisplay": 0
     },
     {
@@ -68,7 +68,7 @@
         "EmployeeName": "axel spirits",
         "EmploymentNumber": 2,
         "OUID": 7,
-        "LeaveBalance": 0,
+        "LeaveBalance": 8,
         "LeaveBalanceDisplay": 0
     },
     {

@@ -124,7 +124,10 @@ def lambda_handler(event, context):
                 working_hours = 8
                 remaining_hours = ((absence_to - absence_from).days)*working_hours
                 employee_leave_balance = (employees_data.loc[employees_data['EmployeeID']== request_to_cancel['EmployeeID']]['LeaveBalance']).values[0]
+                employee_leave_balance_display = (employees_data.loc[employees_data['EmployeeID']== request_to_cancel['EmployeeID']]['LeaveBalanceDisplay']).values[0]
                 employees_data.loc[employees_data['EmployeeID'] == request_to_cancel['EmployeeID'], 'LeaveBalance'] = employee_leave_balance + remaining_hours
+                employees_data.loc[employees_data['EmployeeID'] == request_to_cancel['EmployeeID'], 'LeaveBalanceDisplay'] = employee_leave_balance_display + remaining_hours
+
 
             # set status to cancelled, change AbsenceTo to cancel_date, set StatusResolution to display user request state
             absence_data.loc[absence_data['id'] == request_id_to_cancel, 'Status'] = "Cancelled"

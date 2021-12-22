@@ -1,0 +1,26 @@
+[
+    {
+        "OUID": 7,
+        "ManagerID": 7,
+        "MinimalCapacity": 3,
+        "TeamName": "MLB",
+        "LastChangeMS": 1640163532.2290604,
+        "RatingDurationMS": 84.018945694
+    },
+    {
+        "OUID": 21,
+        "ManagerID": 10,
+        "MinimalCapacity": 2,
+        "TeamName": "WET",
+        "LastChangeMS": 1639310498.9280698,
+        "RatingDurationMS": 37.4917984009
+    },
+    {
+        "OUID": 77,
+        "ManagerID": 21,
+        "MinimalCapacity": 2,
+        "TeamName": "ATS",
+        "LastChangeMS": 1639310498.9495091,
+        "RatingDurationMS": 20.7171440125
+    }
+]

@@ -12,7 +12,7 @@
         "EmployeeName": "paul bleacher",
         "EmploymentNumber": 1,
         "OUID": 7,
-        "LeaveBalance": 0,
+        "LeaveBalance": 80,
         "LeaveBalanceDisplay": 0
     },
     {
@@ -66,9 +66,9 @@
     {
         "EmployeeID": 192,
         "EmployeeName": "axel spirits",
-        "EmploymentNumber": 2,
+        "EmploymentNumber": 1,
         "OUID": 7,
-        "LeaveBalance": 0,
+        "LeaveBalance": 60,
         "LeaveBalanceDisplay": 0
     },
     {
