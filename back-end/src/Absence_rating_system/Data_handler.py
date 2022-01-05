@@ -223,6 +223,9 @@ class DBHandler():
         return self.rules.loc[self.rules['key'] == rule_key]["resolutionFailed"].values[0]
 
     def get_no_overlapping_days(self, data_to_compare, request):
+        '''
+            returns number of overlapping days 
+        '''
         latest_start = max(data_to_compare['AbsenceFrom'], request['AbsenceFrom'])
         earliest_end = min(data_to_compare['AbsenceTo'], request['AbsenceTo'])
         return (earliest_end - latest_start).days + 1
