@@ -177,12 +177,9 @@ class DBHandler():
         '''
         absence_from = pd.to_datetime(request["AbsenceFrom"], format='%d/%m/%Y')
         absence_to = pd.to_datetime(request["AbsenceTo"], format='%d/%m/%Y')
-        days_delta = absence_to - absence_from
-        
-        if days_delta.days == 0:
-            return working_hours
-        else:
-            return days_delta.days*working_hours
+        remaining_hours = ((absence_to - absence_from).days) + 1
+        remaining_hours *= working_hours
+        return remaining_hours
 
     def check_enough_leave_balance(self, request):
         '''
