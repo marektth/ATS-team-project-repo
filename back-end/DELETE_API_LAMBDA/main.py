@@ -79,6 +79,10 @@ def response_flag(return_status, s3_bucket, s3_object_absence, s3_object_employe
         }
         return response
         
+def get_absence_hours(absence_from, absence_to, working_hours=8, date_format='%d/%m/%Y'):
+    absence_to = pd.to_datetime(absence_to, format=date_format)
+    absence_from = pd.to_datetime(absence_from, format=date_format)
+    return (((absence_to - absence_from).days) + 1) * working_hours
 
 
 def lambda_handler(event, context):
@@ -89,15 +93,12 @@ def lambda_handler(event, context):
     absence_data = load_table(s3_bucket_name, object_key=s3_key_website)
     employees_data = load_table(s3_bucket_name, object_key=s3_key_website_employees)
     
-    
-    
     line_to_add = json.loads(event['body'])
     request_id_to_cancel = line_to_add['id']
-   
     date_format = '%d/%m/%Y'
     cancel_date = datetime.today().strftime(date_format)
     
-     # get absence request
+    # get absence request
     request_to_cancel = (absence_data.loc[absence_data["id"] == request_id_to_cancel]).iloc[0]
 
     # check if request to cancel is accepted or pending
@@ -106,11 +107,27 @@ def lambda_handler(event, context):
         # do not change column AbsenceTo
         absence_data.loc[absence_data['id'] == request_id_to_cancel, 'Status'] = "Cancelled"
         absence_data.loc[absence_data['id'] == request_id_to_cancel, 'StatusResolution'] = "Cancelled Pending request"
-        return response_flag("OK", s3_bucket = s3_bucket_name, s3_object_absence=s3_key_website, s3_object_employees=None, absence_data_param = absence_data, employees_data_param=None)
-
+        #check if request if TIMEOFF
+        did_timeoff = False
+        if request_to_cancel['AbsenceTypeCode'] == "TIM":
+            did_timeoff = True
+            # add remaining absence hours to leave_balance of employee
+            remaining_hours = get_absence_hours(request_to_cancel["AbsenceFrom"], request_to_cancel["AbsenceTo"])
+            
+            employee_leave_balance = (employees_data.loc[employees_data['EmployeeID']== request_to_cancel['EmployeeID']]['LeaveBalance']).values[0]
+            employee_leave_balance_display = (employees_data.loc[employees_data['EmployeeID']== request_to_cancel['EmployeeID']]['LeaveBalanceDisplay']).values[0]
+            
+            employees_data.loc[employees_data['EmployeeID'] == request_to_cancel['EmployeeID'], 'LeaveBalance'] = employee_leave_balance + remaining_hours
+            employees_data.loc[employees_data['EmployeeID'] == request_to_cancel['EmployeeID'], 'LeaveBalanceDisplay'] = employee_leave_balance_display + remaining_hours
+            
+        if did_timeoff:
+            return response_flag("OK", s3_bucket = s3_bucket_name, s3_object_absence=s3_key_website, s3_object_employees=s3_key_website_employees, absence_data_param=absence_data, employees_data_param=employees_data)
+        else:
+            return response_flag("OK", s3_bucket = s3_bucket_name, s3_object_absence=s3_key_website, s3_object_employees=None, absence_data_param = absence_data, employees_data_param=None)
+            
     elif request_to_cancel['Status'] == "Accepted":
         # if accepted change status to cancelled
-        # change column AbcenceTo to cancel_date
+        
         # check if not cancel_date is not past AbsenceTo
         if pd.to_datetime(request_to_cancel['AbsenceTo'], format=date_format) > pd.to_datetime(cancel_date, format=date_format):
 
@@ -118,20 +135,26 @@ def lambda_handler(event, context):
             did_timeoff = False
             if request_to_cancel['AbsenceTypeCode'] == "TIM":
                 did_timeoff = True
-                # add remaining absence hours to leave_balance of employee
-                absence_from = pd.to_datetime(cancel_date, format=date_format)
-                absence_to = pd.to_datetime(request_to_cancel["AbsenceTo"], format=date_format)
-                working_hours = 8
-                remaining_hours = ((absence_to - absence_from).days)*working_hours
+                
+                # set absence_from to request AbsenceFrom is request is in future, else request has already started
+                if pd.to_datetime(request_to_cancel["AbsenceFrom"], format=date_format) > pd.to_datetime(cancel_date, format=date_format):
+                    absence_from = request_to_cancel["AbsenceFrom"]
+                else:
+                    absence_from = cancel_date
+                    
+                # add remaining absence hours to leave_balance of employee 
+                remaining_hours = get_absence_hours(absence_from, request_to_cancel["AbsenceTo"])
+                
                 employee_leave_balance = (employees_data.loc[employees_data['EmployeeID']== request_to_cancel['EmployeeID']]['LeaveBalance']).values[0]
                 employee_leave_balance_display = (employees_data.loc[employees_data['EmployeeID']== request_to_cancel['EmployeeID']]['LeaveBalanceDisplay']).values[0]
                 employees_data.loc[employees_data['EmployeeID'] == request_to_cancel['EmployeeID'], 'LeaveBalance'] = employee_leave_balance + remaining_hours
                 employees_data.loc[employees_data['EmployeeID'] == request_to_cancel['EmployeeID'], 'LeaveBalanceDisplay'] = employee_leave_balance_display + remaining_hours
-
-
+                
             # set status to cancelled, change AbsenceTo to cancel_date, set StatusResolution to display user request state
             absence_data.loc[absence_data['id'] == request_id_to_cancel, 'Status'] = "Cancelled"
-            absence_data.loc[absence_data['id'] == request_id_to_cancel, 'AbsenceTo'] = cancel_date
+            if pd.to_datetime(request_to_cancel["AbsenceFrom"], format=date_format) < pd.to_datetime(cancel_date, format=date_format):
+                absence_data.loc[absence_data['id'] == request_id_to_cancel, 'AbsenceTo'] = cancel_date
+
             absence_data.loc[absence_data['id'] == request_id_to_cancel, 'StatusResolution'] = "Cancelled Accepted request"
             if did_timeoff:
                 return response_flag("OK", s3_bucket = s3_bucket_name, s3_object_absence=s3_key_website, s3_object_employees=s3_key_website_employees, absence_data_param=absence_data, employees_data_param=employees_data)
