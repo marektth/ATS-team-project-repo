@@ -7,8 +7,6 @@ import os
 import pandas as pd
 
 s3_c = boto3.client('s3')
-#s3 = boto3.resource('s3')
-
 
 s3_bucket_name = os.environ.get('BUCKET_NAME')
 s3_key_website_absence = os.environ.get('OBJECT_NAME_ABSENCE')
@@ -57,8 +55,6 @@ def lambda_handler(event, context):
     }
 
     try:
-        
-        
         absence_data = pd.DataFrame(absence_data)
         employees = pd.DataFrame(employees)
         teams = pd.DataFrame(teams)
@@ -74,11 +70,12 @@ def lambda_handler(event, context):
                 ou_absence_data = pd.merge(ou_absence_data, jobs, left_on = 'EmploymentNumber', right_on = 'id', how = 'left')
                 ou_absence_data = ou_absence_data.drop(['Rating', 'OUID', 'LeaveBalance', 'MinRequirement', 'id_y'], axis = 1)
                 ou_absence_data = ou_absence_data.rename(columns={"id_x": "id"})
-            temp_dict = {
-                "ouid": ouid,
-                "data": ou_absence_data if not ou_absence_data.empty else None
+            ou_data_dict = {
+                "OUID": ouid,
+                "OUName" : teams.loc[teams['OUID'] == ouid]["TeamName"].values[0],
+                "Data": ou_absence_data if not ou_absence_data.empty else None
             }
-            response_data.append(temp_dict.copy())
+            response_data.append(ou_data_dict.copy())
         
         response_data_df = pd.DataFrame(response_data)
     
