@@ -4,52 +4,47 @@ import boto3
 import botocore
 from botocore.exceptions import ClientError
 import os
+import pandas as pd
 
-s3 = boto3.client('s3')
-s3 = boto3.resource('s3')
+s3_c = boto3.client('s3')
+#s3 = boto3.resource('s3')
 
 
 s3_bucket_name = os.environ.get('BUCKET_NAME')
 s3_key_website_absence = os.environ.get('OBJECT_NAME_ABSENCE')
 s3_key_website_teams = os.environ.get('OBJECT_NAME_TEAMS')
 s3_key_website_employees = os.environ.get('OBJECT_NAME_EMPLOYEES')
+s3_key_website_jobs = os.environ.get('OBJECT_NAME_JOBS')
 
-
-try:
-    s3.Object(s3_bucket_name, s3_key_website_absence).load()
-except botocore.exceptions.ClientError as e:
-    if e.response['Error']['Code'] == "404":
-        print(f"File ({s3_key_website_absence})) required by this function does not exist!")
-        raise e
-    else:
-        print(f"File ({s3_key_website_absence}) required by this function is not accessible!")
-        raise e
+def permission_testing(s3_bucket_name, s3_key_website):
+    s3 = boto3.resource('s3')
+    
+    try:
+        s3.Object(s3_bucket_name, s3_key_website).load()
+    except botocore.exceptions.ClientError as e:
+        if e.response['Error']['Code'] == "404":
+            print(f"File ({s3_key_website})) required by this function does not exist!")
+            return f"File ({s3_key_website})) required by this function does not exist!"
+        else:
+            print(f"File ({s3_key_website}) required by this function is not accessible!")
+            raise e
+            
+def load_table(s3_bucket_name, s3_key_website):
+    resp=s3_c.get_object(Bucket=s3_bucket_name, Key=s3_key_website)
+    data=resp.get('Body')
+    return json.load(data)
 
 
 def lambda_handler(event, context):
-    # TODO implement
     
-    manager_id = event["queryStringParameters"]['managerID']
+    permission_testing(s3_bucket_name, s3_key_website_absence)
     
+    manager_id = int(event["queryStringParameters"]['managerID'])
     
-
-    obj_absence_table = s3.Object(s3_bucket_name, s3_key_website_absence)
-    data_absence_table = obj_absence_table.get()['Body'].read().decode('utf-8')
-    json_data_absence = json.loads("" + 
-        data_absence_table.replace("}\n{", "},\n{") + 
-    "")
-
-    obj_teams_table = s3.Object(s3_bucket_name, s3_key_website_teams)
-    data_teams_table = obj_teams_table.get()['Body'].read().decode('utf-8')
-    json_data_teams = json.loads("" + 
-        data_teams_table.replace("}\n{", "},\n{") + 
-    "")
-    
-    obj_employees_table = s3.Object(s3_bucket_name, s3_key_website_employees)
-    data_employees_table = obj_employees_table.get()['Body'].read().decode('utf-8')
-    json_data_employees = json.loads("" + 
-        data_employees_table.replace("}\n{", "},\n{") + 
-    "")
+    absence_data = load_table(s3_bucket_name, s3_key_website_absence)
+    employees = load_table(s3_bucket_name, s3_key_website_employees)
+    teams = load_table(s3_bucket_name, s3_key_website_teams)
+    jobs = load_table(s3_bucket_name, s3_key_website_jobs)
     
     response = {
             "statusCode": 200,
@@ -62,33 +57,34 @@ def lambda_handler(event, context):
     }
 
     try:
-        teams_return_data = ""
-    
-        for index in range (len(json_data_teams)):
-            if str(json_data_teams[index]['ManagerID']) == manager_id:
-                json_data_teams[index]['ManagerID'] = manager_id
-                json_data_teams[index]['OUID'] = str(json_data_teams[index]['OUID'])
-                teams_return_data = json_data_teams[index]['OUID']
-        employees_return_data = []
         
-        for index in range (len(json_data_employees)):
-            if str(json_data_employees[index]['OUID']) == str(teams_return_data):
-                json_data_employees[index]['EmployeeID'] = str(json_data_employees[index]['EmployeeID'])
-                employees_return_data.append(json_data_employees[index]['EmployeeID'])
-        return_data = []
         
-        #change EmployeeID to Employee ID in this for
-        for index in range (len(json_data_absence)):
-            for y in range (len(employees_return_data)):
-                if str(json_data_absence[index]['EmployeeID']) == employees_return_data[y]:
-                    json_data_absence[index]['EmployeeID'] = str(json_data_absence[index]['EmployeeID'])
-                    return_data.append(json_data_absence[index])
-   
-        parsed = json.dumps(return_data)
+        absence_data = pd.DataFrame(absence_data)
+        employees = pd.DataFrame(employees)
+        teams = pd.DataFrame(teams)
+        jobs = pd.DataFrame(jobs)
+        
+        ouids = teams.loc[teams['ManagerID'] == manager_id]["OUID"].values
+        response_data = []
+        for ouid in ouids:
+            ou_employees_ids = employees.loc[employees['OUID'] == ouid]["EmployeeID"].values
+            ou_absence_data = absence_data[absence_data['EmployeeID'].isin(ou_employees_ids)]
+            ou_absence_data = pd.merge(ou_absence_data, employees, on = 'EmployeeID', how = 'left')
+            if not ou_absence_data.empty:
+                ou_absence_data = pd.merge(ou_absence_data, jobs, left_on = 'EmploymentNumber', right_on = 'id', how = 'left')
+                ou_absence_data = ou_absence_data.drop(['Rating', 'OUID', 'LeaveBalance', 'MinRequirement', 'id_y'], axis = 1)
+                ou_absence_data = ou_absence_data.rename(columns={"id_x": "id"})
+            temp_dict = {
+                "ouid": ouid,
+                "data": ou_absence_data if not ou_absence_data.empty else None
+            }
+            response_data.append(temp_dict.copy())
+        
+        response_data_df = pd.DataFrame(response_data)
     
     except ClientError as e:
         response['body'] = e.response['Error']['Message']
         return response
     else:
-        response['body'] = parsed
+        response['body'] = response_data_df.to_json(orient="records")
         return response
