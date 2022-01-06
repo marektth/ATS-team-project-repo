@@ -8,6 +8,14 @@
         "RatingDurationMS": 91.6020870209
     },
     {
+        "OUID": 8,
+        "ManagerID": 7,
+        "MinimalCapacity": 3,
+        "TeamName": "MLC",
+        "LastChangeMS": 1639310498.8898501,
+        "RatingDurationMS": 91.6020870209
+    },
+    {
         "OUID": 21,
         "ManagerID": 10,
         "MinimalCapacity": 2,
