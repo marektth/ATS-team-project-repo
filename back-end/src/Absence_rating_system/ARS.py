@@ -14,7 +14,7 @@ class ARS():
         self.__rules_structs, self.__rules_df_sort = self.db.get_rules_with_order()
 
 
-    def rule_overlapping_employees_no(self, request , normalized = True):
+    def rule_overlapping_employees_no(self, request, return_days = False):
         '''
             returns number of overlapping employees with already accepted timeoffs with dates of given requests 
             optional: normalized, if set true, returns percentage of absent employees
@@ -43,10 +43,8 @@ class ARS():
                 employee_absence_overlap_no += 1
             
         
-        if normalized:
-            return employee_absence_overlap_no/self.db.get_size_of_ou(request)
-        else:
-            return employee_absence_overlap_no
+        
+        return employee_absence_overlap_no
 
 
     def rule_min_capacity_threshold(self, request):
@@ -55,7 +53,7 @@ class ARS():
         '''
         min_ou_capacity = self.db.get_min_capacity_ou(request)
         size_of_ou = self.db.get_size_of_ou(request)
-        total_missing_employees = self.rule_overlapping_employees_no(request, normalized=False)
+        total_missing_employees = self.rule_overlapping_employees_no(request)
 
         if size_of_ou - total_missing_employees <= min_ou_capacity:
             return 1
@@ -63,7 +61,7 @@ class ARS():
             return 0
 
 
-    def rule_same_job_overlaps(self,request, normalized=True):
+    def rule_same_job_overlaps(self,request, return_days = False):
         '''
             returns number of overlapping employees with already accepted timeoffs with dates of given requests
             where same job employees are compared
@@ -91,10 +89,8 @@ class ARS():
             if self.db.get_no_overlapping_days(absence_data, request) > 0:
                 employee_absence_overlap_no += 1
                 
-        if normalized:
-            return employee_absence_overlap_no/self.db.get_size_of_ou(request)
-        else:
-            return employee_absence_overlap_no
+        
+        return employee_absence_overlap_no
 
 
 
@@ -104,7 +100,7 @@ class ARS():
         '''
         min_same_job_tresh = self.db.get_min_same_job_threshold(request)
         same_job_employee_no = len(self.db.get_ou_same_job_employees(request, only_id=True))
-        total_missing_employees = self.rule_same_job_overlaps(request, normalized=False)
+        total_missing_employees = self.rule_same_job_overlaps(request)
         if same_job_employee_no - total_missing_employees <= min_same_job_tresh:
             return 1
         else:
