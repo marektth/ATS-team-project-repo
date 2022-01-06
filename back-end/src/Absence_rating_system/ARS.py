@@ -14,7 +14,7 @@ class ARS():
         self.__rules_structs, self.__rules_df_sort = self.db.get_rules_with_order()
 
 
-    def rule_overlapping_employees_no(self, request, return_days = False):
+    def rule_overlapping_employees_no(self, request):
         '''
             returns number of overlapping employees with already accepted timeoffs with dates of given requests 
             optional: normalized, if set true, returns percentage of absent employees
@@ -29,22 +29,23 @@ class ARS():
         if(ou_absence_data.empty):
             return 0
 
-        #format dates
+        # format dates
         ou_absence_data = self.db.format_absence_dates(ou_absence_data)
         request = self.db.format_absence_dates(request)
 
-        #number of employees that are off on the day of requests
-        employee_absence_overlap_no = 0
+        # intialize empty set of overlapping days
+        overlapping_days = set()
 
-        #iterate over accepted timeoffs
+        # iterate over accepted timeoffs
         for _, absence_data in ou_absence_data.iterrows():
-            #if employee has accepted timeoff in same day as new request, increment counter
-            if self.db.get_no_overlapping_days(absence_data, request) > 0:
-                employee_absence_overlap_no += 1
-            
-        
-        
-        return employee_absence_overlap_no
+            # if employee has accepted timeoff in same day as new request, add the overlapping days to set "overlapping_days"
+            request_range = [request["AbsenceFrom"], request["AbsenceTo"]]
+            absence_data_range = [absence_data["AbsenceFrom"], absence_data["AbsenceTo"]]
+            overlapping_days = overlapping_days.union(self.db.get_overlapping_days(*request_range) & self.db.get_overlapping_days(*absence_data_range))
+              
+        self.db.update_item(overlapping_days, request.name, "OverlappingDays", self.db.absence_data)
+
+        return len(overlapping_days)
 
 
     def rule_min_capacity_threshold(self, request):
@@ -61,7 +62,7 @@ class ARS():
             return 0
 
 
-    def rule_same_job_overlaps(self,request, return_days = False):
+    def rule_same_job_overlaps(self,request):
         '''
             returns number of overlapping employees with already accepted timeoffs with dates of given requests
             where same job employees are compared
@@ -80,17 +81,19 @@ class ARS():
         same_job_absence_data = self.db.format_absence_dates(same_job_absence_data)
         request = self.db.format_absence_dates(request)
 
-        #number of employees that are off on the day of requests
-        employee_absence_overlap_no = 0
+        # intialize empty set of overlapping days
+        overlapping_days = set()
 
-        #iterate over accepted timeoffs
+        # iterate over accepted timeoffs
         for _, absence_data in same_job_absence_data.iterrows():
-            #if employee has accepted timeoff in same day as new request, increment counter
-            if self.db.get_no_overlapping_days(absence_data, request) > 0:
-                employee_absence_overlap_no += 1
-                
-        
-        return employee_absence_overlap_no
+            # if employee has accepted timeoff in same day as new request, add the overlapping days to set "overlapping_days"
+            request_range = [request["AbsenceFrom"], request["AbsenceTo"]]
+            absence_data_range = [absence_data["AbsenceFrom"], absence_data["AbsenceTo"]]
+            overlapping_days = overlapping_days.union(self.db.get_overlapping_days(*request_range) & self.db.get_overlapping_days(*absence_data_range))
+            
+        self.db.update_item(overlapping_days, request.name, "OverlappingDays", self.db.absence_data)
+
+        return len(overlapping_days)
 
 
 
@@ -227,17 +230,14 @@ class ARS():
             self.db.update_item(status_to_set, top_request_absence_data.name, "Status", self.db.absence_data)
             self.db.update_item(status_resolution, top_request_absence_data.name, "StatusResolution", self.db.absence_data)
 
-            # add employee leave balance if request rejected and its timeoff
-            if status_to_set == "Rejected":
-                '''
-                    TODO: here implement overlapping days
-                '''    
-                if top_request_absence_data['AbsenceTypeCode'] == "TIM":
-                    new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") + self.db.get_request_leave_hours(top_request_absence_data)
-                    employee_idx = self.db.employees[self.db.employees['EmployeeID'] == top_request_absence_data['EmployeeID']].index
-                    self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
-                    self.db.update_item(new_leave_balance, employee_idx, "LeaveBalanceDisplay", self.db.employees)
             
+            if status_to_set == "Rejected" and top_request_absence_data['AbsenceTypeCode'] == "TIM":
+                # add employee leave balance if request rejected and its timeoff  
+                new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") + self.db.get_request_leave_hours(top_request_absence_data)
+                employee_idx = self.db.employees[self.db.employees['EmployeeID'] == top_request_absence_data['EmployeeID']].index
+                self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
+                self.db.update_item(new_leave_balance, employee_idx, "LeaveBalanceDisplay", self.db.employees)
+        
 
     def absence_requests_handler(self):
         '''
@@ -278,7 +278,7 @@ class ARS():
             
             # update duration of rating
             self.db.set_ou_rating_duration(request_ouid, start_time)
-
+            print(self.db.absence_data)
             if not did_change:
                 # set did_change only once
                 did_change = True
