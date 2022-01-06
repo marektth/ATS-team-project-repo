@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import time
+from datetime import timedelta
 
 class DBHandler():
     def __init__(self, absence_data, teams, employees, jobs, absence_type, rules):
@@ -222,10 +223,11 @@ class DBHandler():
         '''
         return self.rules.loc[self.rules['key'] == rule_key]["resolutionFailed"].values[0]
 
-    def get_no_overlapping_days(self, data_to_compare, request):
+    def get_overlapping_days(self, range1, range2):
         '''
-            returns number of overlapping days 
+            returns overlapping days between ranges
+            usage:  >>> overlapping_days = get_overlapping_days(*range1) & get_overlapping_days(*range2)
         '''
-        latest_start = max(data_to_compare['AbsenceFrom'], request['AbsenceFrom'])
-        earliest_end = min(data_to_compare['AbsenceTo'], request['AbsenceTo'])
-        return (earliest_end - latest_start).days + 1
+        delta = range2 - range1
+        return set([range1 + timedelta(days=i) for i in range(delta.days + 1)])
+            
