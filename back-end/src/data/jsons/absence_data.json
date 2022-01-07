@@ -1,28 +1,79 @@
 [
-  {
-    "id": 1,
-    "EmployeeID": 69,
-    "AbsenceRequestedAt": 1639165929.68981,
-    "AbsenceFrom": "01/01/2021",
-    "AbsenceTo": "05/01/2021",
-    "AbsenceTypeCode": "TIM",
-    "Status": "Pending",
-    "StatusResolution" : "",
-    "OverlappingDays": "",
-    "LeaveReason": "Need to go to medical exam",
-    "Rating": {}
-  },
-  {
-    "id": 2,
-    "EmployeeID": 192,
-    "AbsenceRequestedAt": 1639165929.68982,
-    "AbsenceFrom": "02/01/2021",
-    "AbsenceTo": "08/01/2021",
-    "AbsenceTypeCode": "SPE",
-    "Status": "Pending",
-    "StatusResolution" : "",
-    "OverlappingDays": "",
-    "LeaveReason": "Need to go to medical exam",
-    "Rating": {}
-  }
+    {
+        "id": 1,
+        "EmployeeID": 69,
+        "AbsenceRequestedAt": 1641574510312,
+        "AbsenceFrom": "01/01/2021",
+        "AbsenceTo": "05/01/2021",
+        "AbsenceTypeCode": "TIM",
+        "Status": "Rejected",
+        "StatusResolution": "Not enough employees in team",
+        "OverlappingDays": [
+            1609718400000,
+            1609632000000,
+            1609545600000,
+            1609804800000
+        ],
+        "LeaveReason": "Need to go to medical exam",
+        "Rating": {
+            "A": 1,
+            "B": 0,
+            "C": 3,
+            "D": 0
+        }
+    },
+    {
+        "id": 2,
+        "EmployeeID": 192,
+        "AbsenceRequestedAt": 1621571510312,
+        "AbsenceFrom": "02/01/2021",
+        "AbsenceTo": "08/01/2021",
+        "AbsenceTypeCode": "SPE",
+        "Status": "Accepted",
+        "StatusResolution": "OK",
+        "OverlappingDays": [],
+        "LeaveReason": "Need to go to medical exam",
+        "Rating": {
+            "A": 0,
+            "B": 0,
+            "C": 1,
+            "D": 1
+        }
+    },
+    {
+        "id": 3,
+        "EmployeeID": 1234,
+        "AbsenceRequestedAt": 1661571510312,
+        "AbsenceFrom": "02/01/2022",
+        "AbsenceTo": "08/01/2022",
+        "AbsenceTypeCode": "SPE",
+        "Status": "Rejected",
+        "StatusResolution": "Not enough employees in team",
+        "OverlappingDays": [],
+        "LeaveReason": "Need to go to medical exam",
+        "Rating": {
+            "A": 1,
+            "B": 0,
+            "C": 1,
+            "D": 1
+        }
+    },
+    {
+        "id": 4,
+        "EmployeeID": 1234,
+        "AbsenceRequestedAt": 122155947989,
+        "AbsenceFrom": "02/01/2022",
+        "AbsenceTo": "08/01/2022",
+        "AbsenceTypeCode": "SPE",
+        "Status": "Rejected",
+        "StatusResolution": "Not enough employees in team",
+        "OverlappingDays": [],
+        "LeaveReason": "Need to go to medical exam",
+        "Rating": {
+            "A": 1,
+            "B": 0,
+            "C": 1,
+            "D": 1
+        }
+    }
 ]
