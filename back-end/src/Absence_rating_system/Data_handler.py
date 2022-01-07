@@ -225,7 +225,7 @@ class DBHandler():
 
     def get_overlapping_days(self, range1, range2):
         '''
-            returns overlapping days between ranges
+            returns set overlapping days between ranges
             usage:  >>> overlapping_days = get_overlapping_days(*range1) & get_overlapping_days(*range2)
         '''
         delta = range2 - range1
