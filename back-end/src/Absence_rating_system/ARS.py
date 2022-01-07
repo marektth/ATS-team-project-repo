@@ -31,7 +31,7 @@ class ARS():
 
         # format dates
         ou_absence_data = self.db.format_absence_dates(ou_absence_data)
-        request = self.db.format_absence_dates(request)
+        request_formatted = self.db.format_absence_dates(request.copy())
 
         # intialize empty set of overlapping days
         overlapping_days = set()
@@ -39,7 +39,7 @@ class ARS():
         # iterate over accepted timeoffs
         for _, absence_data in ou_absence_data.iterrows():
             # if employee has accepted timeoff in same day as new request, add the overlapping days to set "overlapping_days"
-            request_range = [request["AbsenceFrom"], request["AbsenceTo"]]
+            request_range = [request_formatted["AbsenceFrom"], request_formatted["AbsenceTo"]]
             absence_data_range = [absence_data["AbsenceFrom"], absence_data["AbsenceTo"]]
             overlapping_days = overlapping_days.union(self.db.get_overlapping_days(*request_range) & self.db.get_overlapping_days(*absence_data_range))
               
@@ -79,7 +79,7 @@ class ARS():
 
         #format dates
         same_job_absence_data = self.db.format_absence_dates(same_job_absence_data)
-        request = self.db.format_absence_dates(request)
+        request_formatted = self.db.format_absence_dates(request.copy())
 
         # intialize empty set of overlapping days
         overlapping_days = set()
@@ -87,7 +87,7 @@ class ARS():
         # iterate over accepted timeoffs
         for _, absence_data in same_job_absence_data.iterrows():
             # if employee has accepted timeoff in same day as new request, add the overlapping days to set "overlapping_days"
-            request_range = [request["AbsenceFrom"], request["AbsenceTo"]]
+            request_range = [request_formatted["AbsenceFrom"], request_formatted["AbsenceTo"]]
             absence_data_range = [absence_data["AbsenceFrom"], absence_data["AbsenceTo"]]
             overlapping_days = overlapping_days.union(self.db.get_overlapping_days(*request_range) & self.db.get_overlapping_days(*absence_data_range))
             
@@ -120,12 +120,14 @@ class ARS():
         '''
             returns absent type priority of given request
         '''
-        # if TIMEOFF and enough leave balance return that leave balance
-        if self.db.check_enough_leave_balance(request) and request["AbsenceTypeCode"] == "TIM" :
-            return self.db.get_employee_info(request, info = "LeaveBalance")
-        # return 0 if not enough leave balance
-        elif not (self.db.check_enough_leave_balance(request)) and request["AbsenceTypeCode"] == "TIM":
-            return 0
+        if request["AbsenceTypeCode"] == "TIM":
+            has_enough_leave_balance = self.db.check_enough_leave_balance(request)
+            # if TIMEOFF and enough leave balance return that leave balance
+            if has_enough_leave_balance:
+                return self.db.get_employee_info(request, info = "LeaveBalance")
+            # return 0 if not enough leave balance
+            else:
+                return 0
         # if not TIMEOFF return 1 to not to trigger balance rule (PARENTAL or SPECIAL)
         else:
             return 1
@@ -147,7 +149,7 @@ class ARS():
 
             # iterate over enabled rules
             for rule in self.__rules:
-
+                print(pending_request)
                 # call method for corresponding rule
                 request_rating[rule["key"]] = getattr(ars, rule["function"])(pending_request)
             
@@ -216,7 +218,6 @@ class ARS():
         '''
         # iterate over OU pending requests
         for _, pending_request in self.db.get_ou_absence_data(request, "Pending").iterrows():
-
             # rate all pending OU requests
             self.rating_function(pending_request)
 
@@ -278,7 +279,6 @@ class ARS():
             
             # update duration of rating
             self.db.set_ou_rating_duration(request_ouid, start_time)
-            print(self.db.absence_data)
             if not did_change:
                 # set did_change only once
                 did_change = True
@@ -288,7 +288,7 @@ class ARS():
             '''
                 TODO: Here save all tables to S3 bucket
             '''
-            pass
+            self.db.update_db(self.db.absence_data, self.db.absence_data_path)
         
 
 
