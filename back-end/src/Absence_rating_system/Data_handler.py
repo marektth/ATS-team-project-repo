@@ -1,7 +1,8 @@
 import pandas as pd
+import numpy as np
 import json
 import time
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 class DBHandler():
     def __init__(self, absence_data, teams, employees, jobs, absence_type, rules):
@@ -55,8 +56,6 @@ class DBHandler():
             drop unused rules for specific customer
         '''
         return rules[rules['testByThisRule'] == True]
-
-
 
     def get_requests(self, status = "Pending"):
         '''
@@ -176,16 +175,21 @@ class DBHandler():
             returns total leave hours of requested absence
             future feature - check if year has 356 or 366 days
         '''
-        absence_from = pd.to_datetime(request["AbsenceFrom"], format='%d/%m/%Y')
-        absence_to = pd.to_datetime(request["AbsenceTo"], format='%d/%m/%Y')
-        remaining_hours = ((absence_to - absence_from).days) + 1
-        remaining_hours *= working_hours
-        return remaining_hours
+        absence_from = datetime.strptime(request["AbsenceFrom"], '%d/%m/%Y').date()
+        absence_to = datetime.strptime(request["AbsenceTo"], '%d/%m/%Y').date()
+        days = np.busday_count(absence_from,absence_to,weekmask=[1,1,1,1,1,0,0])
+        if days > 0:
+            return (days+1)*working_hours
+        elif days == 0:
+            return working_hours
+        else:
+            return 0
 
     def check_enough_leave_balance(self, request):
         '''
             returns True if request has enough leave balance left
         '''
+        print(request)
         return self.get_employee_info(request, info = "LeaveBalance") - self.get_request_leave_hours(request) >= 0
     
     def set_ou_rating_duration(self, ouid, start_time):
