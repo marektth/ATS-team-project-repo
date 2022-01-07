@@ -189,7 +189,6 @@ class DBHandler():
         '''
             returns True if request has enough leave balance left
         '''
-        print(request)
         return self.get_employee_info(request, info = "LeaveBalance") - self.get_request_leave_hours(request) >= 0
     
     def set_ou_rating_duration(self, ouid, start_time):
