@@ -132,7 +132,7 @@ export default Vue.extend({
         min: new Date()
       },
       employeeInfo: {
-        EmployeeID: 69,
+        EmployeeID: 79,
         EmployeeName: "",
         EmploymentNumber: 0,
         LeaveBalance: 0,
