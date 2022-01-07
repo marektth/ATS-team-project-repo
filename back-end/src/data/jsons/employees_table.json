@@ -78,5 +78,13 @@
         "OUID": 77,
         "LeaveBalance": 16,
         "LeaveBalanceDisplay": 0
+    },
+    {
+        "EmployeeID": 1234,
+        "EmployeeName": "Stefan Opity",
+        "EmploymentNumber": 2,
+        "OUID": 8,
+        "LeaveBalance": 32,
+        "LeaveBalanceDisplay": 32
     }
 ]
