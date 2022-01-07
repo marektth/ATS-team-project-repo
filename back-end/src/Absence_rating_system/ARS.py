@@ -1,4 +1,4 @@
-from src.Absence_rating_system.Data_handler import DBHandler
+from src.Absence_rating_system.Data_handler import DBHandler   
 import pandas as pd
 import time
 
@@ -140,16 +140,15 @@ class ARS():
         '''
         # get all OU pending requests
         ou_pending_requests = self.db.get_ou_absence_data(request, status_of_absence="Pending")
-
+        ou_pending_requests['AbsenceTypeCode'] = pd.Categorical(ou_pending_requests['AbsenceTypeCode'], ["SPE", "PAR", "TIM"])
+        ou_pending_requests = ou_pending_requests.sort_values(by =["AbsenceTypeCode"]) # , "AbsenceRequestedAt"])  <-- to be discussed ! 
         # iterate over those requests
         for request_idx, pending_request in ou_pending_requests.iterrows():
-
             # create empty dict for rules keys and their corresponding values
             request_rating = dict()
 
             # iterate over enabled rules
             for rule in self.__rules:
-                print(pending_request)
                 # call method for corresponding rule
                 request_rating[rule["key"]] = getattr(ars, rule["function"])(pending_request)
             
