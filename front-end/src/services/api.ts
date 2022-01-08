@@ -113,7 +113,7 @@ export class ApiService {
             return await axios.post(this.requestTimeoffURL, timeoffData, { headers: this.header });
         } catch (err:any){
             console.error(err.response)
-            return err;
+            return err.response;
         }
     }
 

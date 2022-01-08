@@ -2,7 +2,10 @@
     <b-container id="EmployeeContainer">
       <b-row>
         <b-col cols="3">
-    
+          <b-card>
+            <label for="emp-id" class="form-label">Change Employee ID</label>
+            <input type="text" class="form-control" placeholder="Change employee..." id="emp-id" v-model="employeeInfo.EmployeeID" @keypress.enter="getEmployeeData">
+          </b-card>
           <div class="card widget-user">
               <div class="card-body">
                   <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="img-fluid d-block rounded-circle avatar-md" alt="user">
@@ -56,11 +59,12 @@
                   <th scope="col">#</th>
                   <th scope="col">Request ID</th>
                   <th scope="col">Employee ID</th>
-                  <th scope="col">Absence From</th>
-                  <th scope="col">Absence To</th>
-                  <th scope="col">Absence Type Code</th>
+                  <th scope="col">Requested At</th>
+                  <th scope="col">Absence Date</th>
+                  <th scope="col">ATC</th>
                   <th scope="col">Leave Reason</th>
                   <th scope="col">Reject reason</th>
+                  <th scope="col">Overlapping days</th>
                   <th scope="col">Status</th>
                   <th scope="col">Action</th>
                 </tr>
@@ -70,11 +74,12 @@
                   <td scope="row">{{ idx + 1 }}</td>
                   <td>{{ request.id }}</td>
                   <td>{{ request.EmployeeID }}</td>
-                  <td>{{ request.AbsenceFrom }}</td>
-                  <td>{{ request.AbsenceTo }}</td>
+                  <td>{{ epochToDate(request.AbsenceRequestedAt) }}</td>
+                  <td>{{ request.AbsenceFrom }} <br>-<br> {{ request.AbsenceTo }}</td>
                   <td>{{ request.AbsenceTypeCode }}</td>
                   <td>{{ request.LeaveReason }}</td>
                   <td>{{ request.StatusResolution }}</td>
+                  <td>{{ overLappingDays(request.OverlappingDays) }}</td>
                   <td>{{ request.Status }}</td>
                   <td v-if="(request.Status != 'Rejected') && (request.Status != 'Cancelled')">
                     <a @click="openModal(request.id)" ref="btnToggle"><b-icon icon="x-octagon"></b-icon></a>
@@ -95,14 +100,6 @@
                           ></b-form-input>
                       </form>
                     </b-modal>                    
-                    <!-- <b-modal id="bv-modal-example" hide-footer>
-                      <div class="d-block text-center">
-                        <h3>If you want to delete your request enter: DELETE {{request.id}}</h3>
-                      </div>
-                      <b-button @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
-                      <b-button @click.prevent="deleteTimeoff(request.id)">delete</b-button>
-                    </b-modal> -->
-
                   </td>
                   <td v-else>-</td>
                 </tr>
@@ -113,12 +110,23 @@
           </b-card>
         </b-col>
       </b-row>
+      <b-modal id="err-modal" hide-footer>
+        <template #modal-header="{ close }">
+          <!-- Emulate built in modal header close button action -->
+          <b-button size="md" variant="outline-danger" @click="close()">
+            Close
+          </b-button>
+        </template>
+        <div class="d-block text-center">
+          <h3>{{ msgERR }}</h3>
+        </div>
+      </b-modal>
     </b-container>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { ApiService, EmployeeTimeoff, TimeoffRequest } from '../services/api'
+import { ApiService, EmployeeTimeoff, TimeoffRequest } from '../services/api';
 
 export default Vue.extend({
   name: 'Home',
@@ -132,7 +140,7 @@ export default Vue.extend({
         min: new Date()
       },
       employeeInfo: {
-        EmployeeID: 79,
+        EmployeeID: 62,
         EmployeeName: "",
         EmploymentNumber: 0,
         LeaveBalance: 0,
@@ -145,7 +153,8 @@ export default Vue.extend({
         codeLeaveReason: "" as string,
         leaveReason: "" as string,
       } as TimeoffRequest,
-      requests: [] as EmployeeTimeoff[]
+      requests: [] as EmployeeTimeoff[],
+      msgERR: "" as string
       }
   }, 
   async created(){
@@ -184,11 +193,17 @@ export default Vue.extend({
     },
     async requestTimeoff(){
       // request time off from form
+      this.msgERR = ""
       const api = new ApiService(this.employeeInfo.EmployeeID)
       const response = await api.requestTimeoffPOST(this.timeoffRequestForm)
-      console.log(response)
-      this.getEmployeeData()
-      this.clearFormInputs()
+      console.log(response.status)
+      if(response.status == 403){
+        this.$bvModal.show("err-modal")
+        this.msgERR = response.data
+      } else {
+        this.getEmployeeData()
+        this.clearFormInputs()
+      }
     },
     async deleteTimeoff(id:number){
       //const confirmation = prompt(`If you want to delete your request enter: DELETE ${id}`);
@@ -225,6 +240,45 @@ export default Vue.extend({
     },
     resetModal(){
       this.confirmation = ""
+    },
+     addZeroToTime(number:number){
+      if(number <= 9){
+        return '0' + String(number)
+      } else {
+        return String(number)
+      }
+    },
+    epochToDate(date:number){
+      let convertedDate = new Date(date)
+      let day = this.addZeroToTime(convertedDate.getDate())
+      let month = this.addZeroToTime(convertedDate.getMonth() + 1)
+      let year = String(convertedDate.getFullYear())
+      let hour = this.addZeroToTime(convertedDate.getHours())
+      let minute = this.addZeroToTime(convertedDate.getHours())
+      let second = this.addZeroToTime(convertedDate.getSeconds())
+
+      return `${day}/${month}/${year}\n${hour}:${minute}:${second}`
+    },
+    overLappingDays(dates:Array<any>){
+      let days = ""
+      let len = dates.length
+      if(len == 0) {
+        return "-"
+      }
+      dates.forEach(date => {
+        let convertedDate = new Date(date)
+        let day = this.addZeroToTime(convertedDate.getDate())
+        let month = this.addZeroToTime(convertedDate.getMonth() + 1)
+        let year = String(convertedDate.getFullYear())
+        if(len > 1){
+          days += `${day}/${month}/${year}, `
+          len--
+        } else {
+          days += `${day}/${month}/${year}`
+        }
+      })
+
+      return days
     },
     
     // actions
