@@ -1,5 +1,5 @@
 module.exports = {
     devServer: {
-        proxy: 'https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/',
+        proxy: 'https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/',
     }
 }
