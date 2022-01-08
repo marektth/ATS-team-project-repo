@@ -5,6 +5,7 @@ import boto3
 import pandas as pd
 from botocore.exceptions import ClientError
 from datetime import datetime
+import numpy as np
 
 s3_c = boto3.client('s3')
 
@@ -35,8 +36,6 @@ def permission_testing(s3_bucket_name, s3_key_website):
 def response_flag(return_status, s3_bucket, s3_object_absence, s3_object_employees, absence_data_param, employees_data_param):
     
     if(return_status == "OK"):
-       
-        
         if absence_data_param is not None:
             result = absence_data_param.to_json(orient="records")
             parsed = json.loads(result)
@@ -80,10 +79,20 @@ def response_flag(return_status, s3_bucket, s3_object_absence, s3_object_employe
         return response
         
 def get_absence_hours(absence_from, absence_to, working_hours=8, date_format='%d/%m/%Y'):
-    absence_to = pd.to_datetime(absence_to, format=date_format)
-    absence_from = pd.to_datetime(absence_from, format=date_format)
-    return (((absence_to - absence_from).days) + 1) * working_hours
-
+    '''
+        returns total leave hours of requested absence
+        future feature - check if year has 356 or 366 days
+    '''
+    absence_from = datetime.strptime(absence_from, date_format).date()
+    absence_to = datetime.strptime(absence_to, date_format).date()
+    days = np.busday_count(absence_from,absence_to,weekmask=[1,1,1,1,1,0,0])
+    if days > 0:
+        return (days+1)*working_hours
+    elif days == 0:
+        return working_hours
+    else:
+        return 0
+    
 
 def lambda_handler(event, context):
 
