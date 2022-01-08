@@ -155,7 +155,7 @@ export default Vue.extend({
       if(len == 0) {
         return "-"
       }
-      dates.forEach((date, index) => {
+      dates.forEach(date => {
         let convertedDate = new Date(date)
         let day = this.addZeroToTime(convertedDate.getDate())
         let month = this.addZeroToTime(convertedDate.getMonth() + 1)
