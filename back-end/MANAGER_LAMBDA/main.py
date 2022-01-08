@@ -55,26 +55,49 @@ def lambda_handler(event, context):
     }
 
     try:
+        # load data to pandas DF
         absence_data = pd.DataFrame(absence_data)
         employees = pd.DataFrame(employees)
         teams = pd.DataFrame(teams)
         jobs = pd.DataFrame(jobs)
         
+        # get all ouids that belongs to manager_id
         ouids = teams.loc[teams['ManagerID'] == manager_id]["OUID"].values
+        
         response_data = []
+        
+        # iterate over ouids
         for ouid in ouids:
+            # get all employees ids that belong to ouid
             ou_employees_ids = employees.loc[employees['OUID'] == ouid]["EmployeeID"].values
+            
+            # get employees absence data
             ou_absence_data = absence_data[absence_data['EmployeeID'].isin(ou_employees_ids)]
+            
+            # join employees absence data with employees table to get detailed info about employees
             ou_absence_data = pd.merge(ou_absence_data, employees, on = 'EmployeeID', how = 'left')
+            
+            # if data exists
             if not ou_absence_data.empty:
+                
+                # join employees absence data with jobs table to get detailed info about employees jobs
                 ou_absence_data = pd.merge(ou_absence_data, jobs, left_on = 'EmploymentNumber', right_on = 'id', how = 'left')
+                
+                # drop useless columns
                 ou_absence_data = ou_absence_data.drop(['Rating', 'OUID', 'LeaveBalance', 'MinRequirement', 'id_y'], axis = 1)
+                
+                # rename id_x to id, because it changed column name after job table merge
+                # this id corresponds to id of request
                 ou_absence_data = ou_absence_data.rename(columns={"id_x": "id"})
+            
+            # create dict for data
             ou_data_dict = {
                 "OUID": ouid,
                 "OUName" : teams.loc[teams['OUID'] == ouid]["TeamName"].values[0],
                 "Data": ou_absence_data if not ou_absence_data.empty else None
             }
+            
+            # append only copy
             response_data.append(ou_data_dict.copy())
         
         response_data_df = pd.DataFrame(response_data)
