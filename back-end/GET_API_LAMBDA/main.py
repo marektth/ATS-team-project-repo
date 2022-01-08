@@ -3,18 +3,20 @@ from pprint import pprint
 import boto3
 from botocore.exceptions import ClientError
 import os
+import pandas as pd
 
-s3 = boto3.client('s3')
+s3_c = boto3.client('s3')
 
 s3_bucket_name = os.environ.get('BUCKET_NAME')
-s3_key_website = os.environ.get('OBJECT_NAME')
-s3_key_website_employee = os.environ.get('OBJECT_NAME_EMPLOYEE')
+s3_key_website_absence = os.environ.get('OBJECT_NAME_ABSENCE')
+s3_key_website_employees = os.environ.get('OBJECT_NAME_EMPLOYEE')
 
-
-def lambda_handler(event, context):
-    # TODO implement
+def load_table(s3_bucket_name, s3_key_website):
+    resp=s3_c.get_object(Bucket=s3_bucket_name, Key=s3_key_website)
+    data=resp.get('Body')
+    return json.load(data)
     
-    employee_id = event["queryStringParameters"]['personID']
+def permission_testing(s3_bucket_name, s3_key_website):
     s3 = boto3.resource('s3')
     
     try:
@@ -26,75 +28,46 @@ def lambda_handler(event, context):
         else:
             print(f"File ({s3_key_website}) required by this function is not accessible!")
             raise e
-    try:
-       
-        obj = s3.Object(s3_bucket_name, s3_key_website)
-        data = obj.get()['Body'].read().decode('utf-8')
-        return_data = []
-        return_data_employee = []
-       
-        if employee_id == "all":
-            json_data = json.loads("" + 
-            data.replace("}\n{", "},\n{") + 
-            "")
-            return_data.append(json_data)
-   
-        json_data = json.loads("" + 
-            data.replace("}\n{", "},\n{") + 
-            "")
-        
-        
-        obj_employee = s3.Object(s3_bucket_name, s3_key_website_employee)
-        data_employee = obj_employee.get()['Body'].read().decode('utf-8')
-        return_data_employee = []
-        
-        if employee_id == "all":
-            json_data_employee = json.loads("" + 
-            data_employee.replace("}\n{", "},\n{") + 
-            "")
-            return_data_employee.append(json_data_employee)
-   
-        json_data_employee = json.loads("" + 
-            data_employee.replace("}\n{", "},\n{") + 
-            "")
-        
-        
-      
-        for index in range (len(json_data)):
-            if str(json_data[index]['EmployeeID']) == employee_id:
-                json_data[index]['EmployeeID'] = employee_id
-                return_data.append(json_data[index])
-        
+
+
+def lambda_handler(event, context):
     
-        return_data_employee.append(next((item for item in json_data_employee if str(item["EmployeeID"]) == employee_id),None))
+    permission_testing(s3_bucket_name, s3_key_website_absence)
+    
+    employee_id = int(event["queryStringParameters"]['personID'])
+    
+    absence_data = load_table(s3_bucket_name, s3_key_website_absence)
+    employees = load_table(s3_bucket_name, s3_key_website_employees)
+    
+    response = {
+            "statusCode": 200,
+            "headers": {
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+            },
+            "body": ""
+    }
+    
+    try:
+        # load data
+        absence_data = pd.DataFrame(absence_data)
+        employees = pd.DataFrame(employees)
         
-        parsed = {
-          "AbsenceData" : return_data,
-          "EmployeeData" : return_data_employee
-        }
+        # get only specified employee data
+        absence_data_employee = absence_data.loc[absence_data['EmployeeID'] == employee_id]
+        employee_data = employees.loc[employees['EmployeeID'] == employee_id]
+        
+        response_data = [{    
+            "AbsenceData" : absence_data_employee,
+            "EmployeeData" : employee_data
+            }]
+        response_data_df = pd.DataFrame(response_data)
+        
   
     except ClientError as e:
-        print()
-        response = {
-        "statusCode": 200,
-        "headers": {
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-        },
-        "body": e.response['Error']['Message']
-        }
-        
+        response['body'] = e.response['Error']['Message']
         return response
     else:
-        response = {
-        "statusCode": 200,
-        "headers": {
-            'Access-Control-Allow-Headers': 'Content-Type',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-        },
-        "body": json.dumps(parsed)
-        }
-        
+        response['body'] = response_data_df.to_json(orient="records")
         return response
