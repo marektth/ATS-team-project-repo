@@ -34,7 +34,9 @@ def permission_testing(s3_bucket_name, s3_key_website):
             raise e
 
 def response_flag(return_status, s3_bucket, s3_object_absence, s3_object_employees, absence_data_param, employees_data_param):
-    
+
+    allow_methods = 'OPTIONS,POST,GET,DELETE'
+
     if(return_status == "OK"):
         if absence_data_param is not None:
             result = absence_data_param.to_json(orient="records")
@@ -45,12 +47,14 @@ def response_flag(return_status, s3_bucket, s3_object_absence, s3_object_employe
             parsed_employees = json.loads(result)
             s3_c.put_object(Bucket=s3_bucket, Key=s3_object_employees, Body=json.dumps(parsed_employees,indent=4).encode('UTF-8'))
         
+        
+
         response = {
             "statusCode": 200,
             "headers": {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE'
+                'Access-Control-Allow-Methods': allow_methods
             },
             "body": json.dumps("Success, Written !")
         }
@@ -61,7 +65,7 @@ def response_flag(return_status, s3_bucket, s3_object_absence, s3_object_employe
             "headers": {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE'
+                'Access-Control-Allow-Methods': allow_methods
             },
             "body": json.dumps("Not allowed !")
         }
@@ -72,7 +76,7 @@ def response_flag(return_status, s3_bucket, s3_object_absence, s3_object_employe
             "headers": {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE'
+                'Access-Control-Allow-Methods': allow_methods
             },
             "body": json.dumps("Error !")
         }
@@ -96,7 +100,6 @@ def get_absence_hours(absence_from, absence_to, working_hours=8, date_format='%d
 
 def lambda_handler(event, context):
 
-    s3 = boto3.resource('s3')
     permission_testing(s3_bucket_name,s3_key_website)
 
     absence_data = load_table(s3_bucket_name, object_key=s3_key_website)

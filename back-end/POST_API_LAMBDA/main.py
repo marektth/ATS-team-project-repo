@@ -48,6 +48,8 @@ def get_request_leave_hours(request, working_hours=8):
             return 0
         
 def balance_evaluator(e_data, n_request, s3_bucket_name, s3_key_website_employee):
+
+    allow_methods = 'OPTIONS,POST,GET'
     
     employee_leave_balance = e_data.loc[e_data['EmployeeID'] == n_request['EmployeeID']]['LeaveBalanceDisplay'].values[0]
     if n_request['AbsenceTypeCode'] == "TIM":
@@ -57,7 +59,7 @@ def balance_evaluator(e_data, n_request, s3_bucket_name, s3_key_website_employee
                 "headers": {
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                    'Access-Control-Allow-Methods': allow_methods
                 },
                 "body": json.dumps("Not enough leave balance for this request !")
             }
@@ -74,7 +76,7 @@ def balance_evaluator(e_data, n_request, s3_bucket_name, s3_key_website_employee
                 "headers": {
                     'Access-Control-Allow-Headers': 'Content-Type',
                     'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                    'Access-Control-Allow-Methods': allow_methods
                 },
                 "body": json.dumps("Leave Balance substracted.")
             }
@@ -85,7 +87,7 @@ def balance_evaluator(e_data, n_request, s3_bucket_name, s3_key_website_employee
                         "headers": {
                             'Access-Control-Allow-Headers': 'Content-Type',
                             'Access-Control-Allow-Origin': '*',
-                            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                            'Access-Control-Allow-Methods': allow_methods
                         },
                         "body": json.dumps("OK !")
                     }
@@ -94,6 +96,8 @@ def balance_evaluator(e_data, n_request, s3_bucket_name, s3_key_website_employee
 
 def response_flag(return_status, s3_bucket_name, s3_key_website, absence_data):
     
+    allow_methods = 'OPTIONS,POST,GET'
+
     if(return_status == "OK"):
         result = absence_data.to_json(orient="records")
         parsed = json.loads(result)
@@ -104,7 +108,7 @@ def response_flag(return_status, s3_bucket_name, s3_key_website, absence_data):
             "headers": {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                'Access-Control-Allow-Methods': allow_methods
             },
             "body": json.dumps("Success, Written !")
         }
@@ -116,7 +120,7 @@ def response_flag(return_status, s3_bucket_name, s3_key_website, absence_data):
             "headers": {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                'Access-Control-Allow-Methods': allow_methods
             },
             "body": json.dumps("Created request overlaps another request")
         }
@@ -128,7 +132,7 @@ def response_flag(return_status, s3_bucket_name, s3_key_website, absence_data):
             "headers": {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                'Access-Control-Allow-Methods': allow_methods
             },
             "body": json.dumps("End date is in past !")
         }
@@ -140,7 +144,7 @@ def response_flag(return_status, s3_bucket_name, s3_key_website, absence_data):
             "headers": {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                'Access-Control-Allow-Methods': allow_methods
             },
             "body": json.dumps("Start date is in past !")
         }
@@ -152,7 +156,7 @@ def response_flag(return_status, s3_bucket_name, s3_key_website, absence_data):
             "headers": {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                'Access-Control-Allow-Methods': allow_methods
             },
             "body": json.dumps("Start date is later End date !")
         }
@@ -164,7 +168,7 @@ def response_flag(return_status, s3_bucket_name, s3_key_website, absence_data):
             "headers": {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                'Access-Control-Allow-Methods': allow_methods
             },
             "body": json.dumps("Error !")
         }
