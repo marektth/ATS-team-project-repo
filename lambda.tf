@@ -16,6 +16,55 @@ terraform{
   }
 }
 
+resource "aws_sns_topic" "manager_updates" {
+  name = "DECISION_MANAGER_NOTIFICATION"
+}
+
+resource "aws_sns_topic_subscription" "user_updates_sqs_target" {
+  topic_arn = aws_sns_topic.manager_updates.arn
+  protocol  = "email"
+  endpoint  = "marektoth199@gmail.com"
+}
+
+resource "aws_lambda_function" "mailing_lambda" {
+  function_name = "MAILING_LAMBDA"
+
+  s3_bucket = "apitest-bucket-123"
+  s3_key    = "v1.0.0/mail.zip"
+
+  handler = "main.lambda_handler"
+  runtime = "python3.8"
+
+  role = "${aws_iam_role.lambda_exec.arn}"
+  layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
+   environment {
+    variables = {
+      BUCKET_NAME = "database-bucket-absence"
+      OBJECT_NAME_TEAMS = "teams_table.json"
+    }
+  }
+}
+
+resource "aws_cloudwatch_event_rule" "every_day_mail" {
+    name = "every_day_mail"
+    description = "Launches every day at 18:01"
+    schedule_expression = "cron(01 18 * * ? *)"
+}
+
+resource "aws_cloudwatch_event_target" "check_mail_every_day" {
+    rule = "${aws_cloudwatch_event_rule.every_day_mail.name}"
+    target_id = "MAILING_LAMBDA"
+    arn = "${aws_lambda_function.mailing_lambda.arn}"
+}
+
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_every_day_mailing" {
+    statement_id = "AllowExecutionFromCloudWatch"
+    action = "lambda:InvokeFunction"
+    function_name = "${aws_lambda_function.mailing_lambda.function_name}"
+    principal = "events.amazonaws.com"
+    source_arn = "${aws_cloudwatch_event_rule.every_day_mail.arn}"
+}
+
 
 resource "aws_lambda_function" "manager_lambda" {
   function_name = "MANAGER_LAMBDA"
