@@ -235,6 +235,24 @@ module "corspost" {
   allow_credentials = true
 }
 
+module "corsget_ou" {
+  source  = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+
+  api_id            = aws_api_gateway_rest_api.example.id
+  api_resource_id   = aws_api_gateway_resource.get_ou.id
+  allow_credentials = true
+}
+
+module "corsdelete" {
+  source  = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+
+  api_id            = aws_api_gateway_rest_api.example.id
+  api_resource_id   = aws_api_gateway_resource.delete.id
+  allow_credentials = true
+}
+
 output "base_url" {
   value = "${aws_api_gateway_deployment.example.invoke_url}"
 }
