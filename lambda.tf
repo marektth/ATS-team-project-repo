@@ -222,7 +222,7 @@ resource "aws_api_gateway_method" "get" {
   request_parameters = { "method.request.querystring.personID" = true }
 }
 
-resource "aws_api_gateway_method_response" "post_api_response" {
+resource "aws_api_gateway_method_response" "get_api_response" {
   rest_api_id = aws_api_gateway_rest_api.example.id
   resource_id = aws_api_gateway_resource.get.id
   http_method = aws_api_gateway_method.get.http_method
@@ -251,7 +251,7 @@ resource "aws_api_gateway_method" "get_ou" {
   request_parameters = { "method.request.querystring.managerID" = true }
 }
 
-resource "aws_api_gateway_method_response" "post_api_response" {
+resource "aws_api_gateway_method_response" "get_ou_api_response" {
   rest_api_id = aws_api_gateway_rest_api.example.id
   resource_id = aws_api_gateway_resource.get_ou.id
   http_method = aws_api_gateway_method.get_ou.http_method
@@ -278,7 +278,7 @@ resource "aws_api_gateway_method" "delete" {
   api_key_required = "true"
 }
 
-resource "aws_api_gateway_method_response" "post_api_response" {
+resource "aws_api_gateway_method_response" "delete_api_response" {
   rest_api_id = aws_api_gateway_rest_api.example.id
   resource_id = aws_api_gateway_resource.delete.id
   http_method = aws_api_gateway_method.delete.http_method
