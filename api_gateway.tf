@@ -215,7 +215,7 @@ resource "aws_api_gateway_usage_plan_key" "main" {
 
 module "cors" {
   source  = "squidfunk/api-gateway-enable-cors/aws"
-  version = "0.3.1"
+  version = "0.3.3"
 
   api_id            = aws_api_gateway_rest_api.example.id
   api_resource_id   = ["aws_api_gateway_resource.post.id","aws_api_gateway_resource.get.id","aws_api_gateway_resource.get_ou.id","aws_api_gateway_resource.delete.id"]
