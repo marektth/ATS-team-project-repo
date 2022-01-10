@@ -59,6 +59,10 @@ resource "aws_api_gateway_stage" "development" {
   stage_name    = "leaveRequestTF"
 }
 
+resource "aws_api_gateway_api_key" "API_Key" {
+  name = "dev_api_key"
+}
+
 resource "aws_api_gateway_usage_plan" "api-plan" {
   name         = "api_usage_plan"
   description  = "usage plan for product"
@@ -79,6 +83,12 @@ resource "aws_api_gateway_usage_plan" "api-plan" {
     burst_limit = 5
     rate_limit  = 10
   }
+}
+
+resource "aws_api_gateway_usage_plan_key" "main" {
+  key_id        = aws_api_gateway_api_key.API_Key.id
+  key_type      = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.api-plan.id
 }
 
 output "base_url" {
