@@ -81,8 +81,6 @@ resource "aws_api_gateway_usage_plan" "api-plan" {
   }
 }
 
-
-
 output "base_url" {
   value = "${aws_api_gateway_deployment.example.invoke_url}"
 }
