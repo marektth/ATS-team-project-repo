@@ -214,7 +214,7 @@ resource "aws_api_gateway_usage_plan_key" "main" {
 
 variable "api_resources" {
   default = ["aws_api_gateway_resource.post.id", "aws_api_gateway_resource.get.id","aws_api_gateway_resource.get_ou.id","aws_api_gateway_resource.delete.id"]
-  type = list(string)
+  type = list
 }
 
 module "cors" {
@@ -223,7 +223,7 @@ module "cors" {
 
   count = "${length(var.api_resources)}"
   api_id            = aws_api_gateway_rest_api.example.id
-  api_resource_id   = ${element(var.api_resources,count.index )}
+  api_resource_id   = "${element(var.api_resources,count.index )}"
   allow_credentials = true
 }
 
