@@ -219,7 +219,7 @@ module "cors" {
   version = "0.3.3"
 
   api_id            = aws_api_gateway_rest_api.example.id
-  api_resource_id   = aws_api_gateway_resource.post.id
+  api_resource_id   = aws_api_gateway_resource.get.id
   allow_credentials = true
 }
 
