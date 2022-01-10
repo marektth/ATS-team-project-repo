@@ -51,8 +51,37 @@ resource "aws_api_gateway_deployment" "example" {
   ]
 
   rest_api_id = "${aws_api_gateway_rest_api.example.id}"
-  stage_name  = "leaveRequest"
 }
+
+resource "aws_api_gateway_stage" "development" {
+  deployment_id = aws_api_gateway_deployment.example.id
+  rest_api_id   = aws_api_gateway_rest_api.example.id
+  stage_name    = "leaveRequest"
+}
+
+resource "aws_api_gateway_usage_plan" "api-plan" {
+  name         = "api_usage_plan"
+  description  = "usage plan for product"
+  product_code = "01"
+
+  api_stages {
+    api_id = aws_api_gateway_rest_api.example.id
+    stage  = aws_api_gateway_stage.development.stage_name
+  }
+
+  quota_settings {
+    limit  = 20
+    offset = 2
+    period = "WEEK"
+  }
+
+  throttle_settings {
+    burst_limit = 5
+    rate_limit  = 10
+  }
+}
+
+
 
 output "base_url" {
   value = "${aws_api_gateway_deployment.example.invoke_url}"
