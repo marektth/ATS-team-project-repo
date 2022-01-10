@@ -226,7 +226,7 @@ module "cors" {
   allow_credentials = true
 }
 
-module "cors" {
+module "corspost" {
   source  = "squidfunk/api-gateway-enable-cors/aws"
   version = "0.3.3"
 
