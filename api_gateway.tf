@@ -223,7 +223,7 @@ module "cors" {
 
   count = "${length(var.api_resources)}"
   api_id            = aws_api_gateway_rest_api.example.id
-  api_resource_id   = "${element(var.api_resources,count.index )}"
+  api_resource_id   = aws_api_gateway_resource.get.id
   allow_credentials = true
 }
 
