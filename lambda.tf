@@ -193,6 +193,26 @@ resource "aws_api_gateway_method" "post" {
   api_key_required = "true"
 }
 
+resource "aws_api_gateway_method_response" "post_api_response" {
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  resource_id = aws_api_gateway_resource.post.id
+  http_method = aws_api_gateway_method.post.http_method
+  status_code = 200
+
+  /**
+   * This is where the configuration for CORS enabling starts.
+   * We need to enable those response parameters and in the 
+   * integration response we will map those to actual values
+   */
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers"     = true,
+    "method.response.header.Access-Control-Allow-Methods"     = true,
+    "method.response.header.Access-Control-Allow-Origin"      = true,
+    "method.response.header.Access-Control-Allow-Credentials" = true
+  }
+}
+
+
 resource "aws_api_gateway_method" "get" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
   resource_id   = "${aws_api_gateway_resource.get.id}"
@@ -201,6 +221,26 @@ resource "aws_api_gateway_method" "get" {
   api_key_required = "true"
   request_parameters = { "method.request.querystring.personID" = true }
 }
+
+resource "aws_api_gateway_method_response" "post_api_response" {
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  resource_id = aws_api_gateway_resource.get.id
+  http_method = aws_api_gateway_method.get.http_method
+  status_code = 200
+
+  /**
+   * This is where the configuration for CORS enabling starts.
+   * We need to enable those response parameters and in the 
+   * integration response we will map those to actual values
+   */
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers"     = true,
+    "method.response.header.Access-Control-Allow-Methods"     = true,
+    "method.response.header.Access-Control-Allow-Origin"      = true,
+    "method.response.header.Access-Control-Allow-Credentials" = true
+  }
+}
+
 
 resource "aws_api_gateway_method" "get_ou" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
@@ -211,12 +251,50 @@ resource "aws_api_gateway_method" "get_ou" {
   request_parameters = { "method.request.querystring.managerID" = true }
 }
 
+resource "aws_api_gateway_method_response" "post_api_response" {
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  resource_id = aws_api_gateway_resource.get_ou.id
+  http_method = aws_api_gateway_method.get_ou.http_method
+  status_code = 200
+
+  /**
+   * This is where the configuration for CORS enabling starts.
+   * We need to enable those response parameters and in the 
+   * integration response we will map those to actual values
+   */
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers"     = true,
+    "method.response.header.Access-Control-Allow-Methods"     = true,
+    "method.response.header.Access-Control-Allow-Origin"      = true,
+    "method.response.header.Access-Control-Allow-Credentials" = true
+  }
+}
+
 resource "aws_api_gateway_method" "delete" {
   rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
   resource_id   = "${aws_api_gateway_resource.delete.id}"
   http_method   = "DELETE"
   authorization = "NONE"
   api_key_required = "true"
+}
+
+resource "aws_api_gateway_method_response" "post_api_response" {
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  resource_id = aws_api_gateway_resource.delete.id
+  http_method = aws_api_gateway_method.delete.http_method
+  status_code = 200
+
+  /**
+   * This is where the configuration for CORS enabling starts.
+   * We need to enable those response parameters and in the 
+   * integration response we will map those to actual values
+   */
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers"     = true,
+    "method.response.header.Access-Control-Allow-Methods"     = true,
+    "method.response.header.Access-Control-Allow-Origin"      = true,
+    "method.response.header.Access-Control-Allow-Credentials" = true
+  }
 }
 
 resource "aws_lambda_permission" "apigw" {
