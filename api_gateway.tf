@@ -214,7 +214,7 @@ resource "aws_api_gateway_usage_plan_key" "main" {
 
 variable "api_resources" {
   default = ["aws_api_gateway_resource.post.id", "aws_api_gateway_resource.get.id","aws_api_gateway_resource.get_ou.id","aws_api_gateway_resource.delete.id"]
-  type = "list"
+  type = list(string)
 }
 
 module "cors" {
