@@ -212,13 +212,18 @@ resource "aws_api_gateway_usage_plan_key" "main" {
   usage_plan_id = aws_api_gateway_usage_plan.api-plan.id
 }
 
+variable "api_resources" {
+  default = ["aws_api_gateway_resource.post.id", "aws_api_gateway_resource.get.id","aws_api_gateway_resource.get_ou.id","aws_api_gateway_resource.delete.id"]
+  type = "list"
+}
 
 module "cors" {
   source  = "squidfunk/api-gateway-enable-cors/aws"
   version = "0.3.3"
 
+  count = "${length(var.api_resources)}"
   api_id            = aws_api_gateway_rest_api.example.id
-  api_resource_id   = ["aws_api_gateway_resource.post.id","aws_api_gateway_resource.get.id","aws_api_gateway_resource.get_ou.id","aws_api_gateway_resource.delete.id"]
+  api_resource_id   = "${element(var.api_resources,count.index )}"
   allow_credentials = true
 }
 
