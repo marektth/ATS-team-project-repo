@@ -71,7 +71,8 @@ resource "aws_lambda_function" "get_lambda" {
    environment {
     variables = {
       BUCKET_NAME = "database-bucket-absence"
-      OBJECT_NAME = "absence_data.json"
+      OBJECT_NAME_ABSENCE = "absence_data.json"
+      OBJECT_NAME_EMPLOYEE = "employees_table.json"
     }
   }
 }
