@@ -13,6 +13,37 @@ resource "aws_api_gateway_integration" "lambda" {
   uri                     = "${aws_lambda_function.post_lambda.invoke_arn}"
 }
 
+
+resource "aws_api_gateway_integration_response" "lambda_mockapi_integration_response" {
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  resource_id = aws_api_gateway_resource.post.id
+  http_method = aws_api_gateway_method.post.http_method
+  status_code = aws_api_gateway_method_response.post_api_response.status_code
+
+  /**
+   * This is second half of the CORS configuration.
+   * Here we give values to each of the header parameters to ALLOW 
+   * Cross-Origin requests from ALL hosts.
+   **/
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"      = "'*'",
+    "method.response.header.Access-Control-Allow-Credentials" = "'true'"
+  }
+
+  response_templates = {
+    "application/json" = <<EOF
+{
+  "statusCode": 200,
+  "message": "OK! Everything in order"
+}
+EOF
+  }
+}
+
+
+
 resource "aws_api_gateway_integration" "lambda2" {
   rest_api_id = "${aws_api_gateway_rest_api.example.id}"
   resource_id = "${aws_api_gateway_method.get.resource_id}"
@@ -23,6 +54,35 @@ resource "aws_api_gateway_integration" "lambda2" {
   uri                     = "${aws_lambda_function.get_lambda.invoke_arn}"
 }
 
+resource "aws_api_gateway_integration_response" "lambda2_mockapi_integration_response" {
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  resource_id = aws_api_gateway_resource.get.id
+  http_method = aws_api_gateway_method.get.http_method
+  status_code = aws_api_gateway_method_response.get_api_response.status_code
+
+  /**
+   * This is second half of the CORS configuration.
+   * Here we give values to each of the header parameters to ALLOW 
+   * Cross-Origin requests from ALL hosts.
+   **/
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"      = "'*'",
+    "method.response.header.Access-Control-Allow-Credentials" = "'true'"
+  }
+
+  response_templates = {
+    "application/json" = <<EOF
+{
+  "statusCode": 200,
+  "message": "OK! Everything in order"
+}
+EOF
+  }
+}
+
+
 resource "aws_api_gateway_integration" "lambda3" {
   rest_api_id = "${aws_api_gateway_rest_api.example.id}"
   resource_id = "${aws_api_gateway_method.get_ou.resource_id}"
@@ -32,6 +92,34 @@ resource "aws_api_gateway_integration" "lambda3" {
   type                    = "AWS_PROXY"
   uri                     = "${aws_lambda_function.manager_lambda.invoke_arn}"
 
+}
+
+resource "aws_api_gateway_integration_response" "lambda3_mockapi_integration_response" {
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  resource_id = aws_api_gateway_resource.get_ou.id
+  http_method = aws_api_gateway_method.get_ou.http_method
+  status_code = aws_api_gateway_method_response.get_ou_api_response.status_code
+
+  /**
+   * This is second half of the CORS configuration.
+   * Here we give values to each of the header parameters to ALLOW 
+   * Cross-Origin requests from ALL hosts.
+   **/
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"      = "'*'",
+    "method.response.header.Access-Control-Allow-Credentials" = "'true'"
+  }
+
+  response_templates = {
+    "application/json" = <<EOF
+{
+  "statusCode": 200,
+  "message": "OK! Everything in order"
+}
+EOF
+  }
 }
 
 resource "aws_api_gateway_integration" "lambda4" {
@@ -45,9 +133,42 @@ resource "aws_api_gateway_integration" "lambda4" {
 
 }
 
+resource "aws_api_gateway_integration_response" "lambda4_mockapi_integration_response" {
+  rest_api_id = aws_api_gateway_rest_api.example.id
+  resource_id = aws_api_gateway_resource.delete.id
+  http_method = aws_api_gateway_method.delete.http_method
+  status_code = aws_api_gateway_method_response.delete_api_response.status_code
+
+  /**
+   * This is second half of the CORS configuration.
+   * Here we give values to each of the header parameters to ALLOW 
+   * Cross-Origin requests from ALL hosts.
+   **/
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"      = "'*'",
+    "method.response.header.Access-Control-Allow-Credentials" = "'true'"
+  }
+
+  response_templates = {
+    "application/json" = <<EOF
+{
+  "statusCode": 200,
+  "message": "OK! Everything in order"
+}
+EOF
+  }
+}
+
+
 resource "aws_api_gateway_deployment" "example" {
   depends_on = [
-    "aws_api_gateway_integration.lambda"
+    "aws_api_gateway_integration.lambda",
+    "aws_api_gateway_method_response.post_api_response",
+    "aws_api_gateway_method_response.get_response",
+    "aws_api_gateway_method_response.get_ou_response",
+    "aws_api_gateway_method_response.delete_response"
   ]
 
   rest_api_id = "${aws_api_gateway_rest_api.example.id}"
