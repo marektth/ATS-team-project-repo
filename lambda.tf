@@ -101,6 +101,29 @@ resource "aws_lambda_function" "decision_lambda" {
   }
 }
 
+
+resource "aws_cloudwatch_event_rule" "every_day" {
+    name = "every_day"
+    description = "Launches every day at 18:00"
+    schedule_expression = "cron(0 18 * * ? *)"
+}
+
+resource "aws_cloudwatch_event_target" "check_decision_every_day" {
+    rule = "${aws_cloudwatch_event_rule.every_day.name}"
+    target_id = "DECISION_LAMBDA"
+    arn = "${aws_lambda_function.decision_lambda.arn}"
+}
+
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_every_day" {
+    statement_id = "AllowExecutionFromCloudWatch"
+    action = "lambda:InvokeFunction"
+    function_name = "${aws_lambda_function.decision_lambda.function_name}"
+    principal = "events.amazonaws.com"
+    source_arn = "${aws_cloudwatch_event_rule.every_day.arn}"
+}
+
+
+
 resource "aws_lambda_function" "delete_lambda" {
   function_name = "DELETE_LAMBDA"
 
