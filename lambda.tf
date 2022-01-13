@@ -191,6 +191,7 @@ resource "aws_lambda_function" "delete_lambda" {
     variables = {
       BUCKET_NAME = "database-bucket-absence"
       OBJECT_NAME = "absence_data.json"
+      OBJECT_NAME_EMPLOYEES = "employees_table.json"
     }
   }
 }

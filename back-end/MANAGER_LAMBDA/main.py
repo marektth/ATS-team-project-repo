@@ -15,6 +15,12 @@ s3_key_website_employees = os.environ.get('OBJECT_NAME_EMPLOYEES')
 s3_key_website_jobs = os.environ.get('OBJECT_NAME_JOBS')
 
 def permission_testing(s3_bucket_name, s3_key_website):
+    """
+    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
+    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
+    :return: returns an error code 404 if the resource (s3 bucket or file) does not exist or returns error code 403 if the function doesnt have permissions to access the resources
+    """
+
     s3 = boto3.resource('s3')
     
     try:
@@ -28,6 +34,12 @@ def permission_testing(s3_bucket_name, s3_key_website):
             raise e
             
 def load_table(s3_bucket_name, s3_key_website):
+    """
+    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
+    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
+    :return: returns json
+    :rtype: json dict
+    """
     resp=s3_c.get_object(Bucket=s3_bucket_name, Key=s3_key_website)
     data=resp.get('Body')
     return json.load(data)
