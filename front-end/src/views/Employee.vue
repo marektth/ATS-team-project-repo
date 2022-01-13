@@ -53,7 +53,7 @@
 
         <b-col cols="9">
           <b-card>
-            <table class="table table-striped" v-if="this.requests.length > 0">
+            <table class="table table-striped" v-if="this.requests.length > 0" aria-hidden="true">
               <thead>
                 <tr>
                   <th scope="col">#</th>

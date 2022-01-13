@@ -7,7 +7,7 @@
      <b-col>
       <b-card id="table_card" v-for="(team, team_index) in teams" v-bind:key="String(team.OUID) + '_' + String(team_index)" >
         <h5 class="card-title">{{ team.OUName }} (Team ID: {{team.OUID}})</h5>
-        <table class="table table-striped" v-if="team.Data.length > 0" >
+        <table class="table table-striped" v-if="team.Data.length > 0" aria-hidden="true">
           <thead>
             <tr>
               <th scope="col">#</th>
