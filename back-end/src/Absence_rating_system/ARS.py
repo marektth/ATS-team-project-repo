@@ -292,15 +292,15 @@ class ARS(DBHandler):
 
 
 if __name__ == "__main__":
-    # path_absence_table = "back-end/src/data/jsons/absence_data.json"
-    # path_teams_table = "back-end/src/data/jsons/teams_table.json"
-    # path_employees_table = "back-end/src/data/jsons/employees_table.json"
-    # path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
-    # path_absence_type_table = "back-end/src/data/jsons/absence_type.json"
-    # path_rules_table = "back-end/src/data/jsons/rules_table.json"
+    path_absence_table = "back-end/src/data/jsons/absence_data.json"
+    path_teams_table = "back-end/src/data/jsons/teams_table.json"
+    path_employees_table = "back-end/src/data/jsons/employees_table.json"
+    path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
+    path_absence_type_table = "back-end/src/data/jsons/absence_type.json"
+    path_rules_table = "back-end/src/data/jsons/rules_table.json"
 
-    # ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
-    # ars.absence_requests_handler()
+    ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
+    ars.absence_requests_handler()
 
     
     # ----------------- Only for testing purposes ----------------------
