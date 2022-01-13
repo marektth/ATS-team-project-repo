@@ -116,7 +116,7 @@ class ARS(DBHandler):
 
     def rule_set_absence_type_priority(self, request):
         '''
-            Returns absent type priority of given request
+            Returns absence type priority of given request
             :param request: pandas.Series 
             :rtype: int
         '''
