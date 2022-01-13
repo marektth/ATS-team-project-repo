@@ -29,7 +29,7 @@ resource "aws_sns_topic_subscription" "user_updates_sqs_target" {
 resource "aws_lambda_function" "mailing_lambda" {
   function_name = "MAILING_LAMBDA"
 
-  s3_bucket = "apitest-bucket-123"
+  s3_bucket = "api-stage-be-bucket"
   s3_key    = "v1.0.0/mail.zip"
 
   handler = "main.lambda_handler"
@@ -119,14 +119,9 @@ resource "aws_lambda_function" "get_lambda" {
   layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
    environment {
     variables = {
-<<<<<<< HEAD
-      BUCKET_NAME = "database-bucket-absence-stage"
-      OBJECT_NAME = "absence_data.json"
-=======
       BUCKET_NAME = "database-bucket-absence"
       OBJECT_NAME_ABSENCE = "absence_data.json"
       OBJECT_NAME_EMPLOYEE = "employees_table.json"
->>>>>>> dev
     }
   }
 }
