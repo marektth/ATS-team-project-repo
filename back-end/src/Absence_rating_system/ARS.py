@@ -1,18 +1,17 @@
-#from src.Absence_rating_system.Data_handler import DBHandler   
-from Data_handler import DBHandler 
+from src.Absence_rating_system.Data_handler import DBHandler   
 import pandas as pd
 import time
 
-class ARS():
+class ARS(DBHandler):
     '''
     If first import is not working then try ths one from Data_handler import DBHandler    
     '''
     def __init__(self, absence_data, teams, employees, jobs, absence_type, rules):
 
-        self.db = DBHandler(absence_data, teams, employees, jobs, absence_type, rules)
+        super().__init__(absence_data, teams, employees, jobs, absence_type, rules)
 
-        self.__rules = self.db.get_rules_by_keys()
-        self.__rules_structs, self.__rules_df_sort = self.db.get_rules_with_order()
+        self.__rules = self.get_rules_by_keys()
+        self.__rules_structs, self.__rules_df_sort = self.get_rules_with_order()
 
 
     def rule_overlapping_employees_no(self, request):
@@ -25,14 +24,14 @@ class ARS():
         if request.empty:
             return None
 
-        ou_absence_data = self.db.get_ou_absence_data(request)
+        ou_absence_data = self.get_ou_absence_data(request)
 
         if(ou_absence_data.empty):
             return 0
 
         # format dates
-        ou_absence_data = self.db.format_absence_dates(ou_absence_data)
-        request_formatted = self.db.format_absence_dates(request.copy())
+        ou_absence_data = self.format_absence_dates(ou_absence_data)
+        request_formatted = self.format_absence_dates(request.copy())
 
         # intialize empty set of overlapping days
         overlapping_days = set()
@@ -42,9 +41,9 @@ class ARS():
             # if employee has accepted timeoff in same day as new request, add the overlapping days to set "overlapping_days"
             request_range = [request_formatted["AbsenceFrom"], request_formatted["AbsenceTo"]]
             absence_data_range = [absence_data["AbsenceFrom"], absence_data["AbsenceTo"]]
-            overlapping_days = overlapping_days.union(self.db.get_overlapping_days(*request_range) & self.db.get_overlapping_days(*absence_data_range))
+            overlapping_days = overlapping_days.union(self.get_overlapping_days(*request_range) & self.get_overlapping_days(*absence_data_range))
               
-        self.db.update_item(overlapping_days, request.name, "OverlappingDays", self.db.absence_data)
+        self.update_item(overlapping_days, request.name, "OverlappingDays", self.absence_data)
 
         return len(overlapping_days)
 
@@ -53,8 +52,8 @@ class ARS():
         '''
             returns if minimal OU capacity treshhold is exceeded
         '''
-        min_ou_capacity = self.db.get_min_capacity_ou(request)
-        size_of_ou = self.db.get_size_of_ou(request)
+        min_ou_capacity = self.get_min_capacity_ou(request)
+        size_of_ou = self.get_size_of_ou(request)
         total_missing_employees = self.rule_overlapping_employees_no(request)
 
         if size_of_ou - total_missing_employees <= min_ou_capacity:
@@ -73,14 +72,14 @@ class ARS():
         if request.empty:
             return None
 
-        same_job_absence_data = self.db.get_ou_same_job_absence(request)
+        same_job_absence_data = self.get_ou_same_job_absence(request)
 
         if(same_job_absence_data.empty):
             return 0
 
         #format dates
-        same_job_absence_data = self.db.format_absence_dates(same_job_absence_data)
-        request_formatted = self.db.format_absence_dates(request.copy())
+        same_job_absence_data = self.format_absence_dates(same_job_absence_data)
+        request_formatted = self.format_absence_dates(request.copy())
 
         # intialize empty set of overlapping days
         overlapping_days = set()
@@ -90,9 +89,9 @@ class ARS():
             # if employee has accepted timeoff in same day as new request, add the overlapping days to set "overlapping_days"
             request_range = [request_formatted["AbsenceFrom"], request_formatted["AbsenceTo"]]
             absence_data_range = [absence_data["AbsenceFrom"], absence_data["AbsenceTo"]]
-            overlapping_days = overlapping_days.union(self.db.get_overlapping_days(*request_range) & self.db.get_overlapping_days(*absence_data_range))
+            overlapping_days = overlapping_days.union(self.get_overlapping_days(*request_range) & self.get_overlapping_days(*absence_data_range))
             
-        self.db.update_item(overlapping_days, request.name, "OverlappingDays", self.db.absence_data)
+        self.update_item(overlapping_days, request.name, "OverlappingDays", self.absence_data)
 
         return len(overlapping_days)
 
@@ -102,8 +101,8 @@ class ARS():
         '''
             returns if absent same job employees treshhold is exceeded
         '''
-        min_same_job_tresh = self.db.get_min_same_job_threshold(request)
-        same_job_employee_no = len(self.db.get_ou_same_job_employees(request, only_id=True))
+        min_same_job_tresh = self.get_min_same_job_threshold(request)
+        same_job_employee_no = len(self.get_ou_same_job_employees(request, only_id=True))
         total_missing_employees = self.rule_same_job_overlaps(request)
         if same_job_employee_no - total_missing_employees <= min_same_job_tresh:
             return 1
@@ -114,7 +113,7 @@ class ARS():
         '''
             returns absent type priority of given request
         '''
-        return self.db.get_absence_type_priority(request) 
+        return self.get_absence_type_priority(request) 
 
 
     def rule_leave_balance(self, request):
@@ -122,10 +121,10 @@ class ARS():
             returns absent type priority of given request
         '''
         if request["AbsenceTypeCode"] == "TIM":
-            has_enough_leave_balance = self.db.check_enough_leave_balance(request)
+            has_enough_leave_balance = self.check_enough_leave_balance(request)
             # if TIMEOFF and enough leave balance return that leave balance
             if has_enough_leave_balance:
-                return self.db.get_employee_info(request, info = "LeaveBalance")
+                return self.get_employee_info(request, info = "LeaveBalance")
             # return 0 if not enough leave balance
             else:
                 return 0
@@ -140,7 +139,7 @@ class ARS():
             saves ratings in dataframe
         '''
         # get all OU pending requests
-        ou_pending_requests = self.db.get_ou_absence_data(request, status_of_absence="Pending")
+        ou_pending_requests = self.get_ou_absence_data(request, status_of_absence="Pending")
         ou_pending_requests['AbsenceTypeCode'] = pd.Categorical(ou_pending_requests['AbsenceTypeCode'], ["SPE", "PAR", "TIM"])
         ou_pending_requests = ou_pending_requests.sort_values(by =["AbsenceTypeCode"]) # , "AbsenceRequestedAt"])  <-- to be discussed ! 
         # iterate over those requests
@@ -154,14 +153,14 @@ class ARS():
                 request_rating[rule["key"]] = getattr(self, rule["function"])(pending_request)
             
             #save request rating
-            self.db.update_item(dict(sorted(request_rating.items())), request_idx, "Rating", self.db.absence_data)
+            self.update_item(dict(sorted(request_rating.items())), request_idx, "Rating", self.absence_data)
 
     def get_top_priority_request(self, request):
         '''
             returns tuple of top priority request from all OU pending requests and one dataframe row of that request
         '''
         # get all rated OU pending requests
-        pending_ou_requests = self.db.get_ou_absence_data(request, "Pending")
+        pending_ou_requests = self.get_ou_absence_data(request, "Pending")
 
         # set indices by id to preserve sorting keys
         pending_ou_requests.set_index(keys="id", inplace=True)
@@ -174,7 +173,7 @@ class ARS():
 
         # get first request in sorted DF
         top_request = severities_df.iloc[0]
-        top_request_absence_data = self.db.absence_data[self.db.absence_data['id'] == top_request.name]
+        top_request_absence_data = self.absence_data[self.absence_data['id'] == top_request.name]
 
         return top_request, top_request_absence_data.squeeze()
 
@@ -193,7 +192,7 @@ class ARS():
         for rule_rank in self.__rules_structs:
 
             #get rule threshold
-            threshold = self.db.get_rule_threshold_by_key(rule_rank)
+            threshold = self.get_rule_threshold_by_key(rule_rank)
 
             #check if rule is not out of threshold and rule has any threshold
             if not pd.isnull(threshold) and \
@@ -205,7 +204,7 @@ class ARS():
                     (top_request[rule_rank] == threshold and rule_rank == "D")
                 ):
                     request_status = "Rejected"
-                    status_resolution = self.db.get_rule_status_failed_resolution(rule_rank)
+                    status_resolution = self.get_rule_status_failed_resolution(rule_rank)
                     break
 
         return request_status, status_resolution
@@ -217,7 +216,7 @@ class ARS():
                 based on priorities of rules in "rules_struct"
         '''
         # iterate over OU pending requests
-        for _, pending_request in self.db.get_ou_absence_data(request, "Pending").iterrows():
+        for _, pending_request in self.get_ou_absence_data(request, "Pending").iterrows():
             # rate all pending OU requests
             self.rating_function(pending_request)
 
@@ -228,23 +227,23 @@ class ARS():
             status_to_set, status_resolution = self.determine_top_priority_status(top_request)
 
             # update request status and its resolution in absence_data DataFrame
-            self.db.update_item(status_to_set, top_request_absence_data.name, "Status", self.db.absence_data)
-            self.db.update_item(status_resolution, top_request_absence_data.name, "StatusResolution", self.db.absence_data)
+            self.update_item(status_to_set, top_request_absence_data.name, "Status", self.absence_data)
+            self.update_item(status_resolution, top_request_absence_data.name, "StatusResolution", self.absence_data)
 
             
             if status_to_set == "Rejected" and top_request_absence_data['AbsenceTypeCode'] == "TIM":
                 # add employee leave balance if request rejected and its timeoff  
-                new_leave_balance = self.db.get_employee_info(top_request_absence_data, "LeaveBalance") + self.db.get_request_leave_hours(top_request_absence_data)
-                employee_idx = self.db.employees[self.db.employees['EmployeeID'] == top_request_absence_data['EmployeeID']].index
-                self.db.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.db.employees)
-                self.db.update_item(new_leave_balance, employee_idx, "LeaveBalanceDisplay", self.db.employees)
+                new_leave_balance = self.get_employee_info(top_request_absence_data, "LeaveBalance") + self.get_request_leave_hours(top_request_absence_data)
+                employee_idx = self.employees[self.employees['EmployeeID'] == top_request_absence_data['EmployeeID']].index
+                self.update_item(new_leave_balance, employee_idx, "LeaveBalance", self.employees)
+                self.update_item(new_leave_balance, employee_idx, "LeaveBalanceDisplay", self.employees)
         
 
     def absence_requests_handler(self):
         '''
             handle all pending requests until there is none left
         '''
-        all_pending_requests = self.db.get_requests(status = "Pending")
+        all_pending_requests = self.get_requests(status = "Pending")
 
         #set statuses to whole OU at time
         did_change = False
@@ -260,13 +259,13 @@ class ARS():
             request = all_pending_requests.iloc[0]
 
             # get OUID of chosen request
-            request_ouid = self.db.get_ouid_of_request(request)
+            request_ouid = self.get_ouid_of_request(request)
             
             # set statuses for whole OU which "request" is from
             self.set_ou_requests_statuses(request)
 
             # get fresh data
-            all_pending_requests = self.db.get_requests(status = "Pending")
+            all_pending_requests = self.get_requests(status = "Pending")
 
             # get sum of request after setting statuses
             new_request_no = all_pending_requests.shape[0]
@@ -278,7 +277,7 @@ class ARS():
                 break
             
             # update duration of rating
-            self.db.set_ou_rating_duration(request_ouid, start_time)
+            self.set_ou_rating_duration(request_ouid, start_time)
             if not did_change:
                 # set did_change only once
                 did_change = True
@@ -288,7 +287,7 @@ class ARS():
             '''
                 TODO: Here save all tables to S3 bucket
             '''
-            self.db.update_db(self.db.absence_data, self.db.absence_data_path)
+            self.update_db(self.absence_data, self.absence_data_path)
         
 
 
