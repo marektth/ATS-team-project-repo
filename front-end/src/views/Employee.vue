@@ -174,7 +174,7 @@ export default Vue.extend({
       }
 
       if (response.absenceData.length > 0){
-        response[0].absenceData.forEach((request:any) => {
+        response.absenceData.forEach((request:any) => {
           this.requests.push(request)
         });
       }
