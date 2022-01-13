@@ -27,7 +27,7 @@
           </thead>
             <tbody>
             <tr v-for="(employee, idx) in team.Data" v-bind:key="String(employee.EmployeeID) + '_'+ String(idx)">
-              <td scope="row">{{ idx + 1 }}</td>
+              <td>{{ idx + 1 }}</td>
               <td>{{ employee.id }}</td>
               <td>{{ employee.EmployeeID }}</td>
               <td>{{ employee.EmployeeName }}</td>
@@ -50,7 +50,7 @@
                   @ok="deleteTimeoff(employee.id)"
                 >
                   <form ref="form" @submit.stop.prevent="handleSubmit">
-                    <p>If you want to delete your request enter: <b>DELETE {{employee.id}}</b></p>
+                    <p>If you want to delete your request enter: <strong>DELETE {{employee.id}}</strong></p>
                       <b-form-input
                         id="name-input"
                         v-model="confirmation"
@@ -72,7 +72,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { ApiService, EmployeeTimeoff} from '../services/api'
+import { ApiService } from '../services/api'
 
 export default Vue.extend({
   name: 'Manager',

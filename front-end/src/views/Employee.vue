@@ -71,7 +71,7 @@
               </thead>
                 <tbody>
                 <tr v-for="(request,idx) in requests" v-bind:key="String(request.EmployeeID) + '_'+ String(idx)">
-                  <td scope="row">{{ idx + 1 }}</td>
+                  <td>{{ idx + 1 }}</td>
                   <td>{{ request.id }}</td>
                   <td>{{ request.EmployeeID }}</td>
                   <td>{{ epochToDate(request.AbsenceRequestedAt) }}</td>
@@ -92,7 +92,7 @@
                       @ok="deleteTimeoff(request.id)"
                     >
                       <form ref="form" @submit.stop.prevent="handleSubmit">
-                        <p>If you want to delete your request enter: <b>DELETE {{request.id}}</b></p>
+                        <p>If you want to delete your request enter: <strong>DELETE {{request.id}}</strong></p>
                           <b-form-input
                             id="name-input"
                             v-model="confirmation"
@@ -206,7 +206,6 @@ export default Vue.extend({
       }
     },
     async deleteTimeoff(id:number){
-      //const confirmation = prompt(`If you want to delete your request enter: DELETE ${id}`);
       if(this.confirmation === `DELETE ${id}`){
         const api = new ApiService(this.employeeInfo.EmployeeID)
         const response = await api.requestTimeoffDELETE(id)
@@ -249,7 +248,7 @@ export default Vue.extend({
       }
     },
     epochToDate(date:number){
-      let convertedDate = new Date(date)
+      let convertedDate = new Date(date * 1000)
       let day = this.addZeroToTime(convertedDate.getDate())
       let month = this.addZeroToTime(convertedDate.getMonth() + 1)
       let year = String(convertedDate.getFullYear())
@@ -266,10 +265,11 @@ export default Vue.extend({
         return "-"
       }
       dates.forEach(date => {
-        let convertedDate = new Date(date)
+        let convertedDate = new Date(date * 1000)
         let day = this.addZeroToTime(convertedDate.getDate())
         let month = this.addZeroToTime(convertedDate.getMonth() + 1)
         let year = String(convertedDate.getFullYear())
+        console.log(convertedDate)
         if(len > 1){
           days += `${day}/${month}/${year}, `
           len--
