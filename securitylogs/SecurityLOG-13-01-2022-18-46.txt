@@ -1,0 +1,72 @@
+Quick report: 
+
+Security log from: 01/13/2022 @ 18:46:58
+Last scan submitted at: 2022-01-13 18:46:34
+Last scan executed at: 2022-01-13 18:46:40
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_reliability_rating, status: ERROR, actual value: 2.00, error threshold: 1
+	Metric: new_coverage, status: ERROR, actual value: 26.67, error threshold: 30
+Issues found: 4
+Issues Authors:
+	chocholacek.ludovit -> 2 issues (50.0%)
+	fhavel99 -> 2 issues (50.0%)
+=================
+Issues report: 
+
+Key: AX46mUKREdiWnLBqU_Ea
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: chocholacek.ludovit
+File: ats:back-end/DELETE_API_LAMBDA/main.py
+From LINE: 112 to LINE: 112, with START_OFFSET: 4 to END_OFFSET: 18
+Issue comment: Refactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.
+Effort: 16min
+Rule: python:S3776
+Scope : MAIN
+Created at: 2022-01-08 17:49:02
+Updated at : 2022-01-08 17:49:02
+----------------------------------------------------
+
+Key: AX46mUIrEdiWnLBqU_EZ
+Issue type : CODE_SMELL
+Severity: CRITICAL
+Issue author: chocholacek.ludovit
+File: ats:back-end/POST_API_LAMBDA/main.py
+From LINE: 196 to LINE: 196, with START_OFFSET: 4 to END_OFFSET: 18
+Issue comment: Refactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.
+Effort: 8min
+Rule: python:S3776
+Scope : MAIN
+Created at: 2022-01-08 17:49:02
+Updated at : 2022-01-08 17:49:02
+----------------------------------------------------
+
+Key: AX46mULOEdiWnLBqU_Ec
+Issue type : BUG
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Manager.vue
+From LINE: 10 to LINE: 10, with START_OFFSET: 8 to END_OFFSET: 72
+Issue comment: Add a description to this table.
+Effort: 5min
+Rule: Web:TableWithoutCaptionCheck
+Scope : MAIN
+Created at: 2022-01-08 17:49:02
+Updated at : 2022-01-08 17:49:02
+----------------------------------------------------
+
+Key: AX3U0mfFEdiWnLBqU6P_
+Issue type : BUG
+Severity: MINOR
+Issue author: fhavel99
+File: ats:front-end/src/views/Employee.vue
+From LINE: 56 to LINE: 56, with START_OFFSET: 12 to END_OFFSET: 79
+Issue comment: Add a description to this table.
+Effort: 5min
+Rule: Web:TableWithoutCaptionCheck
+Scope : MAIN
+Created at: 2021-12-19 23:30:35
+Updated at : 2021-12-19 23:30:35
+----------------------------------------------------
+
