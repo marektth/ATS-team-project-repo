@@ -83,6 +83,7 @@ resource "aws_lambda_function" "manager_lambda" {
       OBJECT_NAME_ABSENCE = "absence_data.json"
       OBJECT_NAME_EMPLOYEES = "employees_table.json"
       OBJECT_NAME_TEAMS = "teams_table.json"
+      OBJECT_NAME_JOBS = "jobs_table.json"
     }
   }
 }
@@ -102,6 +103,7 @@ resource "aws_lambda_function" "post_lambda" {
     variables = {
       BUCKET_NAME = "database-bucket-absence"
       OBJECT_NAME = "absence_data.json"
+      OBJECT_NAME_EMPLOYEE = "employees_table.json"
     }
   }
 }
@@ -146,6 +148,7 @@ resource "aws_lambda_function" "decision_lambda" {
       OBJECT_NAME_EMPLOYEES = "employees_table.json"
       OBJECT_NAME_JOBS = "jobs_table.json"
       OBJECT_NAME_TEAMS = "teams_table.json"
+      OBJECT_NAME_RULES = "rules_table.json"
     }
   }
 }
