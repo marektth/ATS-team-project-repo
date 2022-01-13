@@ -1,3 +1,3 @@
 export enum KEY {
-    AWS = "zDrRrgRDb74QIGjN18bJC3Gqm4hPrfwV1vnR8BvB"
+    AWS = "7DUdGQZcm64rwScq3P7ET7bKUKFK1Bta4zraEbA7"
 }
