@@ -264,3 +264,24 @@ module "cors" {
 }
 
 ```
+
+## Tests
+
+The tool for testing is called **Coverage**. Main testing functions are **Assert Equal, Assert Array Equal, Assert Frame Equal and Assert Series Equal.**
+
+### ARS test
+
+In ARS test the main goal is to test the overall functionality of the code. It's using test cases as a main approach to test every possible scenario, which may occur. Every test case is testing if the dataframe returned by main ARS file is same as expected dataframe.
+
+1. Test case is testing 2 employees with requested timeoff at the different days. 
+2. Test case is testing 2 employees with requested timeoff at the same days. 
+3. Test case is testing 2 employees with one requesting timeoff and second requesting parental holiday at the same day. 
+4. Test case is testing 2 employees with both of them requesting parental holiday at the different days. 
+5. Test case is testing 2 employees with one of them requesting parental holiday and second one requesting special holiday at the different days. 
+6. Test case is testing 2 employees with requested timeoff at the same 5 days. 
+7. Test case is testing 2 employees with requested timeoff with overlapping days, one employee is requesting 3 days and the other 5 days.
+
+
+### Data Handler test
+
+Data Handler test is testing every function in original file Data Handler. Every function is testing if output from the function in Data handler is same as expected output. Both expected output and output from the function must be equal, otherwise test returns error.
