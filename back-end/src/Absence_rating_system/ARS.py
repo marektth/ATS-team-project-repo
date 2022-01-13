@@ -16,9 +16,11 @@ class ARS(DBHandler):
 
     def rule_overlapping_employees_no(self, request):
         '''
-            returns number of overlapping employees with already accepted timeoffs with dates of given requests 
+            Returns number of overlapping employees with already accepted timeoffs with dates of given requests 
             optional: normalized, if set true, returns percentage of absent employees
                 otherwise returns count of absent employees
+            :param request: pandas.Series 
+            :rtype: int
         '''
 
         if request.empty:
@@ -50,7 +52,9 @@ class ARS(DBHandler):
 
     def rule_min_capacity_threshold(self, request):
         '''
-            returns if minimal OU capacity treshhold is exceeded
+            Returns 1 if minimal OU capacity treshhold is exceeded else 0
+            :param request: pandas.Series 
+            :rtype: int
         '''
         min_ou_capacity = self.get_min_capacity_ou(request)
         size_of_ou = self.get_size_of_ou(request)
@@ -64,10 +68,9 @@ class ARS(DBHandler):
 
     def rule_same_job_overlaps(self,request):
         '''
-            returns number of overlapping employees with already accepted timeoffs with dates of given requests
-            where same job employees are compared
-            optional: normalized, if set true, returns percentage of absent employees with same job
-                otherwise returns count of absent employees with same job
+            Returns number of overlapping employees with already accepted timeoffs with dates of given requests where same job employees are compared
+            :param request: pandas.Series 
+            :rtype: int
         '''
         if request.empty:
             return None
@@ -99,7 +102,9 @@ class ARS(DBHandler):
 
     def rule_min_same_job_threshold(self, request):
         '''
-            returns if absent same job employees treshhold is exceeded
+            Returns 1 if absent same job employees treshhold is exceeded else 0
+            :param request: pandas.Series 
+            :rtype: int
         '''
         min_same_job_tresh = self.get_min_same_job_threshold(request)
         same_job_employee_no = len(self.get_ou_same_job_employees(request, only_id=True))
@@ -111,14 +116,18 @@ class ARS(DBHandler):
 
     def rule_set_absence_type_priority(self, request):
         '''
-            returns absent type priority of given request
+            Returns absent type priority of given request
+            :param request: pandas.Series 
+            :rtype: int
         '''
-        return self.get_absence_type_priority(request) 
+        return self.get_absence_type_priority(request)
 
 
     def rule_leave_balance(self, request):
         '''
-            returns absent type priority of given request
+            Returns request leave balance
+            :param request: pandas.Series 
+            :rtype: int
         '''
         if request["AbsenceTypeCode"] == "TIM":
             has_enough_leave_balance = self.check_enough_leave_balance(request)
@@ -135,8 +144,9 @@ class ARS(DBHandler):
 
     def rating_function(self, request):
         '''
-            rate all pending requests based on rules specified in rules priority
+            Rates all pending requests based on rules specified in rules priority
             saves ratings in dataframe
+            :param request: pandas.Series 
         '''
         # get all OU pending requests
         ou_pending_requests = self.get_ou_absence_data(request, status_of_absence="Pending")
@@ -157,7 +167,8 @@ class ARS(DBHandler):
 
     def get_top_priority_request(self, request):
         '''
-            returns tuple of top priority request from all OU pending requests and one dataframe row of that request
+            Returns tuple of top priority request from all OU pending requests and one dataframe row of that request
+            :param request: pandas.Series 
         '''
         # get all rated OU pending requests
         pending_ou_requests = self.get_ou_absence_data(request, "Pending")
@@ -181,8 +192,9 @@ class ARS(DBHandler):
 
     def determine_top_priority_status(self, top_request):
         '''
-            determine request status with checking if any rules are out of thresholds
+            Determines request status with checking if any rules are out of thresholds
             if everything is OK, status="Accepted" and resolution="OK"
+            :param top_request: pandas.Series 
         '''
         # default values if rules are OK
         request_status = "Accepted"
@@ -212,8 +224,9 @@ class ARS(DBHandler):
 
     def set_ou_requests_statuses(self, request):
         '''
-            set status of first pending request of OU in wich parameter request is 
+            Sets status of first pending request of OU in wich parameter request is 
                 based on priorities of rules in "rules_struct"
+            :param request: pandas.Series 
         '''
         # iterate over OU pending requests
         for _, pending_request in self.get_ou_absence_data(request, "Pending").iterrows():
@@ -241,7 +254,7 @@ class ARS(DBHandler):
 
     def absence_requests_handler(self):
         '''
-            handle all pending requests until there is none left
+            Handle all pending requests until there is none left
         '''
         all_pending_requests = self.get_requests(status = "Pending")
 
@@ -283,11 +296,11 @@ class ARS(DBHandler):
                 did_change = True
 
         
-        if did_change:
-            '''
-                TODO: Here save all tables to S3 bucket
-            '''
-            self.update_db(self.absence_data, self.absence_data_path)
+        # if did_change:
+        #     '''
+        #         TODO: Here save all tables to S3 bucket
+        #     '''
+        #     # self.update_db(self.absence_data, self.absence_data_path)
         
 
 
