@@ -83,6 +83,7 @@ resource "aws_lambda_function" "manager_lambda" {
       OBJECT_NAME_ABSENCE = "absence_data.json"
       OBJECT_NAME_EMPLOYEES = "employees_table.json"
       OBJECT_NAME_TEAMS = "teams_table.json"
+      OBJECT_NAME_JOBS = "jobs_table.json"
     }
   }
 }
@@ -95,13 +96,14 @@ resource "aws_lambda_function" "post_lambda" {
 
   handler = "main.lambda_handler"
   runtime = "python3.8"
-
+  layers = ["arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-pandas:43", "arn:aws:lambda:eu-central-1:770693421928:layer:Klayers-python38-numpy:22"]
   role = "${aws_iam_role.lambda_exec.arn}"
 
    environment {
     variables = {
       BUCKET_NAME = "database-bucket-absence-stage"
       OBJECT_NAME = "absence_data.json"
+      OBJECT_NAME_EMPLOYEE = "employees_table.json"
     }
   }
 }
@@ -146,6 +148,7 @@ resource "aws_lambda_function" "decision_lambda" {
       OBJECT_NAME_EMPLOYEES = "employees_table.json"
       OBJECT_NAME_JOBS = "jobs_table.json"
       OBJECT_NAME_TEAMS = "teams_table.json"
+      OBJECT_NAME_RULES = "rules_table.json"
     }
   }
 }
@@ -188,6 +191,7 @@ resource "aws_lambda_function" "delete_lambda" {
     variables = {
       BUCKET_NAME = "database-bucket-absence-stage"
       OBJECT_NAME = "absence_data.json"
+      OBJECT_NAME_EMPLOYEES = "employees_table.json"
     }
   }
 }
