@@ -1,4 +1,5 @@
-from src.Absence_rating_system.Data_handler import DBHandler   
+#from src.Absence_rating_system.Data_handler import DBHandler   
+from Data_handler import DBHandler 
 import pandas as pd
 import time
 
@@ -292,15 +293,15 @@ class ARS():
 
 
 if __name__ == "__main__":
-    path_absence_table = "back-end/src/data/jsons/absence_data.json"
-    path_teams_table = "back-end/src/data/jsons/teams_table.json"
-    path_employees_table = "back-end/src/data/jsons/employees_table.json"
-    path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
-    path_absence_type_table = "back-end/src/data/jsons/absence_type.json"
-    path_rules_table = "back-end/src/data/jsons/rules_table.json"
+    # path_absence_table = "back-end/src/data/jsons/absence_data.json"
+    # path_teams_table = "back-end/src/data/jsons/teams_table.json"
+    # path_employees_table = "back-end/src/data/jsons/employees_table.json"
+    # path_jobs_table = "back-end/src/data/jsons/jobs_table.json"
+    # path_absence_type_table = "back-end/src/data/jsons/absence_type.json"
+    # path_rules_table = "back-end/src/data/jsons/rules_table.json"
 
-    ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
-    ars.absence_requests_handler()
+    # ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
+    # ars.absence_requests_handler()
 
     
     # ----------------- Only for testing purposes ----------------------
@@ -317,9 +318,11 @@ if __name__ == "__main__":
     path_rules_table = "back-end/src/data/jsons/Test_cases/Case_1/rules_table.json"
 
     ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
-    result = ars.absence_requests_handler()
+    ars.absence_requests_handler()
+    result = pd.read_json(path_absence_table)
     print(result)
     '''
+    
 
     
     #TEST CASE 2 - 3 employees with same request day, leave balance and type
@@ -333,7 +336,8 @@ if __name__ == "__main__":
     path_rules_table = "back-end/src/data/jsons/Test_cases/Case_2/rules_table.json"
 
     ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
-    result = ars.absence_requests_handler()
+    ars.absence_requests_handler()
+    result = pd.read_json(path_absence_table)
     print(result)
     '''
 
@@ -349,7 +353,26 @@ if __name__ == "__main__":
     path_rules_table = "back-end/src/data/jsons/Test_cases/Case_3/rules_table.json"
 
     ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
-    result = ars.absence_requests_handler()
+    ars.absence_requests_handler()
+    result = pd.read_json(path_absence_table)
+    print(result)
+    '''
+
+
+
+    #TEST CASE 4 - 3 employees with different requested days but with same starting day, same leave balance, same team and same type
+    #RESULT = Partial reject for Employee id 79 because 69 is requesting 3 same days and 192 is rejected because team balance is lower
+    '''
+    path_absence_table = "back-end/src/data/jsons/Test_cases/Case_4/absence_data.json"
+    path_teams_table = "back-end/src/data/jsons/Test_cases/Case_4/teams_table.json"
+    path_employees_table = "back-end/src/data/jsons/Test_cases/Case_4/employees_table.json"
+    path_jobs_table = "back-end/src/data/jsons/Test_cases/Case_4/jobs_table.json"
+    path_absence_type_table = "back-end/src/data/jsons/Test_cases/Case_4/absence_type.json"
+    path_rules_table = "back-end/src/data/jsons/Test_cases/Case_4/rules_table.json"
+
+    ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
+    ars.absence_requests_handler()
+    result = pd.read_json(path_absence_table)
     print(result)
     '''
 

@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "EmployeeID": 69,
+    "AbsenceRequestedAt": 1639165929.68981,
+    "AbsenceFrom": "24/12/2021",
+    "AbsenceTo": "26/12/2021",
+    "AbsenceTypeCode": "TIM",
+    "Status": "Pending",
+    "StatusResolution" : "",
+    "OverlappingDays": [],
+    "LeaveReason": "Holidays",
+    "Rating": {}
+  },
+  {
+    "id": 2,
+    "EmployeeID": 192,
+    "AbsenceRequestedAt": 1639165929.68982,
+    "AbsenceFrom": "24/12/2021",
+    "AbsenceTo": "28/12/2021",
+    "AbsenceTypeCode": "TIM",
+    "Status": "Pending",
+    "StatusResolution" : "",
+    "OverlappingDays": [],
+    "LeaveReason": "Holidays",
+    "Rating": {}
+  },
+  {
+    "id": 3,
+    "EmployeeID": 79,
+    "AbsenceRequestedAt": 1639165929.68982,
+    "AbsenceFrom": "24/12/2021",
+    "AbsenceTo": "30/12/2021",
+    "AbsenceTypeCode": "TIM",
+    "Status": "Pending",
+    "StatusResolution" : "",
+    "OverlappingDays": [],
+    "LeaveReason": "Holidays",
+    "Rating": {}
+  }
+]
