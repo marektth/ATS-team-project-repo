@@ -59,7 +59,7 @@ The lambda function then returns the corresponding statusCode: 200.
 
 ## Absence_rating_system
 
-### Data_Handler
+### Data_Handler.py
 
 <details closed>
 <summary>DBHandler - constructor</summary>
@@ -208,7 +208,305 @@ This function return resolution of rule for specified failed rule by key. Input 
 <details closed>
 <summary>get_overlapping_days</summary>
 <br>
-This function compute set of overlapping days between given ranges (range2 - range1). After computing the set of overlapping days are returned. Input parameters are *range1* and *range2* (list of pandas days times - (absence_from, absence_to)).
+This function compute set of overlapping days between given ranges (range2 - range1). After computing the set of overlapping days are returned. Input parameters are *range1* and *range2* (list of Timestamps - [absence_from, absence_to]).
+</details>
+
+
+
+
+
+
+### ARS.py
+
+<details closed>
+<summary>rule_overlapping_employees_no</summary>
+<br>
+This function computes number of overlapping employees in same team as request is with already accepted timeoffs with dates of given requests. After computing, the number of overlapping days are returned (int). Input parameter is request to check overlapping days with - pandas.Series.
+</details>
+
+<details closed>
+<summary>rule_min_capacity_threshold</summary>
+<br>
+This function computes if minimal capacity of team is not under specified threshold. 
+If there are less team members in team than specified threshold 1 is returned, otherwise 0 is returned. Input parameter is request - pandas.Series.
+</details>
+
+<details closed>
+<summary>rule_same_job_overlaps</summary>
+<br>
+This function computes number of overlapping employees in same team with same job as request with already accepted timeoffs with dates of given requests. After computing, the number of overlapping days are returned (int). Input parameter is request to check overlapping days with - pandas.Series.
+</details>
+
+<details closed>
+<summary>rule_min_same_job_threshold</summary>
+<br>
+This function computes if there are enough team members with same job in same team.
+If there are less team members with same job in team than specified threshold 1 is returned, otherwise 0 is returned. Input parameter is request - pandas.Series.
+</details>
+
+<details closed>
+<summary>rule_set_absence_type_priority</summary>
+<br>
+This function returns absence type priority of given request as int. Priority is specified in absence_type.json. 
+</details>
+
+<details closed>
+<summary>rule_leave_balance</summary>
+<br>
+This function returns request leave balance. If request if TIMEOFF and has enough leave balance, than actual leave balance is returned, otherwise 0 is returned to trigger leave balance rule. If request is not TIMEOFF than 1 is returned to not trigger leave balance rule. Input parameter is request - pandas.Series.
+</details>
+
+<details closed>
+<summary>rating_function</summary>
+<br>
+This function rates all pending requests in OU of specified request based on rules specified in rules priority. The end results of rating one request is saved in dictionary with keys same as used rules in rating. Afterwards, in absence data attribute "Rating" is updated to resulting dictionary. Process is repeated for every pending OU requests. Input parameter is request - pandas.Series.
+</details>
+
+<details closed>
+<summary>get_top_priority_request</summary>
+<br>
+This function returns tuple of top priority request from all OU pending requests and one dataframe row of that top priority request. First it gets all pending OU requests that have been rated. Takes only rating attribute and create pandas.DataFrame from it. Afterwards, the dataframe is sorted by specified sorting priorities and keys. Input parameter is request - pandas.Series.
+</details>
+
+<details closed>
+<summary>determine_top_priority_status</summary>
+<br>
+This function determines request status if "Accepted" or "Rejected" by checking if any thesholds were triggered. If triggered, status "Rejected" is set to request with resolution why it failed, otherwise "Accepted" is set. Input parameter is request - pandas.Series.
+</details>
+
+<details closed>
+<summary>set_ou_requests_statuses</summary>
+<br>
+This function sets statuses to all OU pending requests. First it rates all OU pending requests, then get top priority status based on rating, then status is set. If request is "Rejected" and its "TIM" then leave balance is added to actual leave balance. Algorithm begins from the start. Input parameter is request - pandas.Series.
+</details>
+
+<details closed>
+<summary>absence_requests_handler</summary>
+<br>
+This function handle all pending requests until there is none left. First it takes all pending requests in absence_data dataframe. Then it passes first request to function "set_ou_requests_statuses". 
+</details>
+
+<details closed>
+<summary>Using class</summary>
+<br>
+
+```py
+path_absence_table = "back-end/src/data/jsons/absence_data.json" #path to absence data table 
+path_teams_table = "back-end/src/data/jsons/teams_table.json" #path to teams data table 
+path_employees_table = "back-end/src/data/jsons/employees_table.json" #path to employees data table 
+path_jobs_table = "back-end/src/data/jsons/jobs_table.json" #path to jobs data table 
+path_absence_type_table = "back-end/src/data/jsons/absence_type.json" #path to absence type data table 
+path_rules_table = "back-end/src/data/jsons/rules_table.json" #path to rules data table 
+
+# creating object
+ars = ARS(path_absence_table, path_teams_table, path_employees_table, path_jobs_table, path_absence_type_table, path_rules_table)
+
+# run algorithm 
+ars.absence_requests_handler()
+```
+</details>
+
+### Data tables
+
+<details closed>
+<summary>absence_data.json</summary>
+<br>
+Absence_data.json consists of list of dictionaries, where one dictionary is one record of absence.
+
+*Structure*
+```json
+{
+    "id": int,
+    "EmployeeID": int,
+    "AbsenceRequestedAt": Timestamp,
+    "AbsenceFrom": "dd/mm/YYYY",
+    "AbsenceTo": "dd/mm/YYYY",
+    "AbsenceTypeCode": "code acronym in 3 letters - TIM, SPE, PAR",
+    "Status": "status of request - Pending, Accepted, Rejected, Cancelled",
+    "StatusResolution": "OK / Resolution fail from rules",
+    "OverlappingDays": [Timestamp, Timestamp, ...],
+    "LeaveReason": "optional request description",
+    "Rating": {
+        "key": int,
+        "key": int,
+        "key": int
+    }
+}
+```
+
+*Content example*
+```json
+{
+    "id": 12,
+    "EmployeeID": 62,
+    "AbsenceRequestedAt": 1641582819.008814,
+    "AbsenceFrom": "19/01/2022",
+    "AbsenceTo": "21/01/2022",
+    "AbsenceTypeCode": "SPE",
+    "Status": "Pending",
+    "StatusResolution": "OK",
+    "OverlappingDays": [],
+    "LeaveReason": "test8",
+    "Rating": {
+        "A": 0,
+        "B": 0,
+        "C": 1,
+        "D": 1
+    }
+}
+```
+</details>
+
+<details closed>
+<summary>absence_type.json</summary>
+<br>
+Absence_type.json consists of list of dictionaries, where one dictionary is one record of type of absence.
+
+*Structure*
+```json
+{
+    "AbsenceID": int,
+    "AbsenceName": "name",
+    "AbsenceAcronym": "3 letters acronym - TIM, SPE, PAR",
+    "AbsenceInfo": "info about absence",
+    "Priority": 1
+}
+```
+
+*Content example*
+```json
+{
+    "AbsenceID": 0,
+    "AbsenceName": "Special",
+    "AbsenceAcronym": "SPE",
+    "AbsenceInfo": "Funeral, sick kid...",
+    "Priority": 1
+}
+```
+</details>
+
+
+
+
+<details closed>
+<summary>employees_table.json</summary>
+<br>
+Employees_table.json consists of list of dictionaries, where one dictionary is one record of employee in company.
+
+*Structure*
+```json
+{
+    "EmployeeID": int,
+    "EmployeeName": "FirstName LastName",
+    "EmploymentNumber": int,
+    "OUID": int,
+    "LeaveBalance": int,
+    "LeaveBalanceDisplay": int
+}
+```
+
+*Content example*
+```json
+{
+    "EmployeeID": 69,
+    "EmployeeName": "paul bleacher",
+    "EmploymentNumber": 1,
+    "OUID": 7,
+    "LeaveBalance": 160,
+    "LeaveBalanceDisplay": 160
+}
+```
+</details>
+
+
+<details closed>
+<summary>jobs_table.json</summary>
+<br>
+Jobs_table.json consists of list of dictionaries, where one dictionary is one record of job type in company.
+
+*Structure*
+```json
+{
+    "id": int,
+    "JobName": "Job name",
+    "MinRequirement": int
+}
+```
+
+*Content example*
+```json
+{
+    "id": 2,
+    "JobName": "Support",
+    "MinRequirement": 1
+}
+```
+</details>
+
+
+
+
+<details closed>
+<summary>rules_table.json</summary>
+<br>
+Rules_table.json consists of list of dictionaries, where one dictionary is one record of rule used in ARS system.
+
+*Structure*
+```json
+{
+    "key" : "key of ruke",
+    "function": "name of ARS method to use as rule",
+    "sortAscending": boolean (how to sort requests by this rule),
+    "threshold": int or null not to use this rule in sorting algorithm,
+    "priority": int,
+    "testByThisRule": boolean,
+    "resolutionFailed": "Explanation why resolution failed"
+}
+```
+
+*Content example*
+```json
+{
+    "key" : "A",
+    "function": "rule_min_capacity_threshold",
+    "sortAscending": false,
+    "threshold": 1,
+    "priority": 3,
+    "testByThisRule": true,
+    "resolutionFailed": "Not enough employees in team"
+}
+```
+</details>
+
+
+<details closed>
+<summary>teams_table.json</summary>
+<br>
+Teams_table.json consists of list of dictionaries, where one dictionary is one record of organization unit in company.
+
+*Structure*
+```json
+{
+    "OUID": int,
+    "ManagerID": int,
+    "MinimalCapacity": int,
+    "TeamName": "Team name",
+    "LastChangeMS": Timestamp,
+    "RatingDurationMS": millis time of rating duration
+}
+```
+
+*Content example*
+```json
+{
+    "OUID": 8,
+    "ManagerID": 7,
+    "MinimalCapacity": 3,
+    "TeamName": "MLC",
+    "LastChangeMS": 1639310498.8898501,
+    "RatingDurationMS": 91.6020870209
+}
+```
 </details>
 
 ## Terraform code
