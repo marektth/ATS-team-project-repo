@@ -57,6 +57,159 @@ Once these checks have successfuly passed it proceeds on parsing the event query
 The lambda function then returns the corresponding statusCode: 200.
 </details>
 
+## Absence_rating_system
+
+### Data_Handler
+
+<details closed>
+<summary>DBHandler - constructor</summary>
+<br>
+This constructor initialize all tables from database and all rules for rating with rules order and rules thresholds. Input parameters are strings that are representing paths for every datatable.
+</details>
+
+<details closed>
+<summary>__load_table</summary>
+<br>
+This function is loading AWS table by input parameter *path* (string - path to object). Second input parameter is *as_df* (bool) for decision if path is for datatable or json file. Output from this function is json object.
+</details>
+
+<details closed>
+<summary>update_db</summary>
+<br>
+This function is responsible for updating AWS datables. Input paramameters are *db* (pandas dataframe) and *datapath* (string - path to pandas dataframe).
+</details>
+
+<details closed>
+<summary>update_item</summary>
+<br>
+This function is responsible for updating column in pandas dataframe with given value. Input parameters *value* (any - inserted value), *row_idx* (int - index of row), string *column* (string - name of the column) and *table* (pandas dataframe - table which is being updated).
+</details>
+
+<details closed>
+<summary>__rules_preprocessing</summary>
+<br>
+This function is responsible for droping unused rules for specific customer. Input parameter is *rules* (pandas dataframe - table with rules).
+</details>
+
+<details closed>
+<summary>get_requests</summary>
+<br>
+This function return all absence data with given status. Input parameter is *status* (string - status of request).
+</details>
+
+<details closed>
+<summary>get_request_by_id</summary>
+<br>
+This function return request record by its id. Input parameter is *request_id* (int - id of request).
+</details>
+
+<details closed>
+<summary>get_ouid_of_request</summary>
+<br>
+This function return ID of OU of given request. Input parameter is *request* (pandas series).
+</details>
+
+<details closed>
+<summary>get_min_same_job_threshold</summary>
+<br>
+This function return required minimum of present people with same job as request job. Input parameter is *request* (pandas series - information about team).
+</details>
+
+<details closed>
+<summary>get_employee_info</summary>
+<br>
+This function return informations about employee by request. If parameter *info* is **not None** function return only specified information about employee. Input parameters are *request* (pandas series - employee information) and *info* (string - specified column for decision) 
+</details>
+
+<details closed>
+<summary>get_ou_employees</summary>
+<br>
+This function return all employees in OU of given request. If parameter *only_id* is **True** function return only specified employees ID in OU of given request. Input parameters are *request* (pandas series - ou employees) and *only_id* (int - number of specified employee for decision). 
+</details>
+
+<details closed>
+<summary>get_size_of_ou</summary>
+<br>
+This function return size of OU of given request. Input parameters is *request* (pandas series - organization unit). 
+</details>
+
+<details closed>
+<summary>get_ou_absence_data</summary>
+<br>
+This function return OU absence data in which request employee is in. If parameter *status_of_absence* is **not All** function return only specified status absence. Input parameters are *request* (pandas series - organization unit) and *status_of_absence* (string - absence status for decision). 
+</details>
+
+<details closed>
+<summary>get_ou_same_job_employees</summary>
+<br>
+This function return employees with same job as request job. If parameter *only_id* is **True** function return only id of this employees. Input parameters are *request* (pandas series - organization unit) and *only_id* (bool - condition for decision). 
+</details>
+
+<details closed>
+<summary>get_ou_same_job_absence</summary>
+<br>
+This function return absence data of OU only of the same job as request job. Input parameter is *request* (pandas series - organization unit).
+</details>
+
+<details closed>
+<summary>format_absence_dates</summary>
+<br>
+This function return formated specified columns by format in data. Input parameters are *data* (pandas dataframe - returned columms), *columns* (list - representing values AbsenceFrom and AbsenceTo (AbsenceFrom, AbsenceTo)) and *format* (time format - specified time format for parameter *columns*).
+</details>
+
+<details closed>
+<summary>get_absence_type_priority</summary>
+<br>
+This function return absence type priority of specified request. Input parameter is *request* (pandas series - representing rules priority).
+</details>
+
+<details closed>
+<summary>get_request_leave_hours</summary>
+<br>
+This function return total leave hours of requested absence. This function multiples the sum up days between *absence_from* and *absence_to* by *working_hours*. Weekend days are not counting. Input parameter are *request* (pandas series - representing AbsenceFrom and AbsenceTo) and *working_hours* (int - number which represent working hours).
+</details>
+
+<details closed>
+<summary>check_enough_leave_balance</summary>
+<br>
+This function return True if request has enough leave balance left. Input parameter is *request* (pandas series - represent employee).
+</details>
+
+<details closed>
+<summary>set_ou_rating_duration</summary>
+<br>
+This function set duration of rating and changing statuses of pending ou requests. Input parameters are *ouid* (string - represent oraginazation unit) and *start_time* (time - start time of the duration)
+</details>
+
+<details closed>
+<summary>get_rules_by_keys</summary>
+<br>
+This function return rule keys and corresponding functios to call as list of DICTs.
+</details>
+
+<details closed>
+<summary>get_rules_with_order</summary>
+<br>
+This function return tuple (rules keys in priority order, sort order booleans).
+</details>
+
+<details closed>
+<summary>get_rule_threshold_by_key</summary>
+<br>
+This function return threshold for specified rule by key. Input parameter is *rule_key* (string - represent rule)
+</details>
+
+<details closed>
+<summary>get_rule_status_failed_resolution</summary>
+<br>
+This function return resolution of rule for specified failed rule by key. Input parameter is *rule_key* (string - represent rule)
+</details>
+
+<details closed>
+<summary>get_overlapping_days</summary>
+<br>
+This function compute set of overlapping days between given ranges (range2 - range1). After computing the set of overlapping days are returned. Input parameters are *range1* and *range2* (list of pandas days times - (absence_from, absence_to)).
+</details>
 
 ## Terraform code
 
