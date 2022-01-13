@@ -369,7 +369,7 @@ Absence_type.json consists of list of dictionaries, where one dictionary is one 
     "AbsenceName": "name",
     "AbsenceAcronym": "3 letters acronym - TIM, SPE, PAR",
     "AbsenceInfo": "info about absence",
-    "Priority": 1
+    "Priority": int
 }
 ```
 
