@@ -115,7 +115,7 @@ class TestDataHandler(unittest.TestCase):
 
     def test_get_request_leave_hours(self):
         input_leave_hours = self.dHandler.get_request_leave_hours(self.request_series)
-        self.assertEqual(input_leave_hours, 88)
+        self.assertEqual(input_leave_hours, 80)
 
     def test_check_enough_leave_balance(self):
        input_leave_balance = self.dHandler.check_enough_leave_balance(self.request_series)

@@ -150,7 +150,7 @@ class ARS():
             # iterate over enabled rules
             for rule in self.__rules:
                 # call method for corresponding rule
-                request_rating[rule["key"]] = getattr(ars, rule["function"])(pending_request)
+                request_rating[rule["key"]] = getattr(self, rule["function"])(pending_request)
             
             #save request rating
             self.db.update_item(dict(sorted(request_rating.items())), request_idx, "Rating", self.db.absence_data)
