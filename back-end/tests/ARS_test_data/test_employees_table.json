@@ -46,7 +46,7 @@
         "EmploymentNumber": 0,
         "OUID": 7,
         "LeaveBalance" : 8,
-        "LeaveBalanceDisplay": 0
+        "LeaveBalanceDisplay": 8
     },
     {
         "EmployeeID": 14,

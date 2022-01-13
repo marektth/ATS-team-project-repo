@@ -8,6 +8,7 @@
     "AbsenceTypeCode": "TIM",
     "Status": "Pending",
     "StatusResolution" : "",
+    "OverlappingDays": [],
     "LeaveReason": "Holidays",
     "Rating": {}
   },
@@ -20,6 +21,7 @@
     "AbsenceTypeCode": "TIM",
     "Status": "Pending",
     "StatusResolution" : "",
+    "OverlappingDays": [],
     "LeaveReason": "Holidays",
     "Rating": {}
   },
@@ -32,6 +34,7 @@
     "AbsenceTypeCode": "TIM",
     "Status": "Pending",
     "StatusResolution" : "",
+    "OverlappingDays": [],
     "LeaveReason": "Holidays",
     "Rating": {}
   }

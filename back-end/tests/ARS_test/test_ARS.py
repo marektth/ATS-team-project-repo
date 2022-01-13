@@ -29,15 +29,6 @@ class TestARS(unittest.TestCase):
         self.request_series = pd.Series(json_data[0])
 
 
-
-    def test_rule_min_capacity_treshold(self):
-        input_rule_min_capacity = self.ars.rule_min_capacity_threshold(self.request_series)
-        self.assertEqual(input_rule_min_capacity, 0)
-
-    def test_rule_set_absence_type_priority(self):
-        input_rule_absence_priority = self.ars.rule_set_absence_type_priority(self.request_series)
-        self.assertEqual(input_rule_absence_priority, 3)
-
     def test_absence_requests_handler1(self):
         '''
             Test case for testing 2 employees with requested timeoff at the different
@@ -48,16 +39,12 @@ class TestARS(unittest.TestCase):
                        self.path_employees_table, self.path_jobs_table, 
                        self.path_absence_type_table, self.path_rules_table)
         
-        input_case1 = self.ars.absence_requests_handler()
+        self.ars.absence_requests_handler()
         self.path_absence_table_case1_correct = "tests/ARS_test_data/ARS_test_case1/test_absence_data_correct.json"
-        with open(self.path_absence_table_case1_correct) as f:
-            json_data = json.load(f)
-        output_case1_correct = pd.DataFrame(json_data)
+        output_case1_correct = pd.read_json(self.path_absence_table_case1_correct)
+        input_case1 = pd.read_json(self.path_absence_table_case1)
 
-        input_case1_status = input_case1["Status"]
-        output_case1_correct_status = output_case1_correct["Status"]
-
-        assert_series_equal(input_case1_status, output_case1_correct_status)
+        assert_frame_equal(input_case1, output_case1_correct)
 
     def test_absence_requests_handler2(self):
         '''
@@ -70,16 +57,12 @@ class TestARS(unittest.TestCase):
                        self.path_employees_table, self.path_jobs_table_case2, 
                        self.path_absence_type_table, self.path_rules_table)
         
-        input_case2 = self.ars.absence_requests_handler()
+        self.ars.absence_requests_handler()
         self.path_absence_table_case2_correct = "tests/ARS_test_data/ARS_test_case2/test_absence_data_correct.json"
-        with open(self.path_absence_table_case2_correct) as f:
-            json_data = json.load(f)
-        output_case2_correct = pd.DataFrame(json_data)
+        output_case2_correct = pd.read_json(self.path_absence_table_case2_correct)
+        input_case2 = pd.read_json(self.path_absence_table_case2)
 
-        input_case2_status = input_case2["Status"]
-        output_case2_correct_status = output_case2_correct["Status"]
-
-        assert_series_equal(input_case2_status, output_case2_correct_status)
+        assert_frame_equal(input_case2, output_case2_correct)
 
     def test_absence_requests_handler3(self):
         '''
@@ -93,16 +76,13 @@ class TestARS(unittest.TestCase):
                        self.path_employees_table_case3, self.path_jobs_table_case3, 
                        self.path_absence_type_table, self.path_rules_table)
         
-        input_case3 = self.ars.absence_requests_handler()
+        self.ars.absence_requests_handler()
         self.path_absence_table_case3_correct = "tests/ARS_test_data/ARS_test_case3/test_absence_data_correct.json"
-        with open(self.path_absence_table_case3_correct) as f:
-            json_data = json.load(f)
-        output_case3_correct = pd.DataFrame(json_data)
+        output_case3_correct = pd.read_json(self.path_absence_table_case3_correct)
 
-        input_case3_status = input_case3["Status"]
-        output_case3_correct_status = output_case3_correct["Status"]
+        input_case3 = pd.read_json(self.path_absence_table_case3)
 
-        assert_series_equal(input_case3_status, output_case3_correct_status)
+        assert_frame_equal(input_case3, output_case3_correct)
 
     def test_absence_requests_handler4(self):
         '''
@@ -116,16 +96,13 @@ class TestARS(unittest.TestCase):
                        self.path_employees_table_case4, self.path_jobs_table_case4, 
                        self.path_absence_type_table, self.path_rules_table)
         
-        input_case4 = self.ars.absence_requests_handler()
+        self.ars.absence_requests_handler()
         self.path_absence_table_case4_correct = "tests/ARS_test_data/ARS_test_case4/test_absence_data_correct.json"
-        with open(self.path_absence_table_case4_correct) as f:
-            json_data = json.load(f)
-        output_case4_correct = pd.DataFrame(json_data)
+        output_case4_correct = pd.read_json(self.path_absence_table_case4_correct)
 
-        input_case4_status = input_case4["Status"]
-        output_case4_correct_status = output_case4_correct["Status"]
+        input_case4 = pd.read_json(self.path_absence_table_case4)
 
-        assert_series_equal(input_case4_status, output_case4_correct_status)
+        assert_frame_equal(input_case4, output_case4_correct)
 
     def test_absence_requests_handler5(self):
         '''
@@ -139,17 +116,49 @@ class TestARS(unittest.TestCase):
                        self.path_employees_table_case5, self.path_jobs_table_case5, 
                        self.path_absence_type_table, self.path_rules_table)
         
-        input_case5 = self.ars.absence_requests_handler()
+        self.ars.absence_requests_handler()
         self.path_absence_table_case5_correct = "tests/ARS_test_data/ARS_test_case5/test_absence_data_correct.json"
-        with open(self.path_absence_table_case5_correct) as f:
-            json_data = json.load(f)
-        output_case5_correct = pd.DataFrame(json_data)
+        output_case5_correct = pd.read_json(self.path_absence_table_case5_correct)
 
-        input_case5_status = input_case5["Status"]
-        output_case5_correct_status = output_case5_correct["Status"]
+        input_case5 = pd.read_json(self.path_absence_table_case5)
 
-        assert_series_equal(input_case5_status, output_case5_correct_status)
+        assert_frame_equal(input_case5, output_case5_correct)
+        
+    def test_absence_requests_handler6(self):
+        '''
+            Test case for testing 2 employees with requested timeoff at the same 5
+            days. One employee has leave balance 8 hours and second 160 hours.
+        '''
+        self.path_absence_table_case6 = "tests/ARS_test_data/ARS_test_case6/test_absence_data.json"
+        self.path_employees_table_case6 = "tests/ARS_test_data/ARS_test_case6/test_employees_table.json"
+        self.ars = ARS(self.path_absence_table_case6, self.path_teams_table,
+                       self.path_employees_table_case6, self.path_jobs_table, 
+                       self.path_absence_type_table, self.path_rules_table)
+        
+        self.ars.absence_requests_handler()
+        self.path_absence_table_case6_correct = "tests/ARS_test_data/ARS_test_case6/test_absence_data_correct.json"
+        output_case6_correct = pd.read_json(self.path_absence_table_case6_correct)
+        input_case6 = pd.read_json(self.path_absence_table_case6)
 
+        assert_frame_equal(input_case6, output_case6_correct)
+
+    def test_absence_requests_handler7(self):
+        '''
+            Test case for testing 2 employees with requested timeoff with overlapping
+            days. One employee is requesting 3 days and the other for 5 days.
+        '''
+        self.path_absence_table_case7 = "tests/ARS_test_data/ARS_test_case7/test_absence_data.json"
+        self.path_employees_table_case7 = "tests/ARS_test_data/ARS_test_case7/test_employees_table.json"
+        self.ars = ARS(self.path_absence_table_case7, self.path_teams_table,
+                       self.path_employees_table_case7, self.path_jobs_table, 
+                       self.path_absence_type_table, self.path_rules_table)
+        
+        self.ars.absence_requests_handler()
+        self.path_absence_table_case7_correct = "tests/ARS_test_data/ARS_test_case7/test_absence_data_correct.json"
+        output_case7_correct = pd.read_json(self.path_absence_table_case7_correct)
+        input_case7 = pd.read_json(self.path_absence_table_case7)
+
+        assert_frame_equal(input_case7, output_case7_correct)
 
  
 

@@ -53,7 +53,7 @@ class TestDataHandler(unittest.TestCase):
             "EmploymentNumber": 0,
             "OUID": 7,
             "LeaveBalance": 8,
-            "LeaveBalanceDisplay": 0
+            "LeaveBalanceDisplay": 8
         }
         output_df = pd.DataFrame(output, index=[0])
         assert_frame_equal(output_df.reset_index(drop=True), input_info.reset_index(drop=True))
@@ -92,7 +92,7 @@ class TestDataHandler(unittest.TestCase):
                 'EmploymentNumber':[0, 0],
                 'OUID':[7, 7],
                 'LeaveBalance': [0, 8],
-                "LeaveBalanceDisplay": [0, 0]}
+                "LeaveBalanceDisplay": [0, 8]}
         output_same_job = pd.DataFrame(data)
         assert_frame_equal(output_same_job.reset_index(drop=True), input_same_job.reset_index(drop=True))
         #if only_id is True

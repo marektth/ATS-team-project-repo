@@ -2,27 +2,39 @@
     {
         "id": 0,
         "EmployeeID": 54,
-        "DateOfAbsence": "24/10/2021",
+        "AbsenceRequestedAt": 1641587168,
+        "AbsenceFrom": "23/10/2021",
+        "AbsenceTo": "23/10/2021",
         "AbsenceTypeCode": "TIM",
-        "Status": "Pending",
+        "Status": "Rejected",
+        "StatusResolution": "Not enough leave balance",
+        "OverlappingDays": [
+            1634947200000
+        ],
+        "LeaveReason": "test1",
         "Rating": {
             "A": 0,
-            "B": 1,
-            "C": 0,
-            "D": 1
+            "B": 0,
+            "C": 3,
+            "D": 0
         }
     },
     {
         "id": 1,
         "EmployeeID": 96,
-        "DateOfAbsence": "24/10/2021",
+        "AbsenceRequestedAt": 1641587168,
+        "AbsenceFrom": "23/10/2021",
+        "AbsenceTo": "23/10/2021",
         "AbsenceTypeCode": "TIM",
-        "Status": "Pending",
+        "Status": "Accepted",
+        "StatusResolution": "OK",
+        "OverlappingDays": [],
+        "LeaveReason": "test1",
         "Rating": {
             "A": 0,
-            "B": 1,
-            "C": 0,
-            "D": 1
+            "B": 0,
+            "C": 3,
+            "D": 8
         }
     }
 ]

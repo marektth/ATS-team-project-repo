@@ -2,26 +2,36 @@
     {
         "id": 0,
         "EmployeeID": 54,
-        "DateOfAbsence": "24/10/2021",
+        "AbsenceRequestedAt": 1641587168,
+        "AbsenceFrom": "23/10/2021",
+        "AbsenceTo": "23/10/2021",
         "AbsenceTypeCode": "SPE",
-        "Status": "Pending",
+        "Status": "Accepted",
+        "StatusResolution": "OK",
+        "OverlappingDays": [],
+        "LeaveReason": "test1",
         "Rating": {
             "A": 0,
-            "B": 1,
-            "C": 0,
+            "B": 0,
+            "C": 1,
             "D": 1
         }
     },
     {
         "id": 1,
         "EmployeeID": 96,
-        "DateOfAbsence": "24/10/2021",
+        "AbsenceRequestedAt": 1641587168,
+        "AbsenceFrom": "24/10/2021",
+        "AbsenceTo": "24/10/2021",
         "AbsenceTypeCode": "PAR",
-        "Status": "Pending",
+        "Status": "Accepted",
+        "StatusResolution": "OK",
+        "OverlappingDays": [],
+        "LeaveReason": "test1",
         "Rating": {
             "A": 0,
-            "B": 1,
-            "C": 0,
+            "B": 0,
+            "C": 2,
             "D": 1
         }
     }

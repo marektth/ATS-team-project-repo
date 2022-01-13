@@ -3,12 +3,16 @@
         "OUID":7,
         "ManagerID":7,
         "MinimalCapacity": 1,
-        "TeamName":"MLB"
+        "TeamName":"MLB",
+        "LastChangeMS": 1641824510.532139,
+        "RatingDurationMS": 115.8981323242
     },
     {
         "OUID":21,
         "ManagerID":10,
         "MinimalCapacity":2,
-        "TeamName":"WET"
+        "TeamName":"WET",
+        "LastChangeMS": 1641824510.532139,
+        "RatingDurationMS": 115.8981323242
     }
 ]
