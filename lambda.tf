@@ -10,7 +10,7 @@ terraform{
   backend "s3"{
     bucket = "terraform-state-stage-development"
     key = "state/s3-state/terraform.tfstate"
-    dynamodb_table = "terraform-state-lock-dynamo"
+    dynamodb_table = "terraform-state-lock-dynamo-stage"
     region = "eu-central-1"
     encrypt = true
   }
