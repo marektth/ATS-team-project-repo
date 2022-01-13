@@ -14,6 +14,12 @@ s3_key_website = os.environ.get('OBJECT_NAME')
 s3_key_website_employee = os.environ.get('OBJECT_NAME_EMPLOYEE')
 
 def load_table(s3_bucket_name, s3_key_website):
+    """
+    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
+    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
+    :return: returns json
+    :rtype: json dict
+    """
     resp=s3_c.get_object(Bucket=s3_bucket_name, Key=s3_key_website)
     data=resp.get('Body')
     return json.load(data)
@@ -21,7 +27,11 @@ def load_table(s3_bucket_name, s3_key_website):
 
 def permission_testing(s3_bucket_name, s3_key_website):
     s3 = boto3.resource('s3')
-    
+    """
+    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
+    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
+    :return: returns an error code 404 if the resource (s3 bucket or file) does not exist or returns error code 403 if the function doesnt have permissions to access the resources
+    """
     try:
         s3.Object(s3_bucket_name, s3_key_website).load()
     except botocore.exceptions.ClientError as e:
@@ -48,7 +58,14 @@ def get_request_leave_hours(request, working_hours=8):
             return 0
         
 def balance_evaluator(e_data, n_request, s3_bucket_name, s3_key_website_employee):
-
+    """
+    :e_data: the function takes the employee data as an input
+    :n_request: the function takes the new incoming request as an input
+    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
+    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
+    :return: returns json type dict with status code 403 if request is TIM and there is not enough leave balance, returns status code 200 if request is TIM and there is enough LB. 
+    :rtype: json dict
+    """
     allow_methods = 'OPTIONS,POST,GET'
     
     employee_leave_balance = e_data.loc[e_data['EmployeeID'] == n_request['EmployeeID']]['LeaveBalanceDisplay'].values[0]

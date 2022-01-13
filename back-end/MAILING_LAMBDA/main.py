@@ -11,11 +11,22 @@ s3_key_website_teams = os.environ.get('OBJECT_NAME_TEAMS')
 
 
 def load_table(s3_bucket_name, s3_key_website):
+    """
+    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
+    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
+    :return: returns json
+    :rtype: json dict
+    """
     resp=s3_c.get_object(Bucket=s3_bucket_name, Key=s3_key_website)
     data=resp.get('Body')
     return json.load(data)
     
 def permission_testing(s3_bucket_name, s3_key_website):
+    """
+    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
+    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
+    :return: returns an error code 404 if the resource (s3 bucket or file) does not exist or returns error code 403 if the function doesnt have permissions to access the resources
+    """
     s3 = boto3.resource('s3')
     
     try:
@@ -32,6 +43,12 @@ def permission_testing(s3_bucket_name, s3_key_website):
 
 
 def lambda_handler(event, context):
+    """
+    This function loads the Absence data from the employees and checks if there were any changes made the day it was executed,
+    if there were any changes it sends a message to the email address subscribed to the sns topic in the following format:
+         List of teams where absence was changed: " + ' '.join(str(team) for team in teams_changed)
+    if there were no changes done, no message will be sent.
+    """
     
     teams_data = load_table(s3_bucket_name, s3_key_website_teams)
     teams_changed = []
