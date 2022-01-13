@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "EmployeeID": 192,
+    "AbsenceRequestedAt": 1639165929.68981,
+    "AbsenceFrom": "24/12/2021",
+    "AbsenceTo": "31/12/2021",
+    "AbsenceTypeCode": "TIM",
+    "Status": "Pending",
+    "StatusResolution" : "",
+    "LeaveReason": "Need to go to medical exam",
+    "Rating": {}
+  },
+  {
+    "id": 2,
+    "EmployeeID": 69,
+    "AbsenceRequestedAt": 1639165929.68982,
+    "AbsenceFrom": "24/12/2021",
+    "AbsenceTo": "31/12/2021",
+    "AbsenceTypeCode": "TIM",
+    "Status": "Pending",
+    "StatusResolution" : "",
+    "LeaveReason": "Need to go to medical exam",
+    "Rating": {}
+  }
+]

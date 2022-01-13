@@ -1,32 +1,33 @@
 <template>
   <div id="app">
-    <nc-navbar variant="blue">
-      <nc-navbar-list level="first">
-        <nc-navbar-list-item title="ATS app" action="aaa" id="menuItem_001">
-        </nc-navbar-list-item>
-        <nc-list-group-item>
-          <router-link to="/">Employee</router-link>
-        </nc-list-group-item>
-        <nc-list-group-item>
-          <router-link to="/manager">Manager</router-link>
-        </nc-list-group-item>
-      </nc-navbar-list>
-    </nc-navbar>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">ATS</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <router-link class="nav-link" to="/">Employee</router-link> 
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/manager">Manager</router-link>
+            </li>
+          </ul>
+          <span class="navbar-text" id="user-info">
+
+          </span>
+        </div>
+      </div>
+    </nav>
+
     <router-view/>
   </div>
 </template>
 
 <style>
+html {
+  font-size: 0.9rem;
+}
 #app {
   text-align: center;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #0a6cb3;
 }
 </style>

@@ -1,0 +1,9 @@
+Quick report: 
+
+Security log from: 12/12/2021 @ 23:32:16
+Last scan submitted at: 2021-12-12 23:31:51
+Last scan executed at: 2021-12-12 23:31:56
+Last scan STATUS: SUCCESS
+Project status: ERROR
+	Metric: new_coverage, status: ERROR, actual value: 22.56, error threshold: 30
+Issues found: 0

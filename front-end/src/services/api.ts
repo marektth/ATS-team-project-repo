@@ -4,7 +4,8 @@ import { KEY } from "@/utils/key_enum";
 // INTERFACES
 
 export interface TimeoffRequest {
-	endDate:Date,
+    startDate:string
+	endDate:string
 	codeLeaveReason:string
     leaveReason:string
 }
@@ -29,15 +30,15 @@ export class ApiService {
     // ---------------------------------------
 
     // GET URL 
-    private employeeTimeoffRequestURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load?personID="
-    private managerTimeoffRequestsURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/load_team_absence?managerID=";
+    private employeeTimeoffRequestURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/load?personID="
+    private managerTimeoffRequestsURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/load_team_absence?managerID=";
     
     // POST URL
-    private requestTimeoffURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/submit"
-    private triggerARSURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/invoke_decision"
+    private requestTimeoffURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/submit"
+    private triggerARSURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/invoke_decision"
     
     // DELETE URL
-    private requestTimeoffDeleteURL:string = "https://io7jc9gyn5.execute-api.eu-central-1.amazonaws.com/leaveRequest/delete"
+    private requestTimeoffDeleteURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/delete"
 
     // UPDATE URL
 
@@ -48,11 +49,10 @@ export class ApiService {
     // HELPER FUNCTIONS
     // ---------------------------------------
 
-    dateConvert(date:Date) : string {
-        return  ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + date.getFullYear()
+    dateConvert(date:string) : string {
+        let tmp = date.split('-')
+        return `${tmp[2]}/${tmp[1]}/${tmp[0]}`
     }
-
-
     // REQUESTS
     // ---------------------------------------
 
@@ -60,21 +60,18 @@ export class ApiService {
 
     // GET all time off requests -> employee 
     async employeeTimeoffRequestsGET() {
-        try {
-            const response:any = await axios.get(
-                this.employeeTimeoffRequestURL + String(this.employeeNumber),
-                { headers: this.header }
-            )
-            if(response.data.length === 0){
-                return "No data"
-            } else {
-                return response.data
-            }
+     
+        const response:any = await axios.get(
+            this.employeeTimeoffRequestURL + String(this.employeeNumber),
+            { headers: this.header }
+        )
+        console.log(response)
+        return {
+            absenceData: response.data.AbsenceData as EmployeeTimeoff[],
+            employeeData: response.data.EmployeeData[0]
+        } // môže byť viac LeaveBalance? Nie je lepší object?
+            
            
-        } catch(err){
-            console.error(err)
-            return "No data";
-        }
     }
 
 
@@ -103,19 +100,20 @@ export class ApiService {
     // POST time off request -> employee
     async requestTimeoffPOST(request:TimeoffRequest){
         try {
-            console.log(this.dateConvert(request.endDate))
             const timeoffData = {
                 "EmployeeID": this.employeeNumber,
-                "DateOfAbsence" : this.dateConvert(request.endDate),
+                "AbsenceFrom": this.dateConvert(request.startDate),
+                "AbsenceTo" : this.dateConvert(request.endDate),
                 "AbsenceTypeCode" : request.codeLeaveReason,
                 "LeaveReason": request.leaveReason, 
                 "Status": "Pending"
             }
+            console.log(timeoffData)
           
             return await axios.post(this.requestTimeoffURL, timeoffData, { headers: this.header });
-        } catch (err){
-            console.error(err)
-            return err;
+        } catch (err:any){
+            console.error(err.response)
+            return err.response;
         }
     }
 
