@@ -67,8 +67,8 @@ export class ApiService {
         )
         console.log(response)
         return {
-            absenceData: response.data.AbsenceData as EmployeeTimeoff[],
-            employeeData: response.data.EmployeeData[0]
+            absenceData: response.data[0].AbsenceData as EmployeeTimeoff[],
+            employeeData: response.data[0].EmployeeData[0]
         } // môže byť viac LeaveBalance? Nie je lepší object?
             
            
