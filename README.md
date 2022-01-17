@@ -452,7 +452,7 @@ Rules_table.json consists of list of dictionaries, where one dictionary is one r
 *Structure*
 ```json
 {
-    "key" : "key of ruke",
+    "key" : "key of rule",
     "function": "name of ARS method to use as rule",
     "sortAscending": boolean (how to sort requests by this rule),
     "threshold": int or null not to use this rule in sorting algorithm,
