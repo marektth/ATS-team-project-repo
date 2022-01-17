@@ -117,20 +117,6 @@ export class ApiService {
         }
     }
 
-
-    // POST trigger ARS
-
-    async triggerARSPOST() {
-        try {
-            const response = await axios.post(this.triggerARSURL, { "alg-trigger": "true" }, { headers: this.header });
-            return String(response.data)
-        } catch (err){
-            console.error(err)
-            return err;
-        }
-    }
-
-
     // DELETE
 
     // DELETE specific time off request

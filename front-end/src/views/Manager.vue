@@ -1,9 +1,6 @@
 <template>
   <b-container id="ManagerContainer">
    <b-row>
-     <b-col cols="1">
-      <button class="btn btn-success" @click.prevent="triggerARS">Decide</button>
-     </b-col>
      <b-col>
       <b-card id="table_card" v-for="(team, team_index) in teams" v-bind:key="String(team.OUID) + '_' + String(team_index)" >
         <h5 class="card-title">{{ team.OUName }} (Team ID: {{team.OUID}})</h5>
@@ -90,11 +87,6 @@ export default Vue.extend({
     this.getEmployeeData()
   },
   methods: {
-    async triggerARS(){
-      const api = new ApiService(this.managerID)
-      alert(await api.triggerARSPOST())
-      this.getEmployeeData()
-    },
     async getEmployeeData() {
       
       const api = new ApiService(this.managerID)
@@ -139,7 +131,7 @@ export default Vue.extend({
       }
     },
     epochToDate(date:number){
-      let convertedDate = new Date(date)
+      let convertedDate = new Date(date*1000)
       let day = this.addZeroToTime(convertedDate.getDate())
       let month = this.addZeroToTime(convertedDate.getMonth() + 1)
       let year = String(convertedDate.getFullYear())
@@ -156,7 +148,7 @@ export default Vue.extend({
         return "-"
       }
       dates.forEach(date => {
-        let convertedDate = new Date(date)
+        let convertedDate = new Date(date*1000)
         let day = this.addZeroToTime(convertedDate.getDate())
         let month = this.addZeroToTime(convertedDate.getMonth() + 1)
         let year = String(convertedDate.getFullYear())

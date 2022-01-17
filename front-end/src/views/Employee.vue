@@ -118,7 +118,7 @@
           </b-button>
         </template>
         <div class="d-block text-center">
-          <h3>{{ msgERR }}</h3>
+          <h5>{{ msgERR }}</h5>
         </div>
       </b-modal>
     </b-container>
