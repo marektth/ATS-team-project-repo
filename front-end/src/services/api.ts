@@ -35,7 +35,7 @@ export class ApiService {
     
     // POST URL
     private requestTimeoffURL:string = "https://gm837p1e3k.execute-api.eu-central-1.amazonaws.com/leaveRequestTF/submit"
-    private triggerARSURL:string = "https://q2j2nwie52.execute-api.eu-central-1.amazonaws.com/leaveRequest/invoke_decision"
+    private triggerARSURL:string = "https://gm837p1e3k.execute-api.eu-central-1.amazonaws.com/leaveRequestTF/algtrigger"
     
     // DELETE URL
     private requestTimeoffDeleteURL:string = "https://gm837p1e3k.execute-api.eu-central-1.amazonaws.com/leaveRequestTF/delete"
@@ -116,6 +116,19 @@ export class ApiService {
             return err.response;
         }
     }
+
+        // POST trigger ARS
+
+        async triggerARSPOST() {
+            try {
+                const response = await axios.post(this.triggerARSURL, { "alg-trigger": "true" }, { headers: this.header });
+                return String(response.data)
+            } catch (err){
+                console.error(err)
+                return err;
+            }
+        }
+    
 
     // DELETE
 
