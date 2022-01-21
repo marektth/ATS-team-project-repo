@@ -243,7 +243,9 @@ class ARS(DBHandler):
             self.update_item(status_to_set, top_request_absence_data.name, "Status", self.absence_data)
             self.update_item(status_resolution, top_request_absence_data.name, "StatusResolution", self.absence_data)
 
-            
+            #if accepted, do not show overlapping days
+            if status_to_set == "Accepted":
+                self.update_item([], top_request_absence_data.name, "OverlappingDays", self.absence_data)
             if status_to_set == "Rejected" and top_request_absence_data['AbsenceTypeCode'] == "TIM":
                 # add employee leave balance if request rejected and its timeoff  
                 new_leave_balance = self.get_employee_info(top_request_absence_data, "LeaveBalance") + self.get_request_leave_hours(top_request_absence_data)
