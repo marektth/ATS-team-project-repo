@@ -45,11 +45,6 @@ def lambda_handler(event, context):
     
     permission_testing(s3_bucket_name, s3_key_website_absence)
     
-    employee_id = int(event["queryStringParameters"]['personID'])
-    
-    absence_data = load_table(s3_bucket_name, s3_key_website_absence)
-    employees = load_table(s3_bucket_name, s3_key_website_employees)
-    
     response = {
             "statusCode": 200,
             "headers": {
@@ -59,6 +54,13 @@ def lambda_handler(event, context):
             },
             "body": ""
     }
+
+
+    employee_id = int(event["queryStringParameters"]['personID'])
+    
+    absence_data = load_table(s3_bucket_name, s3_key_website_absence)
+    employees = load_table(s3_bucket_name, s3_key_website_employees)
+    
     
     try:
         # load data
@@ -68,12 +70,14 @@ def lambda_handler(event, context):
         # get only specified employee data
         absence_data_employee = absence_data.loc[absence_data['EmployeeID'] == employee_id]
         employee_data = employees.loc[employees['EmployeeID'] == employee_id]
-        
+
         response_data = [{    
             "AbsenceData" : absence_data_employee,
             "EmployeeData" : employee_data
             }]
+        
         response_data_df = pd.DataFrame(response_data)
+
         
   
     except ClientError as e:

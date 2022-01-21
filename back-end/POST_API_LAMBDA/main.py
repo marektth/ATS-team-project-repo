@@ -14,12 +14,6 @@ s3_key_website = os.environ.get('OBJECT_NAME')
 s3_key_website_employee = os.environ.get('OBJECT_NAME_EMPLOYEE')
 
 def load_table(s3_bucket_name, s3_key_website):
-    """
-    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
-    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
-    :return: returns json
-    :rtype: json dict
-    """
     resp=s3_c.get_object(Bucket=s3_bucket_name, Key=s3_key_website)
     data=resp.get('Body')
     return json.load(data)
@@ -27,11 +21,7 @@ def load_table(s3_bucket_name, s3_key_website):
 
 def permission_testing(s3_bucket_name, s3_key_website):
     s3 = boto3.resource('s3')
-    """
-    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
-    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
-    :return: returns an error code 404 if the resource (s3 bucket or file) does not exist or returns error code 403 if the function doesnt have permissions to access the resources
-    """
+    
     try:
         s3.Object(s3_bucket_name, s3_key_website).load()
     except botocore.exceptions.ClientError as e:
@@ -58,16 +48,9 @@ def get_request_leave_hours(request, working_hours=8):
             return 0
         
 def balance_evaluator(e_data, n_request, s3_bucket_name, s3_key_website_employee):
-    """
-    :e_data: the function takes the employee data as an input
-    :n_request: the function takes the new incoming request as an input
-    :s3_bucket_name: the function takes the s3 bucket name as input which is defined as an env variable
-    :s3_key_website: the function takes the file located on the s3 bucket as an input parameter
-    :return: returns json type dict with status code 403 if request is TIM and there is not enough leave balance, returns status code 200 if request is TIM and there is enough LB. 
-    :rtype: json dict
-    """
+
     allow_methods = 'OPTIONS,POST,GET'
-    
+
     employee_leave_balance = e_data.loc[e_data['EmployeeID'] == n_request['EmployeeID']]['LeaveBalanceDisplay'].values[0]
     if n_request['AbsenceTypeCode'] == "TIM":
         if(employee_leave_balance - get_request_leave_hours(n_request) < 0):
@@ -178,6 +161,18 @@ def response_flag(return_status, s3_bucket_name, s3_key_website, absence_data):
             "body": json.dumps("Start date is later End date !")
         }
         return response
+    # employee not in database error
+    elif(return_status == "EMERR"):
+        response = {
+            "statusCode": 403,
+            "headers": {
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': allow_methods
+            },
+            "body": json.dumps("Employee does not exist !")
+        }
+        return response
     # generic error
     else:
         response = {
@@ -198,11 +193,14 @@ def lambda_handler(event, context):
     permission_testing(s3_bucket_name, s3_key_website)
   
     line_to_add = json.loads(event['body'])
-   
-    
     absence_data = load_table(s3_bucket_name, s3_key_website)
     employee_data = load_table(s3_bucket_name, s3_key_website_employee)
+    employee_data = pd.DataFrame(employee_data)
     
+    # if employee id not exists
+    if not ((employee_data['EmployeeID'] == int(line_to_add['EmployeeID'])).any()):
+        return response_flag("EMERR", s3_bucket_name, s3_key_website, absence_data)
+        
     
     date_format = '%d/%m/%Y'
     todays_date = pd.to_datetime(time(), unit='s')
@@ -210,9 +208,10 @@ def lambda_handler(event, context):
     new_request_id = absence_data[-1]["id"] + 1
     
     
+    
     new_request = {
         "id": new_request_id,
-        "EmployeeID": line_to_add['EmployeeID'],
+        "EmployeeID": int(line_to_add['EmployeeID']),
         "AbsenceRequestedAt": time(),
         "AbsenceFrom": line_to_add['AbsenceFrom'],
         "AbsenceTo": line_to_add['AbsenceTo'],
@@ -224,7 +223,7 @@ def lambda_handler(event, context):
         "Rating": {}
     }
     
-    employee_data = pd.DataFrame(employee_data)
+    
     
     
     # append to absence data table
