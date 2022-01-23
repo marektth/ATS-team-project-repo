@@ -157,7 +157,7 @@ export default Vue.extend({
         return "-"
       }
       dates.forEach(date => {
-        let convertedDate = new Date(date*1000)
+        let convertedDate = new Date(date)
         let day = this.addZeroToTime(convertedDate.getDate())
         let month = this.addZeroToTime(convertedDate.getMonth() + 1)
         let year = String(convertedDate.getFullYear())

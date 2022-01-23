@@ -85,6 +85,7 @@ export class ApiService {
             if(response.data.length === 0){
                 return "No data"
             } else {
+                console.log(response.data)
                 return response.data
             }
            
