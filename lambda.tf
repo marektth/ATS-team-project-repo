@@ -409,3 +409,4 @@ resource "aws_lambda_permission" "apigw3" {
   # within the API Gateway "REST API"..........
   source_arn = "${aws_api_gateway_rest_api.example.execution_arn}/*/*"
 }
+
